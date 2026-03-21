@@ -82,6 +82,7 @@ a:hover { text-decoration: underline; }
 
 .prayer-header a { color: var(--cw-ivory); opacity: 0.8; }
 .prayer-header a:hover { opacity: 1; text-decoration: none; }
+.prayer-directory-link { font-size: 13px; font-variant: small-caps; letter-spacing: 0.05em; }
 
 .header-title {
     font-variant: small-caps;
