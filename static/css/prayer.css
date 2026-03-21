@@ -126,6 +126,11 @@ a:hover { text-decoration: underline; }
 .landing-date { color: var(--cw-rubric); font-style: italic; font-size: 15px; margin-bottom: 12px; }
 .landing-realm-today { font-size: 15px; color: var(--cw-text-muted); margin-bottom: 12px; }
 .landing-invitation { color: var(--cw-text); font-size: 16px; line-height: 1.8; max-width: 520px; opacity: 0.85; }
+.landing-title-today .featured-link {
+    display: block; color: var(--cw-rubric); font-style: italic;
+    font-size: 32px; margin-top: 2px; text-decoration: none;
+}
+.landing-title-today .featured-link:hover { text-decoration: underline; }
 .featured-link { color: var(--cw-rubric); font-style: italic; }
 
 /* Prayer arc */
