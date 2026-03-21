@@ -2,11 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=bioregion/indo_gangetic_plain/index.html">
-    <link rel="canonical" href="bioregion/indo_gangetic_plain/index.html">
-    <title>Redirecting…</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to today's prayer…</title>
+    <script>
+    (function() {
+        var schedule = {"0": "Palearctic", "1": "Nearctic", "2": "Afrotropic", "3": "Neotropic", "4": "Australasia", "5": "Indomalaya", "6": "Oceania"};
+        var byRealm = {"Palearctic": ["arabian_peninsula", "hindu_kush", "levant_mesopotamia", "pontic_steppe", "zagros_persian_plateau", "loess_plateau_yellow_river", "maghreb_atlas", "atlantic_fringe", "iran_crisis_2026", "rhine_danube_karst", "aral_fergana", "nordic_baltic", "tethys_gulf", "western_mediterranean"], "Afrotropic": ["congo_basin", "niger_basin_coast", "western_sahel", "nile_horn", "east_african_rift", "zambezi_plateau", "angolan_escarpment", "guinea_coast", "highveld_cape"], "Neotropic": ["caribbean", "central_america", "andean_highlands", "amazon_orinoco", "southern_cone_parana"], "Indomalaya": ["indo_gangetic_plain", "mekong_irrawaddy", "insular_southeast_asia"], "Nearctic": ["mississippi_delta", "colorado_plateau", "cascadia", "great_lakes_boreal", "arctic_boreal", "great_plains_mississippi"], "Australasia": ["aotearoa", "australia"], "Oceania": ["melanesia", "micronesia_polynesia"]};
+        var fallback = "arabian_peninsula";
+        var day = new Date().getDay();
+        // JS: 0=Sun,1=Mon..6=Sat -> Python: 0=Mon..6=Sun
+        var weekday = day === 0 ? 6 : day - 1;
+        var realm = schedule[weekday];
+        var bios = realm && byRealm[realm];
+        var target = (bios && bios.length > 0) ? bios[0] : fallback;
+        window.location.replace("bioregion/" + target + "/index.html");
+    })();
+    </script>
 </head>
 <body>
-    <p>Redirecting to <a href="bioregion/indo_gangetic_plain/index.html">today's prayer</a>…</p>
+    <noscript>
+        <p>JavaScript is required for automatic redirect.
+           <a href="directory/index.html">Browse all bioregions</a>.</p>
+    </noscript>
 </body>
 </html>
