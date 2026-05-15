@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title> — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/antarctica/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country"></span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1></h1>
+        <div class="bio-countries-line"></div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-fresh">ecology verified March 2026</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+    <section class="prayer-section prayer-opening">
+        
+        
+        <p>Beneath the ice at the bottom of the world, the continent holds its breath. Twenty-six and a half million cubic kilometres of frozen freshwater — seventy percent of all the fresh water on Earth — resting on bedrock that in places sits below sea level. At Thwaites Glacier, the grounding line where ice meets ocean floor is retreating at a kilometre a year. The warm water eating at its underside cannot be seen, only measured.</p>
+        
+        
+    </section>
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 4892, "elevation_min": 0, "terrain": [[0.0, 0], [5.0, 50], [10.0, 200], [15.0, 500], [20.0, 1000], [25.0, 1500], [30.0, 2000], [35.0, 2300], [40.0, 2500], [45.0, 2700], [50.0, 2835], [55.0, 3000], [60.0, 3200], [65.0, 3500], [70.0, 3800], [75.0, 4000], [80.0, 4200], [85.0, 4500], [90.0, 4700], [95.0, 4892], [100.0, 3000]], "countries": [], "water": [], "resources": [], "biomes": [[0, 100, "Polar Ice", "ice", "T6.1"]], "labels": [{"x_pct": 0, "elev": 150, "text": "Ross Ice Shelf 0m"}, {"x_pct": 30, "elev": 2200, "text": "Transantarctic Mtns"}, {"x_pct": 50, "elev": 3035, "text": "East Antarctic Plateau"}, {"x_pct": 95, "elev": 5092, "text": "Vinson Massif 4,892m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+
+    
+    
+    
+
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>The Antarctic Circumpolar Current is the world's largest ocean current — it circles the continent unimpeded by any landmass, connecting the Atlantic, Pacific, and Indian Oceans. It isolates Antarctica thermally, but warming deep water is now reaching the continental shelf, eating at ice shelves from below. The krill that form the foundation of the food web depend on sea ice for larval habitat — as ice declines, krill decline, and the whales and penguins that rebuilt their populations after the end of commercial whaling find the food web has thinned beneath them.</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>The Antarctic Circumpolar Current is the world&#39;s largest ocean current — it circles the continent unimpeded by any landmass, connecting the Atlantic, Pacific, and Indian Oceans. It isolates Antarctica thermally, but warming deep water is now reaching the continental shelf, eating at ice shelves from below. The krill that form the foundation of the food web depend on sea ice for larval habitat — as ice declines, krill decline, and the whales and penguins that rebuilt their populations after the end of commercial whaling find the food web has thinned beneath them.</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on </p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p><strong>Thwaites Glacier</strong> — The warm water is reaching the grounding line from below. You cannot see it; you can only measure it. The International Thwaites Glacier Collaboration has sent autonomous underwater vehicles beneath the ice shelf and found channels of warm water eating at the ice from beneath. The grounding line — where the glacier lifts off the bedrock and begins to float — is retreating at roughly a kilometre a year. If the ice shelf that buttresses Thwaites fails, the glacier behind it will accelerate. The physics are simple: ice held back by ice shelf; ice shelf breaks; ice moves faster; sea level rises. Sixty-five centimetres from this one glacier. The glaciers next to it hold more.</p>
+                
+                
+                
+                <p><strong>The Southern Ocean</strong> — A factory trawler from Aker BioMarine processes krill into omega-3 capsules on board. The same krill that a humpback whale has crossed hemispheres to eat. CCAMLR sets catch limits; the vessels self-report their catch. The krill depend on sea ice for larval habitat; the sea ice is declining. The fishery is expanding. The arithmetic is not complicated.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">The ice does not negotiate. It responds to temperature, which responds to emissions, which respond to politics, which respond to economics. By the time the political system registers the signal, the ice has already committed to decades of response. Thwaites Glacier is responding to warming that began before most current politicians were born.</div>
+                
+                <div class="key-pattern">The Antarctic Treaty System was a Cold War achievement — twelve nations agreeing that one continent would be for science, not sovereignty. Sixty-five years later, the system holds, but the expanding station footprints (China has built five stations, plans more) suggest that the distinction between science and strategic positioning is narrowing.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">Global emissions → Ocean warming → Warm water reaches Antarctic continental shelf → Thwaites grounding line retreat → Potential ice sheet instability → 65cm sea-level rise → Every coastal city</p>
+                
+                <p class="cascade-chain">Sea-ice decline → Reduced krill habitat → Krill population stress + krill fishery expansion → Foundation species decline → Whale, seal, penguin breeding failure</p>
+                
+                <p class="cascade-chain">Antarctic Treaty mineral ban review (2048) → Strategic station expansion by major powers → Potential mineral exploitation → Environmental consequences on fragile ecosystems</p>
+                
+            </div>
+            
+
+            
+            
+            
+            <p class="mcgowan-absent">
+                <em>No stakeholder analysis has been curated for this bioregion yet
+                — either no acute power asymmetry has been identified for prayer,
+                or this is awaiting curation. We surface this absence rather than
+                hide the section so readers can weigh what is and isn&rsquo;t named here.</em>
+            </p>
+            
+
+            
+            
+
+            
+            
+            
+            
+        </div>
+        
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>No one lives here. Everyone depends on it. The ice holds seventy percent of Earth&#39;s fresh water and the answer to what global sea level will do this century. The gap between the timescale of ice-sheet dynamics and the timescale of political decisions is the fundamental contradiction — the ice responds to what we emitted decades ago, and what we emit today will be felt decades hence.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the ice...</div>
+                <p class="intercession-text">For the ice sheets that hold the future of every coast on Earth — for Thwaites Glacier retreating at a kilometre a year, responding to warming that began before most of us were born. That we do not treat distance as permission for inaction.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who will bear the cost...</div>
+                <p class="intercession-text">For the communities of Tuvalu, Kiribati, Bangladesh, and every low-lying coast whose future is being written in Antarctic ice loss. They contributed least to the emissions; they will bear the cost first.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the ocean...</div>
+                <p class="intercession-text">For the Southern Ocean food web — for the krill that feed the whales that feed the wonder that funds the research that documents the loss. That the factory trawlers do not take what the ecosystem cannot spare.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who watch...</div>
+                <p class="intercession-text">For the scientists at 70 research stations measuring what the rest of the world is doing to the climate — recording data that should change policy but often only changes graphs. That their evidence finds ears.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For ourselves...</div>
+                <p class="intercession-text">For those of us whose emissions are melting the ice whose loss will flood the coasts whose people did not cause the warming. That we hold this contradiction without resolving it into comfortable abstraction.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+
+    
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>The Antarctic and Southern Ocean Coalition (ASOC) — 150+ environmental organisations — maintains the only sustained civil society presence in Antarctic Treaty governance. CCAMLR established the Ross Sea marine protected area in 2016, the world&#39;s largest, after years of negotiation. Scientists working through SCAR produce the evidence that should drive policy — the gap between what they document and what Treaty parties act on is the governance crisis in miniature.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">No one lives here permanently, but every coastal community on Earth depends on what happens to this ice. What does responsibility look like for a place where there are no residents to speak for it?</p>
+        
+        <p class="reflection-question">The Madrid Protocol bans mineral extraction until at least 2048. What does it mean to protect a commons when the pressure to exploit it is growing?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>Thwaites Glacier&#39;s grounding line continues to retreat.</li>
+                
+                <li>The ITGC research programme has documented warm water intrusion beneath the glacier and fracturing of the ice shelf.</li>
+                
+                <li>If the Thwaites ice shelf fails, the glacier&#39;s discharge rate could increase significantly, committing the world to 65cm of sea- level rise.</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item">Thwaites Glacier holds 65cm of sea-level rise. Its grounding line retreats a kilometre a year. The International Thwaites Glacier Collaboration publishes the data. Follow at thwaitesglacier.org.</div>
+            
+            
+            
+            <div class="carry-this-item">Aker BioMarine and Chinese fleets self-report their krill catch against quotas no one enforces at sea. CCAMLR meets annually in October. The Antarctic and Southern Ocean Coalition (asoc.org) is the only civil society monitor. Follow CCAMLR data at ccamlr.org.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.asoc.org/" target="_blank" rel="noopener" class="action-org-name">Antarctic and Southern Ocean Coalition (ASOC)</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Coalition of 150+ environmental organisations advocating for Antarctic protection within the Antarctic Treaty System. Holds observer status at ATCM and CCAMLR. Campaigns for expanded marine protected areas and against krill fishery expansion.</p>
+            
+            <p class="action-org-connection">The primary civil society voice in Antarctic governance — monitors compliance with the Madrid Protocol mineral ban, advocates for Southern Ocean marine protected areas, and tracks the expanding footprints of national programs.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://thwaitesglacier.org/" target="_blank" rel="noopener" class="action-org-name">International Thwaites Glacier Collaboration (ITGC)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Joint UK-US research programme studying the Thwaites Glacier — the most significant unknown in sea-level rise projections. Field campaigns measure grounding line retreat, basal melt rates, and ice dynamics.</p>
+            
+            <p class="action-org-connection">Directly investigates the single most consequential process on the continent — Thwaites Glacier&#39;s potential collapse, which would trigger 65cm of global sea-level rise and destabilise neighbouring glaciers. Every coastal community&#39;s future depends on what this glacier does.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.ccamlr.org/" target="_blank" rel="noopener" class="action-org-name">Commission for the Conservation of Antarctic Marine Living Resources (CCAMLR)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">International body managing Antarctic marine living resources. Sets krill catch limits, designates marine protected areas, and monitors compliance. The Ross Sea MPA (2016) is the world&#39;s largest.</p>
+            
+            <p class="action-org-connection">Governs the krill fishery that extracts from the base of the Southern Ocean food web. Catch limits are set regionally but enforcement is self-reported — the gap between regulation and verification is where ecosystem risk accumulates.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.scar.org/" target="_blank" rel="noopener" class="action-org-name">Scientific Committee on Antarctic Research (SCAR)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">International coordinating body for Antarctic science. Produces assessments of Antarctic climate change, biodiversity, and ice-sheet dynamics that inform policy within the Antarctic Treaty System.</p>
+            
+            <p class="action-org-connection">Produces the scientific evidence on ice-sheet mass balance, sea-ice trends, and ecosystem change that should drive policy — the gap between what SCAR documents and what Treaty parties act on is the governance crisis.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(10 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>IPCC AR6, Cryosphere Chapter, 2021</li>
+                
+                <li>NSIDC (National Snow and Ice Data Center), Antarctic Sea Ice Extent, 2024. https://nsidc.org</li>
+                
+                <li>International Thwaites Glacier Collaboration (ITGC), Research Updates, 2024. https://thwaitesglacier.org</li>
+                
+                <li>CCAMLR (Commission for the Conservation of Antarctic Marine Living Resources), Fishery Reports, 2024. https://www.ccamlr.org</li>
+                
+                <li>COMNAP (Council of Managers of National Antarctic Programs), Antarctic Station Catalogue, 2024. https://www.comnap.aq</li>
+                
+                <li>IAATO (International Association of Antarctica Tour Operators), Tourism Statistics, 2024. https://iaato.org</li>
+                
+                <li>Scientific Committee on Antarctic Research (SCAR), Antarctic Climate Change and the Environment, 2024. https://www.scar.org</li>
+                
+                <li>Antarctic Treaty Secretariat, Treaty System Overview, 2024. https://www.ats.aq</li>
+                
+                <li>Rignot, E. et al., Four decades of Antarctic Ice Sheet mass balance from 1979-2017, PNAS 116(4), 2019</li>
+                
+                <li>Shepherd, A. et al., Mass balance of the Antarctic Ice Sheet 1992-2017, Nature 558, 2018</li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated </p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

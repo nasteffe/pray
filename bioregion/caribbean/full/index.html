@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title>Caribbean Islands — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/caribbean/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country">Caribbean Islands</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1>Caribbean Islands<span class="bio-population">42M people</span></h1>
+        <div class="bio-countries-line">Haiti, Dominican Republic, Jamaica, Trinidad and Tobago, Cuba, Puerto Rico, Bahamas, Barbados, Antigua and Barbuda, Dominica, Grenada, Saint Kitts and Nevis, Saint Lucia, Saint Vincent and the Grenadines</div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 2 months ago</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+    <section class="prayer-section prayer-opening">
+        
+        
+        <p>In Port-au-Prince, a woman boils water over charcoal made from one of the last trees on a hillside that was forest when her grandmother was born. The charcoal costs more this month. It always costs more. Ninety-eight percent of Haiti's trees are gone — not to some distant catastrophe but to the daily act of cooking dinner, because there is no other fuel and no money for gas, and the children need to eat tonight.</p>
+        
+        
+    </section>
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 3300, "elevation_min": -100, "terrain": [[0.0, 874], [1.2, 530], [2.3, 954], [2.7, 569], [9.0, 2254], [14.1, 459], [17.1, 49], [19.6, 3], [21.6, 0], [29.1, 0], [31.0, 588], [32.5, 90], [33.0, 473], [34.4, 4], [35.8, 196], [36.5, 0], [42.7, 0], [43.3, 770], [44.8, 4], [44.9, 0], [46.9, 0], [48.7, 1389], [49.8, 70], [52.1, 813], [54.6, 201], [57.6, 502], [58.8, 1139], [59.4, 639], [62.2, 3098], [62.9, 1616], [63.1, 2315], [64.0, 1469], [64.9, 1633], [66.0, 1014], [66.7, 1403], [67.4, 169], [68.4, 261], [68.7, 121], [68.9, 387], [69.3, 85], [69.9, 202], [71.0, 69], [71.2, 251], [72.2, 44], [72.9, 253], [72.9, 219], [74.9, 299], [77.8, 48], [79.7, 551], [80.4, 116], [80.6, 491], [80.9, 108], [82.6, 463], [84.2, 3], [84.8, 8], [84.9, 0], [99.3, 0], [100.0, 63]], "countries": [[0, 29, "Jamaica"], [29, 55, "Haiti"], [55, 100, "Dominican Republic"]], "water": [], "resources": [], "biomes": [[0, 6, "Tropical Moist Forest", "tropical_forest", "T1.1"], [6, 11, "Montane Forest", "montane_forest", "T1.3"], [11, 60, "Tropical Moist Forest", "tropical_forest", "T1.1"], [60, 65, "Montane Forest", "montane_forest", "T1.3"], [65, 100, "Tropical Moist Forest", "tropical_forest", "T1.1"]], "labels": [{"x_pct": 9, "elev": 2456, "text": "Blue Mountain Peak 2,256m"}, {"x_pct": 42, "elev": 150, "text": "Coral Reef System 0m"}, {"x_pct": 53, "elev": 836, "text": "Massif de la Hotte 636m"}, {"x_pct": 62, "elev": 3298, "text": "Pico Duarte 3,098m"}, {"x_pct": 100, "elev": 213, "text": "Trinidad Oil Basin 63m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+    <div class="prayer-section metrics-context">
+        
+        <div class="since-last-week">
+            <span class="slw-label">Ecosystem:</span>
+            
+            <span class="stress-tag stress-elevated">elevated</span>
+            
+            Precipitation 10% of normal; temperatures +4.7°C above baseline.
+        </div>
+        
+        
+        <div class="metrics-strip">
+            
+            <div class="metric-pill network-water">
+                <span class="metric-pill-value">13.4</span>
+                <span class="metric-pill-label">Water Stress (%)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-soil">
+                <span class="metric-pill-value">925K</span>
+                <span class="metric-pill-label">Food Insecure (IPC 3+) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-mineral">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Conflict Fatalities (3mo) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-people">
+                <span class="metric-pill-value">1.3M</span>
+                <span class="metric-pill-label">Displaced Persons (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-atmospheric">
+                <span class="metric-pill-value">31.7</span>
+                <span class="metric-pill-label">Max Temperature (°C)</span>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
+    
+    
+    
+
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>This Week</h2>
+        </div>
+        <div class="section-body">
+            
+            <div class="event-item">
+                <div class="event-date">May 08</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Haiti:</strong> 
+                        Port-au-Prince, 8 May 2026: According to the United Nations Integrated Office in Haiti (BINUH), during the first quarter of the year (January–March 2026), at least 1,642 people were killed and 745 others injured.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">May 06</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Jamaica:</strong> 
+                        The Caribbean Regional Midwives Association, supported by a Direct Relief emergency grant, gave continuous care in tents and temporary facilities in the weeks after Hurricane Melissa.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">May 04</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Trinidad and Tobago:</strong> 
+                        Description The annual reports of the PAHO/WHO country offices present a summary of the main results achieved with the technical cooperation of the Pan American Health Organization (PAHO) in each of the Member States of the Region of the Americas in...
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">May 04</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Dominican Republic:</strong> 
+                        KEY FIGURES 172K people affected by heavy rainfall and flooding in Dominican Republic 52 armed attacks in southwestern Colombia since 24 April 11K people displaced across northeastern Brazil due to severe rain and flooding DOMINICAN REPUBLIC...
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">May 08</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Cuba:</strong> 
+                        900,000 Hurricane Melissa-affected people assisted between October 2025 and March 2026 USD 16.1 M required in the next six months (May – October 2026) KEY HIGHLIGHTS • In March 2026, despite operational delays caused by power shortages, limited...
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>Rural wood collectors (primarily women and children) and Charcoal traders supplying urban cooking fuel demand — Year-round; intensifies in dry season (Dec-Apr). But women and girls (SGBV as gang control tactic).</p>
+                
+                
+                
+                <p>Haitian diaspora (~2M in US, Canada, France), Jamaican diaspora (~1.5M in US, UK, Canada) and Women-headed households managing remittance income — Monthly transfers; peaks at holidays, hurricane aftermath, school terms.</p>
+                
+                
+                
+                <p>Haitian migrant workers (est. 500K-1M in Dominican Republic) and Dominican sugar and construction employers — Sugar zafra Jan-Jun; construction year-round; deportation campaigns periodic.</p>
+                
+                
+                
+                <p>Artisanal fishers (pirogue and small boat) and Women fish vendors in coastal markets — Year-round; disrupted Jun-Nov by hurricane season; lobster season varies by island. But women and girls (SGBV as gang control tactic).</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Artisanal fishers (pirogue and small boat) and Women fish vendors in coastal markets — Year-round; disrupted Jun-Nov by hurricane season; lobster season varies by island. But women and girls (SGBV as gang control tactic).</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+    <div class="bioregion-map-container">
+        <img src="../../../static/img/bioregions/caribbean.png" alt="Map of Caribbean Islands" class="bioregion-map" loading="lazy">
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on Caribbean Islands</p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p>Weapons and ammunition leaves the region — Port-au-Prince residents (gang territorial violence), women and girls (SGBV as gang control tactic), displaced families (250,000+ internally displaced). 924,905 cannot meet daily food needs. 1.3 million displaced from home. 57 killed in three months of conflict.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">Weapons and ammunition extraction and armed conflict share the same geography — 57 killed in three months.</div>
+                
+                <div class="key-pattern">1.3M displaced people cannot participate in charcoal deforestation cycle or diaspora remittance economy — displacement breaks the circuits that sustain livelihoods.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">Displacement — Mass displacement concentrates populations in host areas, straining local water resources and sanitation infrastructure. (HTI)</p>
+                
+                <p class="cascade-chain">Water scarcity — Water stress reduces agricultural productivity, leading to crop failures and food insecurity (HTI)</p>
+                
+                <p class="cascade-chain">Armed violence — Conflict displaces populations from affected areas (DOM)</p>
+                
+            </div>
+            
+
+            
+            
+            <div class="mcgowan-actors" style="margin-top: 12px;">
+                <h3>Who Sustains This</h3>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>G9 Family and Allies</strong> &middot; kidnapping ransoms; port/road extortion; political patronage</p>
+                    <p class="actor-detail">Driven by: We must provide for our communities since the state has abandoned us</p>
+                    <p class="actor-detail">The trap: Claiming to protect communities while making them unlivable. Gang leaders claim to represent abandoned neighborhoods, but their violence drives displacement and destroys livelihoods. The more control they exercise, the less remains of the communities they claim to champion.</p>
+                </div>
+                
+            </div>
+            
+
+            
+            
+
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>What leaves Caribbean Islands: weapons and ammunition. What returns is less certain. 924,905 food insecure (current); 1.3M displaced (total); weapons and ammunition leaving; precipitation 10% of normal.</p>
+        </blockquote>
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>In Caribbean Islands, the weapons and ammunition beneath the land sustains systems that profit from distance — between those who extract and those who bear the cost. But the land has survived before, and the people who tend it know rhythms older than any army. The land still provides, but the margin narrows with each season.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who are hungry...</div>
+                <p class="intercession-text">For the 925,000 people across Caribbean Islands who cannot meet their daily food needs. That supply routes hold, that harvests come, that aid reaches those cut off.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the displaced...</div>
+                <p class="intercession-text">For the 1.3 million people displaced from their homes — especially in Haiti, where the crisis is most acute. This week in Dominican Republic: KEY FIGURES 172K people affected by heavy rainfall and flooding in Dominican Republic 52 armed attacks in southwestern Colombia since 24 April 11K people displaced across northeastern Brazil due to severe rain and flooding DOMINICAN REPUBLIC. For safety on the road and welcome at the journey&#39;s end.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For Haiti...</div>
+                <p class="intercession-text">For Haiti, where multiple pressures are interacting and the situation is escalating. This week in Haiti: Port-au-Prince, 8 May 2026: According to the United Nations Integrated Office in Haiti (BINUH), during the first quarter of the year (January–March 2026), at least 1,642 people were killed and 745 others injured. For those responsible for the response — that they act before lines are crossed that cannot be uncrossed.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the helpers...</div>
+                <p class="intercession-text">For humanitarian workers and missionaries in Caribbean Islands — for their safety, their courage, and their capacity to reach those most in need. This week in Jamaica: The Caribbean Regional Midwives Association, supported by a Direct Relief emergency grant, gave continuous care in tents and temporary facilities in the weeks after Hurricane Melissa.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For seeds of hope...</div>
+                <p class="intercession-text">For every act of resistance and care in Caribbean Islands — communities sharing food, farmers saving seed, neighbours sheltering neighbours. That these small acts of defiance outlast the crisis.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section psalm-section">
+        <div class="psalm-header">
+            <span class="psalm-number rubric">Psalm 107</span>
+            
+            <span class="psalm-title">Psalm 107 (Thanksgiving)</span>
+            
+        </div>
+        
+        <blockquote class="psalm-verses congregation">O give thanks to the Lord, for he is gracious,
+for his steadfast love endures for ever.
+Let the redeemed of the Lord say this,
+those he redeemed from the hand of the enemy,
+</blockquote>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section">
+        <div class="collect-block">
+            
+            <div class="collect-theme rubric">Collect: joy</div>
+            
+            <p class="collect-text">God our redeemer, you have delivered us from the power of darkness and brought us into the kingdom of your Son: grant, that as by his death he has recalled us to life, so by his continual presence in us he may raise us to eternal joy; through Jesus Christ your Son our Lord, who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p><p class="congregation" style="margin-top: 8px;">Amen.</p>
+        </div>
+    </section>
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>In Caribbean Islands: Rural wood collectors (primarily women and children) continue to sustain charcoal deforestation cycle; Haitian diaspora (~2M in US, Canada, France) continue to sustain diaspora remittance economy; Haitian migrant workers (est. 500K-1M in Dominican Republic) continue to sustain hispaniola border labour.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">What does it mean to pray for rain when the climate that once provided it has been disrupted by emissions from distant economies?</p>
+        
+        <p class="reflection-question">Whose hunger makes your abundance possible?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>The data suggests: Food insecurity persists.</li>
+                
+                <li>Displacement continues with no political settlement in view.</li>
+                
+                <li>These are indicators, not predictions.</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item"><strong>Weapons and ammunition</strong> from Port-au-Prince — via gang_leaders and arms_traffickers — reaches Armed gangs. Port-au-Prince residents (gang territorial violence) and women and girls (SGBV as gang control tactic) bear the cost. Community self-defense committees (brigades de vigilance). Search armstrade.sipri.org/armstrade by recipient.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.caribbeanclimate.bz/" target="_blank" rel="noopener" class="action-org-name">Caribbean Community Climate Change Centre (CCCCC)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">CARICOM institution providing climate data, vulnerability assessments, and adaptation planning for Small Island Developing States across the Caribbean. Produces regional climate projections and coral reef monitoring.</p>
+            
+            <p class="action-org-connection">Quantifies the climate vulnerability the briefing traces — where hurricane intensification, sea level rise, and coral bleaching converge to threaten island economies dependent on reef fisheries, coastal tourism, and low-lying infrastructure, with adaptation costs exceeding the fiscal capacity of most Caribbean states.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.globalwitness.org/" target="_blank" rel="noopener" class="action-org-name">Global Witness — Caribbean</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Investigates illicit financial flows, corruption, and natural resource exploitation. Has documented how Caribbean offshore financial centres launder proceeds from extractive industries and arms trafficking, and how climate finance fails to reach frontline communities.</p>
+            
+            <p class="action-org-connection">Traces the financial architecture the briefing identifies — where offshore banking in the Cayman Islands and British Virgin Islands launders proceeds from drug and weapons trafficking that fuel violence in Haiti and Jamaica, while the same jurisdictions shelter extractive industry profits from taxation.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://canari.org/" target="_blank" rel="noopener" class="action-org-name">Caribbean Natural Resources Institute (CANARI)</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Regional technical institute supporting community-based natural resource management across the Caribbean. Works with fisherfolk organizations, forest-dependent communities, and coastal communities on participatory governance of shared resources.</p>
+            
+            <p class="action-org-connection">Works directly with the fisherfolk and forest communities the briefing identifies as cost-bearers — reef fishers whose catches decline as coral bleaches, charcoal producers in Haiti trapped between deforestation pressure and energy poverty, and coastal communities losing shoreline to erosion accelerated by sand mining.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.oxfam.org/en/what-we-do/countries/haiti" target="_blank" rel="noopener" class="action-org-name">Oxfam — Haiti</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Provides humanitarian assistance and supports community resilience in Haiti, the Caribbean&#39;s most crisis-affected state. Works on food security, water access, and disaster preparedness in contexts of armed group control and institutional collapse.</p>
+            
+            <p class="action-org-connection">Operates at the sharpest point of Caribbean crisis the briefing documents — where armed groups control Port-au-Prince&#39;s fuel and food distribution, charcoal deforestation accelerates flood vulnerability, and remittance-dependent households lose access to basic services as state institutions disintegrate.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://aida-americas.org/en/" target="_blank" rel="noopener" class="action-org-name">AIDA (Interamerican Association for Environmental Defense)</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Uses law to protect the environment and communities affected by extractive and development projects across Latin America and the Caribbean. Has brought cases on coastal development, reef destruction, and mining in Caribbean island nations.</p>
+            
+            <p class="action-org-connection">Provides legal tools for the communities the briefing identifies — fighting hotel developments that destroy mangrove buffers needed for hurricane protection, cruise port expansions that damage reef systems, and sand mining that erodes the coastlines small island states depend on for survival.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(14 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>ECLAC, Assessment of the Effects and Impacts of Hurricane Season in the Caribbean, 2024</li>
+                
+                <li>Global Coral Reef Monitoring Network, Status of Coral Reefs of the World: Caribbean Chapter, 2024</li>
+                
+                <li>FAO, Banana Market Review and Outlook, 2024. https://www.fao.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>World Bank, Migration and Remittances Data: Caribbean, 2024. https://www.worldbank.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>NOAA, National Hurricane Center Seasonal Summaries, 2024. https://www.nhc.noaa.gov</li>
+                
+                <li>UNDP, Caribbean Human Development Report, 2024</li>
+                
+                <li>IPC, Haiti Acute Food Insecurity Analysis, 2024. https://www.ipcinfo.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>UNEP, Haiti Revised Environment and Disaster Risk Profile, 2013</li>
+                
+                <li>ILO, Forced Labour and Trafficking in the Dominican Republic, 2022. https://www.ilo.org</li>
+                
+                <li>EIA, Trinidad and Tobago Country Analysis Brief, 2024. https://www.eia.gov</li>
+                
+                <li>UNEP, Tourism and Freshwater in the Caribbean: Impacts and Best Practices, 2014</li>
+                
+                <li>IPCC AR6 WGII, Chapter 15 Small Islands, 2022. https://doi.org/10.1017/9781009325844.016</li>
+                
+                <li>OCHA, Haiti Humanitarian Response Plan, 2024. https://reliefweb.int <span class="tier-badge tier-2" title="Tier 2 source">T2</span></li>
+                
+                <li>World Bank, Haiti Economic Update, 2024. https://www.worldbank.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated 2026-05-11</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

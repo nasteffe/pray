@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting to today's prayer…</title>
+    <script>
+    (function() {
+        var schedule = {"0": "Palearctic", "1": "Nearctic", "2": "Afrotropic", "3": "Neotropic", "4": "Australasia", "5": "Indomalaya", "6": "Oceania"};
+        var byRealm = {"Afrotropic": ["niger_basin_coast", "western_sahel", "congo_basin", "nile_horn", "east_african_rift", "zambezi_plateau", "angolan_escarpment", "guinea_coast", "highveld_cape"], "Neotropic": ["central_america", "caribbean", "southern_cone_parana", "amazon_orinoco", "andean_highlands"], "Palearctic": ["levant_mesopotamia", "pontic_steppe", "arabian_peninsula", "hindu_kush", "zagros_persian_plateau", "maghreb_atlas", "tethys_gulf", "atlantic_fringe", "loess_plateau_yellow_river", "rhine_danube_karst", "western_mediterranean", "aral_fergana", "nordic_baltic"], "Indomalaya": ["mekong_irrawaddy", "indo_gangetic_plain", "insular_southeast_asia"], "Nearctic": ["mississippi_delta", "cascadia", "great_plains_mississippi", "colorado_plateau", "arctic_boreal", "great_lakes_boreal"], "Australasia": ["aotearoa", "australia"], "Oceania": ["melanesia", "micronesia_polynesia"]};
+        var fallback = "niger_basin_coast";
+        var day = new Date().getDay();
+        // JS: 0=Sun,1=Mon..6=Sat -> Python: 0=Mon..6=Sun
+        var weekday = day === 0 ? 6 : day - 1;
+        var realm = schedule[weekday];
+        var bios = realm && byRealm[realm];
+        var target = (bios && bios.length > 0) ? bios[0] : fallback;
+        window.location.replace("bioregion/" + target + "/index.html");
+    })();
+    </script>
+</head>
+<body>
+    <noscript>
+        <p>JavaScript is required for automatic redirect.
+           <a href="directory/index.html">Browse all bioregions</a>.</p>
+    </noscript>
+</body>
+</html>

@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title>Arctic–Boreal — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/arctic_boreal/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country">Arctic–Boreal</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1>Arctic–Boreal<span class="bio-population">1M people</span></h1>
+        <div class="bio-countries-line">Canada, United States, Greenland</div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 2 months ago</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+    <section class="prayer-section prayer-opening">
+        
+        
+        <p>In the darkness of a January afternoon north of the Arctic Circle, a Gwich'in elder in Old Crow, Yukon, watches the thermometer read -38°C and knows that this cold, sharp and clean, is the cold that keeps the permafrost locked, the caribou routes frozen solid enough to walk, the rivers sealed safe for snowmachine crossings to the next community 200 kilometres away. She has watched these winters shorten by three weeks in her lifetime.</p>
+        
+        
+    </section>
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 6200, "elevation_min": -100, "terrain": [[0.0, 5959], [2.5, 4226], [5.0, 1857], [7.5, 2431], [10.0, 5223], [12.5, 6000], [15.0, 3472], [17.5, 985], [20.0, 141], [22.5, 10], [25.0, 0], [27.5, 0], [30.0, 0], [32.5, 0], [35.0, 0], [37.5, 0], [40.0, 0], [42.5, 0], [45.0, 0], [47.5, 0], [50.0, 0], [52.5, 0], [55.0, 0], [57.5, 0], [60.0, 0], [62.5, 0], [65.0, 0], [67.5, 0], [70.0, 0], [72.5, 0], [75.0, 0], [77.5, 0], [80.0, 0], [82.5, 0], [85.0, 0], [87.5, 0], [90.0, 0], [92.5, 0], [95.0, 0], [100.0, 0]], "countries": [[0, 100, "Canada"]], "water": [{"type": "glacier", "x_pct": [0, 2.0], "elev": [1500, 5959], "label": "Glacier"}, {"type": "glacier", "x_pct": [9.8, 13.8], "elev": [1500, 6190], "label": "Glacier"}], "resources": [{"type": "energy", "x_pct": 100, "elev": 0, "label": "Oil"}, {"type": "agricultural_biome", "x_pct": 100, "elev": 0, "label": "Soy"}, {"type": "mineral", "x_pct": 104, "elev": 0, "label": "Cu"}, {"type": "mineral", "x_pct": 0, "elev": 1788, "label": "Potassium"}], "biomes": [[0, 9, "Boreal Forest", "boreal", "T2.1"], [9, 19, "P\u00e1ramo / Alpine", "paramo", "T6.5"], [19, 22, "Temperate Grassland", "grassland", "T4.4"], [22, 29, "Boreal Forest", "boreal", "T2.1"], [29, 43, "Temperate Grassland", "grassland", "T4.4"], [43, 48, "Boreal Forest", "boreal", "T2.1"], [48, 100, "Temperate Grassland", "grassland", "T4.4"]], "labels": [{"x_pct": 0, "elev": 6159, "text": "Mt Logan 5,959m"}, {"x_pct": 12, "elev": 6390, "text": "Denali 6,190m"}, {"x_pct": 46, "elev": 150, "text": "Arctic Circle 0m"}, {"x_pct": 72, "elev": 200, "text": "Richardson Mountains 0m"}, {"x_pct": 91, "elev": 150, "text": "Mackenzie Delta Delta"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+    <div class="prayer-section metrics-context">
+        
+        <div class="since-last-week">
+            <span class="slw-label">Ecosystem:</span>
+            
+            <span class="stress-tag stress-moderate">moderate</span>
+            
+            Precipitation 160% of normal; temperatures -24.6°C above baseline; fire activity elevated (245 detections).
+        </div>
+        
+        
+        <div class="metrics-strip">
+            
+            <div class="metric-pill network-water">
+                <span class="metric-pill-value">15.9</span>
+                <span class="metric-pill-label">Water Stress (%)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-soil">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Food Insecure (IPC 3+) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-mineral">
+                <span class="metric-pill-value">7</span>
+                <span class="metric-pill-label">Conflict Fatalities (3mo) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-people">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Displaced Persons (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-atmospheric">
+                <span class="metric-pill-value">25.4</span>
+                <span class="metric-pill-label">Max Temperature (°C)</span>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
+    
+    
+    
+
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>Before dawn in Fort Chipewyan, Alberta — a community of 900 people accessible only by ice road in winter and boat or plane in summer — a Mikisew Cree fisher checks his nets in Lake Athabasca as he has done since childhood, as his father did, as his grandmother did. The walleye are smaller now. Some have tumours. He eats them anyway, because the grocery barge charges $14 for a head of lettuce and the ice road was open for only six weeks last winter. Downstream of his nets, the Athabasca River carries whatever the tailings ponds have released this season. He knows this. The community has been testing the water for twenty years. The results are not reassuring.</p>
+                
+                
+                
+                <p>In Old Crow, Yukon, a Gwich'in mother packs dried caribou meat for her daughter's school lunch — country food from the Porcupine caribou herd, which migrates 2,400 kilometres between the Yukon and the Arctic National Wildlife Refuge in Alaska each year. The herd grew from a low of ~100,000 back to approximately 143,000 (2024 census), though the long-term trend from the 1989 peak of 178,000 reflects continued pressure. Her grandmother packed the same food, from the same herd, following the same migration route. The difference is the calving grounds: warmer springs bring earlier snowmelt, which brings earlier insect emergence, which means the caribou arrive at the coastal plain after the peak forage window has passed. The herd shrinks not from a single catastrophe but from a timing mismatch — the land's calendar shifting faster than the animals' instincts can follow.</p>
+                
+                
+                
+                <p>In Newtok, Alaska, a Yup'ik family has been packing for nine years. Their village is relocating to Mertarvik, nine miles upriver, because the Ninglick River is eating the land beneath their houses at 70 feet per year — permafrost that once held the bank rigid is now thawing, and autumn storms that sea ice once deflected now hit the exposed coast at full force. Congress has appropriated money. FEMA has studied the problem. The Army Corps has drawn plans. The family is still packing. They have moved some belongings to the new site, which has a few houses, a generator, and no running water. Their old house has running water but may not have ground beneath it next autumn.</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>In Old Crow, Yukon, a Gwich&#39;in mother packs dried caribou meat for her daughter&#39;s school lunch — country food from the Porcupine caribou herd, which migrates 2,400 kilometres between the Yukon and the Arctic National Wildlife Refuge in Alaska each year. The herd grew from a low of ~100,000 back to approximately 143,000 (2024 census), though the long-term trend from the 1989 peak of 178,000 reflects continued pressure. Her grandmother packed the same food, from the same herd, following the same migration route. The difference is the calving grounds: warmer springs bring earlier snowmelt, which brings earlier insect emergence, which means the caribou arrive at the coastal plain after the peak forage window has passed. The herd shrinks not from a single catastrophe but from a timing mismatch — the land&#39;s calendar shifting faster than the animals&#39; instincts can follow.</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+    <div class="bioregion-map-container">
+        <img src="../../../static/img/bioregions/arctic_boreal.png" alt="Map of Arctic–Boreal" class="bioregion-map" loading="lazy">
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on Arctic–Boreal</p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p><strong>Fort Chipewyan, Alberta</strong> — Nine hundred people live here, at the western tip of Lake Athabasca, accessible by ice road for six weeks in winter and by boat or float plane the rest of the year. The Athabasca River arrives from the south, having passed through the oil sands region where tailings ponds covering 220 square kilometres sit adjacent to its banks. The Mikisew Cree and Athabasca Chipewyan First Nation have fished this lake for generations. In 2006, community members began reporting elevated rates of cholangiocarcinoma — bile duct cancer, rare enough that a cluster of cases in a village of 900 demanded explanation. The community funded its own health study after Alberta Health Services declined to investigate. Dr. John O'Connor, the local physician who raised the alarm, was investigated by Health Canada for causing "undue alarm." He was later cleared. The cancers were confirmed. The tailings ponds remain.</p>
+                
+                
+                
+                <p><strong>Old Crow, Yukon</strong> — The most northerly community in Yukon, home to the Vuntut Gwitchin First Nation, population 250. There is no road. Supplies arrive by air, or by barge when the Porcupine River is navigable. The community's food security depends substantially on the Porcupine caribou herd, which calves on the coastal plain of the Arctic National Wildlife Refuge in Alaska. Old Crow sits at the intersection of two crises: the caribou herd declining as climate shifts calving-forage timing, and the permafrost beneath the village thawing, cracking foundations and tilting structures. The temperature at which permafrost ceases to be permanent is 0°C. The annual mean temperature in Old Crow has been rising toward that line for decades.</p>
+                
+                
+                
+                <p><strong>Newtok, Alaska</strong> — A Yup'ik village of 380 people on the Ninglick River, which is eroding the village at 70 feet per year. The permafrost that once held the riverbank is thawing. The sea ice that once absorbed storm energy before it reached the coast forms later and breaks earlier. In 2003, the Army Corps of Engineers estimated the village had 15 years before it became uninhabitable. It is 2026. The relocation to Mertarvik, nine miles away, is partially complete — some families have moved, most have not, because the new site lacks water and sewage infrastructure. The cost of relocating a single Alaska Native village is estimated at $100–400 million. There are 31 villages in Alaska facing similar threats. The federal government has funded portions of several relocations and completed none.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">The Athabasca tar sands are a sacrifice zone with a formal name: the tailings ponds are classified as &#34;fluid tailings&#34; under Alberta law, and the companies that created them are legally required to remediate them. Remediation timelines stretch to 2080 and beyond. The Mikisew Cree and Athabasca Chipewyan First Nation are downstream now, not in 2080. Suncor, Canadian Natural Resources, and Cenovus are listed on the Toronto and New York stock exchanges. Their tailings liabilities are disclosed in annual reports. The gap between the legal obligation and the lived reality is measured in cancer diagnoses.</div>
+                
+                <div class="key-pattern">Caribou decline is not a wildlife management problem. It is a food sovereignty crisis for Inuit, Gwich&#39;in, Dene, and Cree communities who depend on caribou for protein, clothing, tools, and cultural continuity. The Bathurst herd in the Northwest Territories has collapsed from 450,000 in the 1980s to approximately 3,609 (2025 survey) — a 99% decline. Mining roads fragment migration corridors. Industrial fire suppression alters the lichen regeneration cycle. Climate-driven insect harassment changes calving behaviour. Each cause is individually manageable; together they are systemic, and the herd does not recover between interventions.</div>
+                
+                <div class="key-pattern">The permafrost methane feedback connects this region to every other region on earth. Arctic amplification — the Arctic warming four times faster than the global mean — destabilises the polar vortex, sending cold outbreaks into mid-latitudes (the &#34;polar vortex&#34; events that freeze Texas and the UK). The same warming thaws permafrost, releasing methane that accelerates the warming that caused the thaw. Your winter heating bill, your spring allergy season, your summer drought risk — all are shaped by what is happening to the ground beneath a Gwich&#39;in elder&#39;s house in Old Crow, Yukon.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">Tar sands extraction → Tailings pond leaching into Athabasca River → Elevated cancer rates in Fort Chipewyan (Mikisew Cree, Athabasca Chipewyan First Nation; community health studies since 2006; 220 km² of tailings ponds adjacent to river system)</p>
+                
+                <p class="cascade-chain">Arctic warming (4x global rate) → Permafrost thaw → Methane release → Accelerated warming → Further permafrost thaw (self-reinforcing feedback; 1,700 Gt carbon in permafrost; zombie fires burning underground through winter)</p>
+                
+                <p class="cascade-chain">Sea ice decline (13% per decade) → Exposed coastline → Accelerated erosion of permafrost riverbanks → Village relocation (Newtok losing 70 ft/yr; Shishmaref, Kivalina, 31 Alaska communities requiring relocation; federal funding inadequate)</p>
+                
+                <p class="cascade-chain">Boreal fire intensification → Carbon release from peat and permafrost → Caribou habitat loss → Decline of subsistence food systems (Porcupine herd 143,000 as of 2024, down from 178,000 peak; Bathurst herd from 450,000 to ~3,609 per 2025 survey; calving-forage timing mismatch)</p>
+                
+            </div>
+            
+
+            
+            
+            <div class="mcgowan-actors" style="margin-top: 12px;">
+                <h3>Who Sustains This</h3>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Pathways Alliance (Canadian oil-sands net-zero coalition)</strong> &middot; Member companies: Suncor, Cenovus, Imperial Oil, Canadian Natural Resources, MEG Energy, ConocoPhillips Canada (~95% of oil-sands production); Proposed ~$16.5B Cold Lake CCUS network (carbon-capture-and-storage pipeline + sequestration hub); Government of Canada Investment Tax Credit for CCUS (~50% of capital cost); Government of Alberta tailings, royalty, and TIER-system carbon-price frameworks</p>
+                    <p class="actor-detail">Driven by: We must produce responsibly sourced Canadian oil while leading the energy transition</p>
+                    <p class="actor-detail">The trap: The CCUS strategy converts the political problem of continued tar-sands expansion into a technological roadmap whose realisation requires the continued production it would offset. Tailings ponds — already the largest human-made structures visible from orbit — continue to leach into the Athabasca whose downstream Athabasca Chipewyan and Mikisew Cree communities show elevated cancer rates the federal monitoring framework documents but does not act on. The net-zero commitment is the licence to expand; the licence to expand is the deferral of the obligation the commitment names.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>ConocoPhillips Alaska / Willow Project</strong> &middot; Willow reserves (~600M barrels) on National Petroleum Reserve-Alaska, ~30 miles west of Teshekpuk Lake calving habitat; Alpine and Kuparuk legacy operations on the North Slope; Trans-Alaska Pipeline System (TAPS) tariff-funded transport to Valdez; Alaska Permanent Fund and state royalty pass-through to Iñupiat-corporate ASRC (Arctic Slope Regional Corporation)</p>
+                    <p class="actor-detail">Driven by: We must produce domestic energy responsibly while honouring our Indigenous and environmental commitments</p>
+                    <p class="actor-detail">The trap: The Willow approval was justified as a &#39;balance&#39; — economic benefit to Iñupiat communities at Nuiqsut, mitigation of climate impact through scope downsizing — but the approval was the only operative choice; the mitigations operate within it. The Teshekpuk caribou herd that Gwich&#39;in and Iñupiat hunting communities depend on faces the same calving-ground disruption regardless of which administration grants the permit. The 600 million barrels burnt at scope-3 erase the climate accounting the permit&#39;s surface-disturbance analysis performs. The project&#39;s legitimacy depends on framing one Indigenous community&#39;s economic-benefit stake against another Indigenous community&#39;s subsistence stake — the choice being made at federal scale, the contradiction being absorbed at local scale.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Naalakkersuisut (Government of Greenland)</strong> &middot; Danish block grant (Bloktilskud — ~4.3 billion DKK/year, structurally the lever the sovereignty project seeks to escape); Greenland Mineral Strategy 2020–2024 licence revenues and exploration fees; Royal Greenland fishing-export earnings (cod, halibut, prawns); Active mineral projects: Kvanefjeld/Kuannersuit (uranium-thorium-REE, blocked by 2021 IA-led ban), Tanbreez (REE, sold to Critical Metals 2024), Citronen Fjord (zinc-lead), Aappaluttoq (ruby/sapphire)</p>
+                    <p class="actor-detail">Driven by: We must develop Greenland&#39;s mineral wealth to fund the path to full sovereignty from Denmark</p>
+                    <p class="actor-detail">The trap: The fiscal-independence-from-Denmark goal — long-standing, broadly supported across Greenlandic society — has only one viable funding instrument at scale, which is foreign-capital mineral extraction on subsistence-hunting territory. Each rare-earth or zinc project that gets approved underwrites the sovereignty narrative; each project that gets blocked (Kvanefjeld 2021, sustained by the 2022 IA-Siumut coalition) preserves the subsistence relationship the sovereignty narrative was meant to protect. The sovereignty whose funding extraction would provide is the sovereignty that extraction would have already transformed. The block grant the project is meant to replace is what currently funds the Inuit-language schools and health system that make the sovereignty project culturally coherent.</p>
+                </div>
+                
+            </div>
+            
+
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Three resource streams flow out of the Arctic-Boreal region — bitumen, shale gas, and industrial grain — worth hundreds of billions at destination markets. What does not leave is the methane, now releasing from thawing permafrost at rates that feed back into the warming that caused the thaw. The tailings ponds in Alberta will require remediation for centuries. The permafrost that held the ground stable for Indigenous communities will not refreeze in any human lifetime. The cost stays here; the profit does not. 7 killed (3 months); bitumen crude oil (oil sands), shale oil and natural gas, corn, soybeans, and dairy products leaving.</p>
+        </blockquote>
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>The permafrost is not a metaphor. It is the ground beneath the houses, the airstrips, the graves. When it thaws, everything built on the assumption that the ground would hold must be moved or lost. The Gwich&#39;in and the Inuit did not build on an assumption — they built on knowledge of the land as it was. The land is becoming something else, faster than any community can relocate, and slower than any news cycle can sustain attention.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those living under violence...</div>
+                <p class="intercession-text">For communities enduring armed conflict between Naalakkersuisut (Government of Greenland) across Arctic–Boreal — 7 killed in the past three months. For protection of civilians and for those who have lost loved ones.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For United States...</div>
+                <p class="intercession-text">For United States, where multiple pressures are interacting and the situation is escalating. For those responsible for the response — that they act before lines are crossed that cannot be uncrossed.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the helpers...</div>
+                <p class="intercession-text">For humanitarian workers and missionaries in Arctic–Boreal — for their safety, their courage, and their capacity to reach those most in need.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For seeds of hope...</div>
+                <p class="intercession-text">For every act of resistance and care in Arctic–Boreal — communities sharing food, farmers saving seed, neighbours sheltering neighbours. That these small acts of defiance outlast the crisis.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section psalm-section">
+        <div class="psalm-header">
+            <span class="psalm-number rubric">Psalm 47</span>
+            
+            <span class="psalm-title">Psalm 47 (Enthronement — Ascension)</span>
+            
+        </div>
+        
+        <blockquote class="psalm-verses congregation">Clap your hands together, all you peoples;
+O sing to God with shouts of joy.
+For the Lord Most High is to be feared;
+he is the great king over all the earth.
+</blockquote>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section">
+        <div class="collect-block">
+            
+            <div class="collect-theme rubric">Collect: enthronement</div>
+            
+            <p class="collect-text">Grant, we pray, almighty God, that as we believe your only-begotten Son our Lord Jesus Christ to have ascended into the heavens, so we may also in heart and mind thither ascend and with him continually dwell; who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p><p class="congregation" style="margin-top: 8px;">Amen.</p>
+        </div>
+    </section>
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>The Gwich&#39;in Steering Committee, formed in 1988 when the US government first proposed oil drilling in the Arctic National Wildlife Refuge, has maintained a 38-year campaign to protect the Porcupine caribou herd&#39;s calving grounds on the coastal plain of northeast Alaska. Their argument has never changed — the caribou are not a resource to be managed but a relative whose survival and theirs are the same question.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">What connects your daily life to this crisis?</p>
+        
+        <p class="reflection-question">What would it mean to accept this contradiction—that your comfort and their suffering exist in the same global system—rather than trying to resolve it from the outside?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>The 2026 boreal fire season is building on fuel loads stressed by drought and warmed by an Arctic that has not returned to historical temperature norms.</li>
+                
+                <li>The 2023 Canadian fire season burned 18.5 million hectares — an area larger than Greece — and 2024 was only marginally smaller.</li>
+                
+                <li>Fire management agencies in Canada and Alaska are warning of another severe season.</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item">Suncor, Canadian Natural Resources, and Cenovus — the three largest tar sands operators — are listed on the Toronto Stock Exchange and the New York Stock Exchange. Their tailings pond remediation obligations are disclosed in annual reports as environmental liabilities. The gap between remediation timelines (extending to 2080+) and community health impacts (documented since 2006) is a matter of public record. Shareholder resolutions on tailings management have been filed at multiple AGMs. These filings are searchable at the Business & Human Rights Resource Centre (business-humanrights.org).</div>
+            
+            
+            
+            <div class="carry-this-item">The caribou on your Christmas card may be the same species disappearing from the lives of Gwich'in families in Old Crow. The Bathurst herd's collapse from 450,000 to ~3,609 (2025 survey) is documented by the Government of the Northwest Territories. The Gwich'in Steering Committee (ourarcticrefuge.org) has maintained their campaign to protect the Porcupine herd's calving grounds for 38 years. Their work is funded by donations and sustained by a conviction older than Canada or the United States: that the caribou and the people are one question.</div>
+            
+            
+            
+            <div class="carry-this-item">The polar vortex event that froze your pipes last February — or will freeze them next February — is connected to the Arctic amplification happening over the permafrost north of Old Crow. Arctic warming destabilises the jet stream, sending cold air south in sudden, violent incursions. The same warming thaws the permafrost that releases the methane that accelerates the warming. Your weather and their ground are the same system. The connection is not metaphorical; it is atmospheric.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.gwichincouncil.com/" target="_blank" rel="noopener" class="action-org-name">Gwich&#39;in Council International</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Permanent participant in the Arctic Council representing the Gwich&#39;in Nation across Alaska and northern Canada. Advocates for protection of the Porcupine caribou calving grounds in the Arctic National Wildlife Refuge against oil drilling.</p>
+            
+            <p class="action-org-connection">Speaks for the communities whose subsistence livelihoods the briefing identifies as directly threatened — the Gwich&#39;in depend on Porcupine caribou herds whose calving grounds overlap with proposed oil lease areas on Alaska&#39;s North Slope, making caribou migration routes and drilling concessions materially inseparable.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.pembina.org/" target="_blank" rel="noopener" class="action-org-name">Pembina Institute</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Canadian clean energy think tank producing detailed analysis of Alberta tar sands economics, tailings pond contamination, pipeline infrastructure, and transition pathways. Provides evidence-based policy recommendations on fossil fuel phase-out.</p>
+            
+            <p class="action-org-connection">Quantifies the tar sands extraction the briefing traces — bitumen production volumes, tailings pond leakage into the Athabasca River, and downstream health impacts on Fort Chipewyan and Mikisew Cree communities whose water and fish are contaminated by the largest industrial project on Earth.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.amap.no/" target="_blank" rel="noopener" class="action-org-name">Arctic Monitoring and Assessment Programme (AMAP)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Arctic Council working group producing scientific assessments of pollution, climate change, and human health in the Arctic. Documents permafrost thaw, contaminant bioaccumulation, and black carbon deposition across the circumpolar region.</p>
+            
+            <p class="action-org-connection">Provides the permafrost and contamination data the briefing&#39;s atmospheric and soil network analyses depend on — measuring methane release from thawing permafrost, mercury bioaccumulation in Arctic food chains, and the feedback loops between warming and infrastructure collapse across the boreal zone.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://arcticwwf.org/" target="_blank" rel="noopener" class="action-org-name">WWF Arctic Programme</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Works on Arctic conservation policy including shipping corridor regulation, offshore drilling moratoriums, and marine protected areas. Campaigns against industrial expansion into previously ice-covered waters opened by climate change.</p>
+            
+            <p class="action-org-connection">Addresses the opening of Arctic shipping routes and mining frontiers the briefing documents — where retreating sea ice enables new mineral extraction, LNG shipping, and fishing in waters previously inaccessible, creating a feedback loop between the warming that melts ice and the industrial activity that accelerates it.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.saamicouncil.net/" target="_blank" rel="noopener" class="action-org-name">Saami Council</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Umbrella organization representing Saami people across Norway, Sweden, Finland, and Russia. Advocates for reindeer herding rights, land rights, and self-determination in the face of mining, wind energy, and infrastructure projects on traditional Saami lands.</p>
+            
+            <p class="action-org-connection">Represents the reindeer herding communities whose pastoral routes the briefing identifies as intersecting with Arctic mining concessions and wind farm developments — where green transition infrastructure and mineral extraction both threaten the same Indigenous land-based livelihoods.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(12 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>NOAA, Arctic Report Card, 2024. https://arctic.noaa.gov/Report-Card</li>
+                
+                <li>National Snow and Ice Data Center, Arctic Sea Ice News and Analysis, 2024. https://nsidc.org</li>
+                
+                <li>Inuit Circumpolar Council, Circumpolar Inuit Declaration on Resource Development, 2024. https://www.inuitcircumpolar.com</li>
+                
+                <li>IPCC AR6, Polar Regions Chapter, 2021</li>
+                
+                <li>Arctic Council, Arctic Biodiversity Assessment, 2024. https://www.arctic-council.org</li>
+                
+                <li>Arctic Monitoring and Assessment Programme, Arctic Climate Change Update, 2024</li>
+                
+                <li>COSEWIC, Assessment and Status Report on Caribou (Rangifer tarandus), 2024. https://www.cosewic.ca</li>
+                
+                <li>Pembina Institute, Oil Sands Carbon Intensity Assessment, 2024. https://www.pembina.org</li>
+                
+                <li>Regional Aquatics Monitoring Program (RAMP), Athabasca River Basin Report, 2024</li>
+                
+                <li>Athabasca Chipewyan First Nation (ACFN), Community Health and Environment Report, 2014</li>
+                
+                <li>Scholten, R.C. et al., Overwintering fires in boreal forests, Nature 593, 2021. https://doi.org/10.1038/s41586-021-03437-y</li>
+                
+                <li>Turetsky, M.R. et al., Permafrost collapse is accelerating carbon release, Nature 569, 2019. https://doi.org/10.1038/s41586-019-1153-8</li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated 2026-05-14</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>
