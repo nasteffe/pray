@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title>Nile Basin and Horn — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/nile_horn/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country">Nile Basin and Horn</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1>Nile Basin and Horn<span class="bio-population">315M people</span></h1>
+        <div class="bio-countries-line">Sudan, South Sudan, Ethiopia, Somalia, Egypt, Eritrea, Djibouti</div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+
+    
+
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 4 months ago</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 4800, "elevation_min": -100, "terrain": [[0.0, 9], [2.0, 50], [2.8, 14], [4.5, 365], [5.5, 241], [10.4, 546], [14.0, 72], [15.0, 506], [15.6, 76], [19.6, 357], [19.9, 184], [20.5, 474], [20.8, 218], [22.3, 179], [23.4, 321], [24.8, 179], [29.1, 679], [35.7, 281], [39.5, 632], [40.4, 368], [42.4, 543], [47.2, 375], [49.8, 395], [52.2, 380], [56.3, 411], [59.6, 507], [63.0, 406], [67.3, 394], [68.3, 400], [68.3, 395], [68.4, 400], [68.5, 396], [69.0, 400], [69.4, 396], [70.9, 398], [72.6, 439], [74.9, 2013], [75.9, 1388], [79.0, 2068], [79.9, 1373], [81.7, 2604], [82.6, 1587], [87.3, 3259], [88.2, 2409], [93.4, 4550], [100.0, 537]], "countries": [[0, 27, "Egypt"], [27, 64, "Sudan"], [64, 74, "South Sudan"], [74, 100, "Ethiopia"]], "water": [{"type": "lake", "x_pct": [84.6, 92.6], "elev": [1788, 1788], "label": "L. Tana", "depth": 60}, {"type": "lake", "x_pct": [94.9, 100], "elev": [240, 240], "label": "L. Abbe", "depth": 60}, {"type": "lake", "x_pct": [18.2, 26.2], "elev": [182, 182], "label": "L. Nasser", "depth": 60}, {"type": "river", "x_pct": [0, 2.0], "elev": [9, 9], "label": "Blue Nile"}, {"type": "river", "x_pct": [0, 2.0], "elev": [9, 9], "label": "White Nile"}], "resources": [{"type": "agricultural_biome", "x_pct": 13, "elev": 0, "label": "Nile Water"}, {"type": "energy", "x_pct": 17, "elev": 0, "label": "Gas"}, {"type": "agricultural_biome", "x_pct": 19, "elev": 0, "label": "Wheat"}, {"type": "agricultural_biome", "x_pct": 85, "elev": 0, "label": "Charcoal"}, {"type": "agricultural_biome", "x_pct": 47, "elev": 0, "label": "Livestock"}, {"type": "energy", "x_pct": 71, "elev": 112, "label": "Oil"}, {"type": "agricultural_biome", "x_pct": 66, "elev": 0, "label": "Cattle"}, {"type": "agricultural_biome", "x_pct": 92, "elev": 0, "label": "Blue Nile"}], "biomes": [[0, 72, "Desert & Xeric", "desert", "T5.1"], [72, 83, "Tropical Savanna", "savanna", "T4.1"], [83, 92, "Cultivated Land", "cropland", "T7.5"], [92, 95, "Alpine", "alpine", "T6.4"], [95, 100, "Desert & Xeric", "desert", "T5.1"]], "labels": [{"x_pct": 0, "elev": 159, "text": "Nile Delta Delta"}, {"x_pct": 22, "elev": 332, "text": "L. Nasser 182m"}, {"x_pct": 47, "elev": 535, "text": "Khartoum Confluence 385m"}, {"x_pct": 66, "elev": 548, "text": "Sudd Wetlands 398m"}, {"x_pct": 76, "elev": 1620, "text": "GERD Dam Site 1,470m"}, {"x_pct": 90, "elev": 4750, "text": "Ras Dashen 4,550m"}, {"x_pct": 96, "elev": 4733, "text": "Simien Mtns 4,533m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+    <div class="prayer-section metrics-context">
+        
+        <div class="since-last-week">
+            <span class="slw-label">Ecosystem:</span>
+            
+            <span class="stress-tag stress-moderate">moderate</span>
+            
+            Precipitation 128% of normal; temperatures +4.9°C above baseline; drought conditions in Egypt.
+        </div>
+        
+        
+        <div class="metrics-strip">
+            
+            <div class="metric-pill network-water">
+                <span class="metric-pill-value">50.6</span>
+                <span class="metric-pill-label">Water Stress (%)</span>
+                
+                <span class="metric-pill-change" style="color: var(--prayer-accent);">elevated</span>
+                
+            </div>
+            
+            <div class="metric-pill network-soil">
+                <span class="metric-pill-value">42.4M</span>
+                <span class="metric-pill-label">Food Insecure (IPC 3+) (persons)</span>
+                
+                <span class="metric-pill-change slw-up">exceeded</span>
+                
+            </div>
+            
+            <div class="metric-pill network-mineral">
+                <span class="metric-pill-value">1K</span>
+                <span class="metric-pill-label">Conflict Fatalities (3mo) (persons)</span>
+                
+                <span class="metric-pill-change" style="color: var(--prayer-accent);">elevated</span>
+                
+            </div>
+            
+            <div class="metric-pill network-people">
+                <span class="metric-pill-value">16.1M</span>
+                <span class="metric-pill-label">Displaced Persons (persons)</span>
+                
+                <span class="metric-pill-change" style="color: var(--prayer-accent);">elevated</span>
+                
+            </div>
+            
+            <div class="metric-pill network-atmospheric">
+                <span class="metric-pill-value">37.4</span>
+                <span class="metric-pill-label">Max Temperature (°C)</span>
+                
+                <span class="metric-pill-change" style="color: var(--prayer-accent);">elevated</span>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
+    
+    
+    
+
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>This Week</h2>
+        </div>
+        <div class="section-body">
+            
+            <div class="event-item">
+                <div class="event-date">Jul 22</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>South Sudan:</strong> 
+                        South Sudan remains in EVD/BVD preparedness and readiness mode, with no confirmed cases to date. National readiness climbed to 65% in July (from 45% in June and 29% in May), above the WHO African Region average of 55%.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 22</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Ethiopia:</strong> 
+                        In Debre Birhan, in Ethiopia’s Amhara Region, thousands of people have arrived after fleeing violence and insecurity in East Wollega, Horo Guduru Wollega, West Wollega, West Shewa and surrounding areas.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 23</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Sudan:</strong> 
+                        On 20 July 2026, local sources reported that three drones struck multiple locations in Al Rahad, North Kordofan. The reported strikes impacted a health centre and an area adjacent to the main market during peak morning activity.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 22</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Egypt:</strong> 
+                        IN NUMBERS 204,300 people assisted in June (60% female) USD 2.1M cash transferred in June USD 1.7M required in the next six months (July – December 2026) KEY HIGHLIGHTS Thanks to recent generous contributions, WFP avoided the disruption of its...
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 23</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Somalia:</strong> 
+                        Somalia experienced three markedly different displacement patterns across Q2 2024, Q2 2025 and Q2 2026.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>Dinka and Nuer pastoralists and Mursi and Bodi herders (ETH lowlands) — Bimodal: move with Mar-May and Oct-Nov rains. But Nuer and Shilluk communities displaced from oil-producing areas.</p>
+                
+                
+                
+                <p>Tenant farmers in Gezira scheme and Canal maintenance labourers — Flood irrigation Jul-Oct; canal irrigation year-round. But smallholder farmers (displacement, inability to harvest).</p>
+                
+                
+                
+                <p>Fellahin smallholder farmers and Canal irrigation workers — Year-round canal irrigation; wheat Nov-May, rice Jun-Nov, cotton Mar-Oct. But smallholder farmers (displacement, inability to harvest).</p>
+                
+                
+                
+                <p>Smallholder coffee and qat farmers and Women market traders — Coffee harvest Oct-Jan; qat harvested daily year-round. But smallholder farmers (displacement, inability to harvest).</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Fellahin smallholder farmers and Canal irrigation workers — Year-round canal irrigation; wheat Nov-May, rice Jun-Nov, cotton Mar-Oct. But smallholder farmers (displacement, inability to harvest).</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+    <div class="bioregion-map-container">
+        <img src="../../../static/img/bioregions/nile_horn.png" alt="Map of Nile Basin and Horn" class="bioregion-map" loading="lazy">
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on Nile Basin and Horn</p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p>Gum arabic, weapons and military equipment, crude oil, teak and hardwoods leave the region — smallholder farmers (displacement, inability to harvest), rural communities in Kordofan, women harvesters (primary labor force). 42.4 million cannot meet daily food needs. 16.1 million displaced from home. 1,249 killed in three months of conflict.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">In Darfur, the RSF does not control gold mines despite the war — it controls them because of it. The displacement of Fur and Masalit communities from Jebel Amer is not collateral damage from fighting between two armies; it is the point. The RSF generates over a billion dollars a year from gold that could not be extracted at this scale if the farming communities who lived on the land were still there. The war provides the pretext, the displacement provides the access, and the gold provides the funding for more war. This is not a feedback loop that could be broken by a ceasefire. The economic incentive to continue displacement is structural.</div>
+                
+                <div class="key-pattern">The Nile is not a river — it is a chain of dependencies with no slack. Ethiopia controls the headwaters and completed filling a dam that has already reshaped downstream flow. Sudan sits at the confluence and is burning. Egypt sits at the terminus, withdrawing 141% of its renewable supply, importing 60% of its wheat, and feeding 70 million people on a bread subsidy that costs $3 billion a year. When one link in this chain moves — a dam filling faster, a war disrupting irrigation, a global wheat price spike — the entire downstream system responds. There is no buffer. Egypt cannot get water from anywhere else. Sudan cannot farm without the river. Ethiopia has built the dam — now operational — and calls it its sovereign right and its 120 million people&#39;s path to electrification. The Nile binds 300 million people to a single variable with three governments and no agreement.</div>
+                
+                <div class="key-pattern">In South Sudan, oil revenues that were meant to build a state instead built competing military networks. The CNPC-led consortium pumps crude from Unity and Upper Nile, the pipeline carries it to Port Sudan, the revenue enters Juba — and from Juba it flows not to schools, hospitals, or roads but to the patronage systems that keep military commanders loyal. The Nuer and Shilluk communities living in the oil-producing areas are displaced, their land contaminated, and the wealth extracted from beneath them funds the very forces that displaced them. South Sudan is the world&#39;s newest country and one of its most vivid demonstrations that resource wealth, without institutions to distribute it, becomes resource violence.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">RSF seizure of Darfur gold mines → displacement of Fur/Masalit farming communities → loss of agricultural production → famine conditions → humanitarian aid dependency → aid worker targeting (96 killed) → access collapse → deepening famine (SDN — 21M food insecure, 10M displaced, $1B+/year gold to UAE)</p>
+                
+                <p class="cascade-chain">Drought → pastoral herd loss → displaced herders become charcoal producers → deforestation of rangelands → reduced carrying capacity → deeper drought impact → further displacement (SOM — 8M bags/year charcoal to Gulf, 3.5M displaced, 4.8M food insecure)</p>
+                
+                <p class="cascade-chain">GERD now operational (filling completed September 2024) → managed Blue Nile flow with no binding agreement → Egyptian water stress at 141% → increased groundwater extraction → Delta salinisation → wheat import dependency (60% imported) → fiscal pressure on bread subsidy ($3B/year) → food security for 70M people contingent on Black Sea grain prices and one dam (EGY — 100M people, one river)</p>
+                
+            </div>
+            
+
+            
+            
+            <div class="mcgowan-actors" style="margin-top: 12px;">
+                <h3>Who Sustains This</h3>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Rapid Support Forces</strong> &middot; Darfur gold extraction ($2B+/year); livestock trade; looting</p>
+                    <p class="actor-detail">Driven by: We must protect the nation from chaos and the old regime</p>
+                    <p class="actor-detail">The trap: Seeking legitimacy through the very violence that delegitimizes. The RSF emerged from the Janjaweed militias and seeks transformation into a legitimate national institution, yet its methods—mass displacement, civilian targeting—prevent the legitimacy it craves. Victory would require becoming something it is not.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Sudanese Armed Forces</strong> &middot; state budget; Port Sudan customs revenue; military-owned enterprises</p>
+                    <p class="actor-detail">Driven by: We must restore order and defend the legitimate state</p>
+                    <p class="actor-detail">The trap: Defending the state through actions that destroy it. The SAF claims to represent the legitimate Sudanese state, yet the war has collapsed the very institutions it claims to defend. Each escalation weakens state capacity, meaning victory over the RSF would leave the SAF ruling over ruins.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Tigray People&#39;s Liberation Front</strong> &middot; Tigrayan diaspora; captured military equipment</p>
+                    <p class="actor-detail">Driven by: We must defend our people and our rightful place in Ethiopia</p>
+                    <p class="actor-detail">The trap: Seeking security through resistance that invites destruction. The TPLF&#39;s defiance preserved Tigrayan identity but brought devastating war. The peace agreement halted fighting but left unresolved the question of whether Tigray can be secure within Ethiopia—or only against it.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Ethiopian National Defense Force</strong> &middot; state budget; military-owned enterprises (METEC)</p>
+                    <p class="actor-detail">Driven by: We must preserve Ethiopia&#39;s unity against those who would divide it</p>
+                    <p class="actor-detail">The trap: Unifying the nation through violence that deepens division. The campaign to preserve Ethiopian unity against Tigrayan &#39;separatism&#39; created wounds that make genuine unity harder to imagine. The more force used to hold Ethiopia together, the more regions question whether they belong.</p>
+                </div>
+                
+            </div>
+            
+
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Nine resource streams leave this bioregion — gold, oil, charcoal, gum arabic, coffee, cattle, livestock, teak, natural gas — and what comes back is weapons for the armies, debt for the governments, and nothing for the 48.8 million people who cannot feed themselves. The Nile flows north; the wealth flows out; the cost stays. 1,249 killed (3 months); 42.4M food insecure (current); 16.1M displaced (total); gum arabic, weapons and military equipment, crude oil leaving.</p>
+        </blockquote>
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>The Nile has been worshipped as a god, mapped as a problem, and dammed as an asset. It has never been asked what it thinks of carrying the sewage of five wars to the sea.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <p class="curated-note">Last updated on 2026-05-10.</p>
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who are hungry...</div>
+                <p class="intercession-text">For the tens of millions across this bioregion who cannot feed themselves today — in Sudan, in Ethiopia, in South Sudan, in Somalia. For the woman in Wad Madani making kisra from sorghum she cannot afford, for the pastoralist in Somali Region whose herd did not survive the last drought, for the farmer in Gezira whose canal has been dry for months. That food reaches the places where aid has been blocked.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those living under violence...</div>
+                <p class="intercession-text">For the thousands killed across this bioregion in these months — in Somalia, in Ethiopia, in South Sudan. For the families in El Fasher under siege, for the communities in Jonglei where aid workers have been forced to withdraw, for the villages in Amhara caught between Fano militias and government forces. For the aid workers killed in Sudan and the health facilities attacked. For protection, and for those who grieve.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the displaced...</div>
+                <p class="intercession-text">For the millions driven from their homes — most of them in Sudan. For those in the camps around Port Sudan, hundreds of kilometres from the homes they may never return to. For the Fur and Masalit families cleared from their land so that gold could be mined beneath it. For safety on the road and welcome at the end of it.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who carry water...</div>
+                <p class="intercession-text">For the women and girls who walk hours for water in Darfur&#39;s camps, in Somalia&#39;s drought-stricken lowlands, in South Sudan&#39;s displacement sites. For the fellahin in Egypt watching the canal level fall. For the millions in Egypt whose every drink depends on a river rising in another country&#39;s highlands. That the water lasts, and that it is shared.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who resist...</div>
+                <p class="intercession-text">For Sudan&#39;s Emergency Response Rooms — the volunteers running clinics and distributing food where no international agency can reach. For South Sudan&#39;s women carrying seeds through displacement. For Somalia&#39;s pastoral elders maintaining the heer. For Ethiopia&#39;s coffee cooperatives building fairer trade. That their work is not forgotten, and that it outlasts the crisis.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section psalm-section">
+        <div class="psalm-header">
+            <span class="psalm-number rubric">Psalm 107</span>
+            
+            <span class="psalm-title">Psalm 107 (Thanksgiving)</span>
+            
+        </div>
+        
+        <blockquote class="psalm-verses congregation">O give thanks to the Lord, for he is gracious,
+for his steadfast love endures for ever.
+Let the redeemed of the Lord say this,
+those he redeemed from the hand of the enemy,
+</blockquote>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section">
+        <div class="collect-block">
+            
+            <div class="collect-theme rubric">Collect: goodness</div>
+            
+            <p class="collect-text">Lord of all power and might, the author and giver of all good things: graft in our hearts the love of your name, increase in us true religion, nourish us with all goodness, and of your great mercy keep us in the same; through Jesus Christ your Son our Lord, who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p><p class="congregation" style="margin-top: 8px;">Amen.</p>
+        </div>
+    </section>
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>In Sudan, where the state has collapsed and the international community has largely looked away, neighbourhood Emergency Response Rooms — volunteer networks organised by the same young people who led the 2019 revolution — are running medical clinics, distributing food, and documenting atrocities in areas where no international organisation can operate. They work without funding, without protection, and without recognition, and they are the primary humanitarian presence in large parts of Khartoum, Darfur, and Kordofan.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">Whose hunger makes your abundance possible?</p>
+        
+        <p class="reflection-question">What does it mean to pray &#39;give us this day our daily bread&#39; alongside those who lack it?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>The data suggests: With 42.4 million food insecure, the lean season will deepen need.</li>
+                
+                <li>Displacement continues with no political settlement in view.</li>
+                
+                <li>These are indicators, not predictions.</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item">Sudan supplies roughly 70% of the world's <strong>gum arabic</strong> — the emulsifier in Coca-Cola, Pepsi, and thousands of processed foods. The smallholder farmers and women harvesters who produce it are among the 21 million Sudanese who cannot feed themselves. Ask whether the products in your cupboard contain gum arabic (listed as E414 in the EU, "acacia gum" in the US). The supply chain connects your kitchen to Kordofan. The Gum Arabic Board of Sudan has historically been the sole exporter; the war has fragmented this. Track reporting by the Enough Project (enoughproject.org) on conflict commodities in Sudan.</div>
+            
+            
+            
+            <div class="carry-this-item">Darfur gold refined in Dubai enters the global market as legitimate bullion. Global Witness has documented the route from Jebel Amer to DMCC-licensed refineries. The gold may be in your jewellery, your electronics, your pension fund's commodity holdings. The London Bullion Market Association (LBMA) sets responsible sourcing standards — ask whether your bank or pension fund requires LBMA compliance for gold holdings. Report at globalwitness.org/en/campaigns/conflict-minerals/the-destruction-of-darfur.</div>
+            
+            
+            
+            <div class="carry-this-item">South Sudan's oil is extracted by a consortium led by China National Petroleum Corporation and flows to Asian markets. The Nuer and Shilluk communities displaced from the oil fields have received no benefit from the wealth beneath their land. If your country imports South Sudanese crude (marketed as Dar Blend), the supply chain connects to the displacement. The UN Panel of Experts on South Sudan documents revenue diversion in annual reports to the Security Council — these are public documents searchable at un.org.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://riftvalley.net/" target="_blank" rel="noopener" class="action-org-name">Rift Valley Institute</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Independent research organization producing field-based studies on the Horn of Africa and Great Lakes. Conducts longitudinal research on pastoralist livelihoods, gold supply chains, and displacement patterns in Darfur and South Sudan.</p>
+            
+            <p class="action-org-connection">Directly investigates the gold and cattle corridor flows the briefing traces — documenting how artisanal gold mining in Jebel Amer finances RSF operations, and how displacement severs pastoralist access to seasonal grazing routes across Darfur.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://enoughproject.org/" target="_blank" rel="noopener" class="action-org-name">Enough Project</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Policy advocacy organization focused on ending mass atrocities and resource-linked conflicts in Africa. Publishes investigative reports on conflict gold supply chains, sanctions evasion through UAE gold refineries, and RSF financing networks.</p>
+            
+            <p class="action-org-connection">Traces the same Darfur gold-to-Dubai pipeline the briefing documents — artisanal mining under RSF control, smuggling through Chad and Libya, and refining in UAE, naming the corporate actors who purchase conflict-tainted gold.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://nilebasin.org/" target="_blank" rel="noopener" class="action-org-name">Nile Basin Initiative</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Intergovernmental partnership of ten Nile riparian states facilitating cooperative water resource management. Operates shared monitoring systems and joint infrastructure projects across the Blue Nile, White Nile, and Atbara sub-basins.</p>
+            
+            <p class="action-org-connection">Addresses the Nile water allocation conflicts central to the briefing — the GERD dam dispute between Ethiopia, Sudan, and Egypt, and downstream irrigation dependencies that determine food security for 250 million people across the basin.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.clingendael.org/research-program/conflict-research-unit" target="_blank" rel="noopener" class="action-org-name">Sudan Transparency and Policy Tracker</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Clingendael Institute&#39;s Conflict Research Unit tracks wartime economic networks in Sudan, documenting how gold revenues, qat trade, and remittance flows sustain armed factions and shape civilian survival strategies.</p>
+            
+            <p class="action-org-connection">Maps the war economy the briefing describes — charcoal production in deforested areas, qat supply chains from Ethiopia sustaining combatants, and how diaspora remittances through mobile money are both lifeline and extraction point for armed groups.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.msf.org/sudan" target="_blank" rel="noopener" class="action-org-name">Médecins Sans Frontières — East Africa</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Provides emergency medical care in displacement camps across Darfur, Kordofan, and Khartoum State. One of few international organizations maintaining operations in active conflict zones, documenting civilian casualties and healthcare infrastructure destruction.</p>
+            
+            <p class="action-org-connection">Operates at the endpoints where the briefing&#39;s material flows become bodily harm — treating malnutrition from disrupted cattle corridors and millet harvests, burn injuries from scorched-earth campaigns, and waterborne disease from Nile infrastructure collapse.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.globalwitness.org/en/campaigns/conflict-minerals/" target="_blank" rel="noopener" class="action-org-name">Global Witness — Sudan</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Investigates the role of natural resource exploitation in funding conflict, with specific reporting on Sudanese gold exports, corporate due diligence failures, and sanctions circumvention through intermediary states.</p>
+            
+            <p class="action-org-connection">Targets the export node of the gold flow the briefing traces — where artisanal gold from Darfur enters formal markets through refineries in UAE and Turkey, naming the companies and financial institutions that launder conflict minerals into global supply chains.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(14 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="provenance-authorship">Narrative prose on this page was synthesized by an AI model (Claude) from the sources listed here on 2026-07-24. Metrics are computed directly from the data sources.</p>
+            
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>IOM DTM, East and Horn of Africa Regional Displacement Tracking, 2024. https://dtm.iom.int/east-and-horn-africa <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>FAO/FSNAU, Charcoal Production and the Somali Economy, 2023</li>
+                
+                <li>FAO AQUASTAT, Nile Basin Country Profiles, 2024. https://www.fao.org/aquastat <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>International Crisis Group, Bridging the Gap in the Nile Waters Dispute, Report No. 271, 2019 <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>Global Witness, The Destruction of Darfur: How Gold Funds the RSF&#39;s War, 2024. https://www.globalwitness.org <span class="tier-badge tier-2" title="Tier 2 source">T2</span></li>
+                
+                <li>World Bank, Migration and Remittances Data (Annual Remittances Data), 2024. https://www.worldbank.org/en/topic/migrationremittancesdiasporaissues <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>ACLED, Horn of Africa Conflict Data, 2024. https://acleddata.com <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>UNHCR, Horn of Africa Displacement Situation, 2024. https://data.unhcr.org/en/situations/horn <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>IPC, Acute Food Insecurity Analysis: Sudan, South Sudan, Ethiopia, Somalia, 2024. https://www.ipcinfo.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>World Bank, Sudan Gezira Scheme Rehabilitation Assessment, 2020. https://www.worldbank.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>USDA Foreign Agricultural Service, Egypt Grain and Feed Annual, 2024. https://fas.usda.gov <span class="tier-badge tier-2" title="Tier 2 source">T2</span></li>
+                
+                <li>CAPMAS (Central Agency for Public Mobilization and Statistics), Egypt in Figures: Population, 2024. https://www.capmas.gov.eg <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>FEWS NET, East Africa Food Security Outlook, 2024. https://fews.net/east-africa <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>NBI (Nile Basin Initiative), Nile Basin Water Resources Atlas, 2021. https://www.nilebasin.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated 2026-07-24 &middot; narrative prose AI-synthesized</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

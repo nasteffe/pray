@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title>Great Plains–Mississippi — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/great_plains_mississippi/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country">Great Plains–Mississippi</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1>Great Plains–Mississippi<span class="bio-population">67M people</span></h1>
+        <div class="bio-countries-line">United States</div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+
+    
+
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 4 months ago</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+    <section class="prayer-section prayer-opening">
+        
+        
+        <p>Drive west from Kansas City and the land flattens until the sky is the only horizon. Somewhere under your wheels, six hundred feet down, the Ogallala Aquifer holds water that fell as rain when mammoths walked this grass. For sixty years, centre-pivot irrigation has drawn that water up through wells to grow corn — corn for cattle feed, corn for ethanol, corn for high-fructose syrup, corn for export.</p>
+        
+        
+    </section>
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 2900, "elevation_min": -100, "terrain": [[0.0, 2610], [1.7, 1618], [2.3, 1655], [4.3, 1509], [6.2, 1577], [9.7, 1440], [10.2, 1493], [12.6, 1352], [14.3, 1480], [25.8, 918], [27.5, 982], [35.3, 705], [36.9, 739], [38.8, 640], [39.7, 694], [43.6, 528], [44.6, 579], [47.1, 488], [47.6, 551], [50.0, 424], [50.3, 456], [54.3, 379], [55.4, 427], [57.9, 327], [59.1, 443], [61.4, 309], [61.8, 396], [62.5, 312], [64.2, 358], [64.5, 307], [64.9, 365], [66.4, 274], [67.9, 352], [69.5, 249], [70.7, 302], [71.2, 235], [71.6, 326], [72.9, 239], [73.2, 321], [73.7, 240], [74.6, 300], [75.3, 245], [75.9, 314], [78.9, 207], [79.9, 254], [80.3, 219], [81.8, 263], [83.0, 198], [84.9, 276], [86.3, 194], [86.6, 266], [87.4, 166], [89.2, 265], [89.7, 177], [89.8, 246], [90.8, 157], [92.0, 242], [92.5, 155], [93.8, 270], [95.3, 154], [96.0, 206], [97.6, 142], [98.8, 260], [99.2, 126], [100.0, 185]], "countries": [[0, 100, "United States"]], "water": [{"type": "river", "x_pct": [97.2, 100], "elev": [126, 126], "label": "Mississippi"}], "resources": [{"type": "energy", "x_pct": 100, "elev": 56, "label": "Oil"}, {"type": "agricultural_biome", "x_pct": 100, "elev": 0, "label": "Soy"}], "biomes": [[0, 1, "Boreal Forest", "boreal", "T2.1"], [1, 100, "Desert & Xeric", "desert", "T5.1"]], "labels": [{"x_pct": 0, "elev": 2810, "text": "Front Range 2,610m"}, {"x_pct": 29, "elev": 1114, "text": "High Plains 1,200m"}, {"x_pct": 38, "elev": 828, "text": "Ogallala Aquifer 678m"}, {"x_pct": 56, "elev": 602, "text": "Flint Hills 402m"}, {"x_pct": 100, "elev": 335, "text": "Mississippi River 185m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+    <div class="prayer-section metrics-context">
+        
+        <div class="since-last-week">
+            <span class="slw-label">Ecosystem:</span>
+            
+            <span class="stress-tag stress-moderate">moderate</span>
+            
+            Precipitation 252% of normal; temperatures +25.9°C above baseline.
+        </div>
+        
+        
+        <div class="metrics-strip">
+            
+            <div class="metric-pill network-water">
+                <span class="metric-pill-value">24.5</span>
+                <span class="metric-pill-label">Water Stress (%)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-soil">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Food Insecure (IPC 3+) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-mineral">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Conflict Fatalities (3mo) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-people">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Displaced Persons (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-atmospheric">
+                <span class="metric-pill-value">38.9</span>
+                <span class="metric-pill-label">Max Temperature (°C)</span>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
+    
+    
+    
+
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>Before dawn in Garden City, Kansas, a Guatemalan woman drives to the Tyson meatpacking plant where she has worked the kill floor for three years. Her hands are numb most mornings — carpal tunnel from the repetitive cutting at line speeds that OSHA has tried and failed to regulate downward. She earns ~$20-21 an hour (average pay at Tyson/JBS plants as of 2025, up 46% since 2019 after strikes and wage negotiations). The beef she processes will sell for $14 a pound in a Brooklyn grocery store. She sends $400 a month to her mother in Huehuetenango, minus the 6% Western Union fee. The town needs her and resents her in equal measure.</p>
+                
+                
+                
+                <p>Two hundred miles north, outside Ogallala, Nebraska — the town that gave the aquifer its name — a fourth-generation farmer watches the well monitor on his phone. The static water level has dropped eleven feet since his father started irrigating in the 1970s. He grows corn because the USDA subsidy structure and the ethanol mandate make corn the only crop that pencils out. He knows the aquifer is finite. He also knows that switching to dryland wheat would halve his income and make the bank note on his equipment unpayable. He plants corn again.</p>
+                
+                
+                
+                <p>On Pine Ridge Reservation, an Oglala Lakota grandmother drives forty-five minutes to the nearest grocery store in Chadron, Nebraska. The store on the reservation closed years ago. Her grandchildren eat commodity food — government-surplus cheese, canned meat, white flour — because fresh produce does not survive the supply chain to a place the supply chain was not built to reach. The buffalo that once fed her people by the millions are returning in small herds managed by the tribe and by the InterTribal Buffalo Council, grazing land that has not seen a plough. The herd is 800 head. It is not enough to feed the reservation. It is enough to remember what the grass was for.</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Two hundred miles north, outside Ogallala, Nebraska — the town that gave the aquifer its name — a fourth-generation farmer watches the well monitor on his phone. The static water level has dropped eleven feet since his father started irrigating in the 1970s. He grows corn because the USDA subsidy structure and the ethanol mandate make corn the only crop that pencils out. He knows the aquifer is finite. He also knows that switching to dryland wheat would halve his income and make the bank note on his equipment unpayable. He plants corn again.</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+    <div class="bioregion-map-container">
+        <img src="../../../static/img/bioregions/great_plains_mississippi.png" alt="Map of Great Plains–Mississippi" class="bioregion-map" loading="lazy">
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on Great Plains–Mississippi</p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p><strong>Pine Ridge Reservation, South Dakota</strong> — The Oglala Lakota live on 3,500 square miles of land that was never ceded — it was guaranteed by the Fort Laramie Treaty of 1868 and then taken anyway. Life expectancy here is 64 for men, 67 for women — twenty years below the national average. The nearest full-service hospital is in Rapid City, an hour and a half by car if you have a car. The Indian Health Service clinic on the reservation is chronically underfunded, chronically understaffed, and the subject of a 2024 Government Accountability Office report documenting wait times of weeks for urgent care. Adolescent suicide rates are five times the national average. The Pine Ridge grocery store closed; the nearest supermarket is in Chadron, Nebraska, 45 minutes away. Children grow up on commodity food — canned, processed, designed for shelf life, not for growing bodies. Diabetes prevalence is eight times the national average. This is not a developing country. This is the wealthiest nation on earth, ninety minutes from Mount Rushmore, where four million tourists a year photograph presidential faces carved into a mountain the Lakota call the Six Grandfathers.</p>
+                
+                
+                
+                <p><strong>Garden City, Kansas</strong> — The Tyson and National Beef plants here employ over 5,000 workers between them, the majority immigrants from Guatemala, Somalia, Myanmar, and Mexico. Line speeds run at 250 to 300 head per hour. Workers make the same cutting motion thousands of times per shift. Carpal tunnel surgery is so common that local clinics run dedicated programmes. Workers who report injuries risk losing shifts; undocumented workers who report injuries risk losing everything. During the 2020 COVID-19 outbreak, the Garden City plant became one of the deadliest workplaces in America — the governor declared it essential, the workers kept cutting, and the virus moved through the floor because the line does not stop. The beef they process reaches consumers who will never learn the name of the town where it was cut.</p>
+                
+                
+                
+                <p><strong>Western Kansas and the Texas Panhandle</strong> — Drive through Sublette or Satanta or Hugoton and you will see the circles shrinking. Centre-pivot irrigators that once reached a quarter-mile radius now reach less as the well pressure drops. Farmers who irrigated 1,000 acres in the 1990s irrigate 600 today. Their sons have moved to Wichita or Denver. The school in Sublette consolidated with the next town over. The hospital in Satanta closed. The aquifer level drops another foot each year, and each foot represents water that fell as rain before the last ice age. Kansas State University researchers estimate that at current rates, 70% of groundwater-irrigated farmland in southwest Kansas will have insufficient water for irrigation by 2060. The farmers know this. They pump anyway, because the bank note comes due this year and the aquifer does not send invoices.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">The Ogallala Aquifer underlies eight states and supports $20 billion in annual agricultural production. It is fossil water — rain that fell during the Pleistocene, held in porous sandstone, recharging at less than one inch per year in most areas while wells draw it down by one to three feet annually. In the Texas Panhandle and western Kansas, the aquifer has lost more than 30% of its predevelopment volume. When it is gone, the land returns to dryland farming or abandonment. There is no replacement, no alternative source, no infrastructure project that can substitute for what took geological time to create.</div>
+                
+                <div class="key-pattern">The Mississippi dead zone is the downstream signature of the Great Plains agricultural model. Every bushel of corn requires nitrogen; the nitrogen that does not enter the plant enters the water. The Missouri and Mississippi carry 1.7 million tonnes of nitrogen to the Gulf each year, feeding an algal bloom that consumes all oxygen below the surface. The dead zone reached 6,334 square miles in 2021 — larger than Connecticut. Louisiana shrimpers who once worked those waters have seen their catch and their income decline for twenty years. The person who eats the corn never sees the dead shrimp.</div>
+                
+                <div class="key-pattern">Meatpacking plants in Garden City, Dodge City, Liberal, Lexington, and Storm Lake are staffed overwhelmingly by immigrant workers — Guatemalan, Somali, Burmese, Mexican — doing work at line speeds that produce repetitive stress injuries, amputations, and chemical exposures at rates that dwarf any other American industry. During COVID-19, these plants became the deadliest workplaces in the country while being declared critical infrastructure that could not close. The communities that depend on this labour force simultaneously benefit from it economically and vote for policies that criminalise it. The workers have no political voice proportional to their economic necessity.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">Ogallala depletion -&gt; irrigated farmland converts to dryland -&gt; yields drop 40-60% -&gt; farm debt becomes unpayable -&gt; rural depopulation accelerates -&gt; schools and hospitals close -&gt; remaining communities lose services that made staying possible (KS, TX Panhandle, NE — USGS reports 30% depletion in southern sections since predevelopment; Kansas Geological Survey projects functional exhaustion in western Kansas within 25 years)</p>
+                
+                <p class="cascade-chain">Industrial corn-soy monoculture -&gt; nitrogen and phosphorus runoff -&gt; Mississippi River carries 1.7 million tonnes of nitrogen annually -&gt; Gulf of Mexico hypoxic zone reaches 6,000+ square miles -&gt; shrimp fishery collapse -&gt; Gulf Coast fishing communities lose livelihoods (NOAA 2024 dead zone measurement; EPA nutrient loading reports; Louisiana shrimpers reporting 40% income decline over two decades)</p>
+                
+                <p class="cascade-chain">USDA subsidy structure rewards acreage over stewardship -&gt; farmers locked into corn-soy rotation -&gt; Ogallala pumping continues past sustainable yield -&gt; soil carbon released by tillage -&gt; prairie root systems that stored more carbon than the Amazon destroyed -&gt; atmospheric carbon increases while soil fertility declines (Sanderman et al. 2017 estimate 133 Gt carbon released from 12,000 years of land conversion; Great Plains tallgrass prairie reduced to 4% of original extent)</p>
+                
+            </div>
+            
+
+            
+            
+            <div class="mcgowan-actors" style="margin-top: 12px;">
+                <h3>Who Sustains This</h3>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Cargill (US grain trading + feedlot beef)</strong> &middot; Privately-held global grain trading (corn, soy, wheat) — world&#39;s largest private agribusiness, no SEC disclosure obligations; Cargill Protein (cattle feedlots, beef packing — High River AB, Dodge City KS, Friona TX, Schuyler NE); Iowa Falls and Eddyville biorefineries (ethanol and corn-derived sweeteners); Cargill Salt, Cargill Cocoa &amp; Chocolate, Cargill Animal Nutrition cross-subsidies</p>
+                    <p class="actor-detail">Driven by: We must feed a growing world responsibly through sustainable supply chains</p>
+                    <p class="actor-detail">The trap: Each regenerative-agriculture pilot, water-stewardship commitment, and farmer-support programme operates inside a procurement architecture whose price-setting power makes the scale and chemical intensity of corn-soy monoculture the only solvent farming model for the member growers Cargill buys from. The privately-held structure is itself structurally load-bearing: it lets Cargill claim stewardship leadership without the disclosure regime that would let the public weigh those claims against the throughput they ride on. The Ogallala is being mined to fund the same supply chain whose stewardship narrative would have the depletion reversed.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Tyson Foods (US vertical-integration poultry, beef, pork)</strong> &middot; Vertical poultry operations — contract growers (~5,000 farms) raise birds Tyson owns from hatchery to processing; Beef packing (largest US beef processor by volume — Dakota City NE, Amarillo TX, Garden City KS, Lexington NE); Pork operations (post-2014 Hillshire acquisition — Storm Lake IA, Madison NE, Logansport IN); Branded value-added (Jimmy Dean, Hillshire Farm, Ball Park, Sara Lee Frozen Bakery)</p>
+                    <p class="actor-detail">Driven by: We must feed America with safe, affordable, responsibly raised protein</p>
+                    <p class="actor-detail">The trap: The contract-grower model converts independent farmers into capital-trapped operators of company-specification chicken houses they cannot exit without bankruptcy. The &#39;family farmer in the heartland&#39; the brand celebrates is the same operator whose mortgage and chicken-house debt are calibrated to Tyson&#39;s price-per-pound. The migrant workforce that runs the line at packing plants is the same workforce whose presence the political coalition Tyson&#39;s lobbying funds organises against. The affordable-protein narrative makes both contradictions structurally necessary and politically illegible.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Bayer Crop Science / Monsanto legacy (US operations)</strong> &middot; Roundup (glyphosate) global revenue and Liberty/glufosinate complement; Genuity trait-stack seed sales (Roundup Ready, VT Double PRO, Bollgard) — US corn-soy-cotton dominance; Climate FieldView digital-agriculture platform subscriptions; Dicamba (XtendiMax, RoundupReady 2 Xtend) and 2,4-D (Enlist) chemistry sales</p>
+                    <p class="actor-detail">Driven by: We must innovate to feed the world sustainably through better seeds and crop protection</p>
+                    <p class="actor-detail">The trap: Each new trait stack and digital-agriculture platform deepens the input-debt dependency of the farms it claims to liberate from yield risk. The Roundup litigation reserves carry the externality the seed-chemical economy could not internalise; Carbon Initiative payments operate inside the same farm-debt structure that requires continued chemical-rotational throughput to service input loans. The &#39;feed the world&#39; framing presupposes the demand structure that produces the Gulf dead zone, the dicamba-drift conflicts between neighbouring farms, and the herbicide-resistance arms race the chemistry is supposed to resolve.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>General Motors Company</strong> &middot; Detroit HQ + Michigan/Ohio/Indiana assembly footprint (Flint, Lake Orion, Lansing, Spring Hill, Lordstown legacy); Ultium battery joint ventures (LG Energy Solution; cells at Lordstown OH, Spring Hill TN, Lansing MI); GM Defense (military vehicle platforms — ISV, eLRV); Cruise autonomous-vehicle subsidiary + Software-Defined Vehicle platform investments</p>
+                    <p class="actor-detail">Driven by: We must lead America&#39;s transition to all-electric vehicles while honouring our workers and communities</p>
+                    <p class="actor-detail">The trap: The EV transition&#39;s material demand — Ring of Fire nickel-cobalt, Bolivian and Australian lithium, scope-3 emissions of supplier networks — relocates the extractive footprint that defined the combustion-era auto belt outward toward the Anishinaabe and Cree treaty lands of northern Ontario and Manitoba. Flint, where GM&#39;s plant closures and the water-source switch produced the lead-pipe crisis, remains the symbolic location of what GM&#39;s transition promises to undo and what its supply chain quietly reproduces a thousand kilometres north. The just-transition rhetoric is real; the supply chain is real; they are not the same project.</p>
+                </div>
+                
+            </div>
+            
+
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Two resource streams flow out of the Great Plains — fossil fuel and industrial grain — worth hundreds of billions at their destination. What does not come back is the water, drawn from an aquifer that recharges at a fraction of the rate it is pumped; the topsoil, washed into the Mississippi at rates that exceed formation by a factor of ten; and the health of the workers whose bodies are the last unautomated step in the meatpacking line. shale oil and natural gas, corn, soybeans, and dairy products leaving.</p>
+        </blockquote>
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>The Ogallala Aquifer is ancient rain held in stone. For millions of years it simply waited, and the grass above it grew and died and grew again in a rhythm that needed nothing from anyone. The rhythm now is ours — planting and pumping and harvesting on a schedule that treats a million years of accumulation as a single season&#39;s input. The water does not refuse. It simply goes. What remains when it is gone is the question the prairie has always known how to answer, if anyone is still there to ask it.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <p class="curated-note">Last updated on 2026-07-20.</p>
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the gifts of this place...</div>
+                <p class="intercession-text">For the gifts of this open country — for the last of the tallgrass prairie, for soil that feeds much of the world, for the great rivers and the vast quiet of the plains. That plenty may not become forgetfulness.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For what our comfort costs...</div>
+                <p class="intercession-text">For the abundance grown here and sent everywhere — and for the ancient Ogallala water pumped dry to grow it, a gift from the deep past spent in a single lifetime. Teach us to trace the loaf and the steak back to the aquifer and the hands that raised them.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who do the killing-floor work...</div>
+                <p class="intercession-text">For the immigrant and refugee workers who stand the meatpacking lines in the small towns of the plains — Sudanese, Guatemalan, Burmese — doing the fast, cold, dangerous work the country would rather not see, and holding those towns together. For their safety and their dignity.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the reservations...</div>
+                <p class="intercession-text">For the Lakota of Pine Ridge and Rosebud and the other nations of this land, whose reservations hold some of the deepest poverty in the country amid all this plenty. For treaties kept, for the young who are choosing to stay, and for what was promised the seventh generation.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For holding both...</div>
+                <p class="intercession-text">For honesty about a breadbasket that does not feed all its own; and for love that reaches from the full table toward the empty one down the road.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section psalm-section">
+        <div class="psalm-header">
+            <span class="psalm-number rubric">Psalm 117</span>
+            
+            <span class="psalm-title">Psalm 117 (Hallel — Shortest Psalm)</span>
+            
+        </div>
+        
+        <blockquote class="psalm-verses congregation">O praise the Lord, all you nations;
+praise him, all you peoples.
+For great is his steadfast love towards us,
+and the faithfulness of the Lord endures for ever. Alleluia.
+</blockquote>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section">
+        <div class="collect-block">
+            
+            <div class="collect-theme rubric">Collect: goodness</div>
+            
+            <p class="collect-text">Lord of all power and might, the author and giver of all good things: graft in our hearts the love of your name, increase in us true religion, nourish us with all goodness, and of your great mercy keep us in the same; through Jesus Christ your Son our Lord, who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p><p class="congregation" style="margin-top: 8px;">Amen.</p>
+        </div>
+    </section>
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>On the Cheyenne River and Pine Ridge reservations, the InterTribal Buffalo Council coordinates the return of bison to tribal lands — over 20,000 animals across 86 member tribes (as of 2025), grazing prairie that industrial agriculture never reached. The buffalo do what no government programme has managed. They restore the grass. They aerate the soil. They bring back the prairie dog towns and the black-footed ferrets and the burrowing owls.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">What would it mean to accept this contradiction—that your comfort and their suffering exist in the same global system—rather than trying to resolve it from the outside?</p>
+        
+        <p class="reflection-question">How might sitting with this discomfort change how you pray?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>The structural trajectory is toward irreversibility.</li>
+                
+                <li>The Ogallala&#39;s southern sections are past the point of practical recovery — the water that remains will last years, not generations, at current pumping rates.</li>
+                
+                <li>As irrigated land converts to dryland, the economic model that sustains Great Plains communities collapses inward, taking with it the tax base for schools, hospitals, and emergency services.</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item">The beef you buy was very likely processed in a Great Plains meatpacking plant — Tyson, JBS, Cargill, and National Beef control over 80% of the US market. The workers who cut it are overwhelmingly immigrants working at line speeds that produce the highest injury rates in American manufacturing. The USDA's Food Safety and Inspection Service sets line speed regulations; the Government Accountability Office has documented the gap between permitted speeds and worker safety. Your congressional representative votes on the Farm Bill that governs both the subsidy structure and the regulatory framework. The next Farm Bill reauthorisation is a concrete legislative moment.</div>
+            
+            
+            
+            <div class="carry-this-item">The Gulf of Mexico dead zone is a direct consequence of corn belt fertiliser use — 1.7 million tonnes of nitrogen carried downstream annually. The EPA's Mississippi River/Gulf of Mexico Hypoxia Task Force has set voluntary nutrient reduction targets since 2001; twenty-five years later, the dead zone has not shrunk. The task force's reports are public. Louisiana's shrimp industry has lost an estimated 40% of its economic value over two decades. If you eat corn-fed beef or use ethanol fuel, the dead zone is downstream of your consumption.</div>
+            
+            
+            
+            <div class="carry-this-item">The InterTribal Buffalo Council (itbc.com) coordinates bison restoration across 82 tribes and 20,000+ animals. Their work restores prairie ecology, rebuilds tribal food sovereignty, and demonstrates an alternative relationship to the land that industrial agriculture replaced. They accept support and publish annual reports on herd health and grassland recovery. Pine Ridge's Tanka Bar — bison meat and cranberry, produced on the reservation — is available for purchase and represents one of the few reservation-based food enterprises reaching a national market.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://ogallalacommons.org/" target="_blank" rel="noopener" class="action-org-name">Ogallala Commons</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Community-based organization across the Texas and Oklahoma panhandles working on sustainable agriculture, local food systems, and aquifer stewardship with ranchers and farmers facing Ogallala depletion.</p>
+            
+            <p class="action-org-connection">Works directly with the farming communities the briefing identifies as dependent on Ogallala fossil water — supporting the transition from centre-pivot irrigation to dryland practices as aquifer levels drop irreversibly in western Kansas and the Texas Panhandle.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://itbcbuffalonation.org/" target="_blank" rel="noopener" class="action-org-name">InterTribal Buffalo Council</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Coalition of 82 tribal nations restoring bison herds to reservation lands across the Great Plains, rebuilding the grassland ecology and food sovereignty that industrial agriculture displaced.</p>
+            
+            <p class="action-org-connection">Directly enacts the bison restoration the briefing names as the counter-model to industrial corn-soy monoculture — Lakota, Cheyenne, and Osage nations rebuilding the grassland ecology that stored more carbon than the Amazon before the plough.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.iowacci.org/" target="_blank" rel="noopener" class="action-org-name">Iowa Citizens for Community Improvement</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Grassroots organization campaigning against industrial agriculture pollution, factory farm expansion, and corporate consolidation. Advocates for water quality and family farm protections in Iowa.</p>
+            
+            <p class="action-org-connection">Confronts the industrial corn-soy system the briefing describes — factory farm runoff carrying nitrogen and phosphorus into the Mississippi, where it flows to the Gulf dead zone that kills the shrimp fishery.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.foodandwaterwatch.org/" target="_blank" rel="noopener" class="action-org-name">Food &amp; Water Watch</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">National organization investigating corporate consolidation in agriculture and water privatization. Documents how commodity subsidies and input costs squeeze family farms while rewarding industrial scale.</p>
+            
+            <p class="action-org-connection">Investigates the subsidy structures and corporate consolidation the briefing identifies as driving the Great Plains&#39; conversion from diverse farming to industrial monoculture — the economic forces behind Ogallala depletion and rural depopulation.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.epa.gov/ms-htf" target="_blank" rel="noopener" class="action-org-name">Gulf Hypoxia Task Force (EPA/USDA)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Federal interagency body tracking nutrient loading from 31 states into the Mississippi and the resulting Gulf of Mexico dead zone. Publishes annual hypoxia reports and state nutrient reduction strategies.</p>
+            
+            <p class="action-org-connection">Monitors the fertiliser runoff pathway the briefing traces — from corn-soy fields across the Great Plains through the Mississippi drainage to the New Jersey-sized Gulf dead zone that destroys the shrimp fishery downstream.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.migrantclinicians.org/" target="_blank" rel="noopener" class="action-org-name">Migrant Clinicians Network</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Provides healthcare access and advocacy for migrant and seasonal farmworkers across the Great Plains and Mississippi region, documenting pesticide exposure, heat illness, and barriers to care.</p>
+            
+            <p class="action-org-connection">Serves the migrant agricultural labor force the briefing identifies as essential to the industrial corn-soy-feedlot system — workers whose health costs are externalized while the commodity system depends on their labor for planting and harvest.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(9 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="provenance-authorship">Narrative prose on this page was synthesized by an AI model (Claude) from the sources listed here on 2026-07-24. Metrics are computed directly from the data sources.</p>
+            
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>USGS, Ogallala (High Plains) Aquifer Water Level Changes, 2024. https://www.usgs.gov/mission-areas/water-resources</li>
+                
+                <li>USDA Economic Research Service, Feed Grains Database, 2024. https://www.ers.usda.gov <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>EPA, Environmental Justice Assessment: Great Plains Region, 2024</li>
+                
+                <li>NASA, GRACE Groundwater Depletion Data, 2024. https://grace.jpl.nasa.gov</li>
+                
+                <li>NOAA, Great Plains Drought Monitor, 2024. https://droughtmonitor.unl.edu</li>
+                
+                <li>Sanderman, J. et al., Soil carbon debt of 12,000 years of human land use, PNAS 114(36), 2017. https://doi.org/10.1073/pnas.1706103114</li>
+                
+                <li>Kansas Geological Survey, High Plains Aquifer Section-Level Database, 2024. https://www.kgs.ku.edu</li>
+                
+                <li>NOAA, Gulf of Mexico Hypoxia Watch (Dead Zone Monitoring), 2024. https://www.ncddc.noaa.gov</li>
+                
+                <li>FAO, Global Soil Partnership Soil Carbon Assessment, 2022. https://www.fao.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated 2026-07-24 &middot; narrative prose AI-synthesized</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

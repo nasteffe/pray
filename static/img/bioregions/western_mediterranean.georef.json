@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "western_mediterranean",
+  "projection": "equirectangular",
+  "bbox": [
+    -10.0,
+    30.0,
+    34.0,
+    46.0
+  ],
+  "width": 1900,
+  "height": 763,
+  "lon_to_x": [
+    46.5,
+    485.0
+  ],
+  "lat_to_y": [
+    -60.309817,
+    2793.53377
+  ]
+}

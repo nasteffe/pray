@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title>Hindu Kush — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/hindu_kush/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country">Hindu Kush</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1>Hindu Kush<span class="bio-population">42M people</span></h1>
+        <div class="bio-countries-line">Afghanistan</div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+
+    
+
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 4 months ago</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 8900, "elevation_min": -100, "terrain": [[0.0, 439], [2.2, 597], [3.3, 1606], [5.8, 625], [7.6, 980], [8.4, 748], [9.4, 1424], [9.9, 962], [11.6, 1520], [13.3, 407], [14.1, 994], [14.4, 726], [15.9, 1314], [16.1, 1098], [16.4, 1252], [17.0, 1182], [18.1, 1709], [18.3, 1447], [19.0, 1936], [20.3, 1115], [20.8, 1719], [21.0, 1101], [21.9, 1880], [22.9, 1509], [23.2, 2321], [25.1, 1308], [27.6, 3127], [29.7, 1655], [33.5, 4123], [35.3, 2794], [36.4, 3617], [37.2, 3197], [38.1, 3995], [39.3, 3167], [40.0, 4681], [41.0, 3948], [41.4, 4861], [41.6, 4352], [42.5, 5041], [43.0, 4485], [43.7, 4848], [44.6, 3743], [46.7, 5115], [47.7, 4469], [48.3, 4792], [49.2, 4083], [50.2, 5005], [52.0, 3652], [53.1, 4647], [53.7, 4261], [54.1, 4923], [55.2, 4107], [56.2, 4690], [57.8, 3758], [60.0, 5954], [60.8, 5581], [63.7, 7707], [70.2, 4366], [71.2, 2603], [71.4, 3278], [71.9, 2448], [73.1, 2842], [76.0, 4927], [76.4, 3370], [76.8, 4696], [78.5, 3701], [80.4, 5050], [81.8, 4013], [83.8, 5387], [85.6, 4377], [86.1, 5171], [86.5, 4481], [88.2, 5162], [88.7, 4478], [94.7, 8126], [100.0, 8611]], "countries": [[0, 100, "Afghanistan"]], "water": [{"type": "river", "x_pct": [11.3, 15.3], "elev": [407, 407], "label": "Indus"}, {"type": "glacier", "x_pct": [61.8, 65.8], "elev": [3500, 7708], "label": "Glacier"}, {"type": "glacier", "x_pct": [93.6, 97.6], "elev": [3500, 8126], "label": "Glacier"}, {"type": "glacier", "x_pct": [98.0, 100], "elev": [3500, 8611], "label": "Glacier"}], "resources": [{"type": "mineral", "x_pct": 17, "elev": 392, "label": "Li"}, {"type": "mineral", "x_pct": 67, "elev": 5757, "label": "Lapis Lazuli"}, {"type": "agricultural_biome", "x_pct": 17, "elev": 0, "label": "Opium"}], "biomes": [[0, 83, "Desert & Xeric", "desert", "T5.1"], [83, 93, "Tundra", "tundra", "T6.1"], [93, 95, "Desert & Xeric", "desert", "T5.1"], [95, 100, "Tundra", "tundra", "T6.1"]], "labels": [{"x_pct": 0, "elev": 589, "text": "Indus Plain 439m"}, {"x_pct": 17, "elev": 1457, "text": "Khyber Approach 1,307m"}, {"x_pct": 43, "elev": 4852, "text": "Hindu Kush 4,652m"}, {"x_pct": 64, "elev": 7908, "text": "Tirich Mir 7,708m"}, {"x_pct": 73, "elev": 3086, "text": "Wakhan Corridor 2,936m"}, {"x_pct": 95, "elev": 8326, "text": "Nanga Parbat 8,126m"}, {"x_pct": 100, "elev": 8811, "text": "K2 8,611m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+    <div class="prayer-section metrics-context">
+        
+        <div class="since-last-week">
+            <span class="slw-label">Ecosystem:</span>
+            
+            <span class="stress-tag stress-elevated">elevated</span>
+            
+            Precipitation 59% of normal; temperatures +16.8°C above baseline.
+        </div>
+        
+        
+        <div class="metrics-strip">
+            
+            <div class="metric-pill network-water">
+                <span class="metric-pill-value">54.8</span>
+                <span class="metric-pill-label">Water Stress (%)</span>
+                
+                <span class="metric-pill-change slw-up">exceeded</span>
+                
+            </div>
+            
+            <div class="metric-pill network-soil">
+                <span class="metric-pill-value">13.8M</span>
+                <span class="metric-pill-label">Food Insecure (IPC 3+) (persons)</span>
+                
+                <span class="metric-pill-change slw-up">exceeded</span>
+                
+            </div>
+            
+            <div class="metric-pill network-mineral">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Conflict Fatalities (3mo) (persons)</span>
+                
+                <span class="metric-pill-change slw-up">exceeded</span>
+                
+            </div>
+            
+            <div class="metric-pill network-people">
+                <span class="metric-pill-value">3.2M</span>
+                <span class="metric-pill-label">Displaced Persons (persons)</span>
+                
+                <span class="metric-pill-change slw-up">exceeded</span>
+                
+            </div>
+            
+            <div class="metric-pill network-atmospheric">
+                <span class="metric-pill-value">34.3</span>
+                <span class="metric-pill-label">Max Temperature (°C)</span>
+                
+                <span class="metric-pill-change slw-up">exceeded</span>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
+    
+    
+    
+
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>This Week</h2>
+        </div>
+        <div class="section-body">
+            
+            <div class="event-item">
+                <div class="event-date">Jul 23</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Afghanistan:</strong> 
+                        Kabul/Geneva, 23 July 2026 - Responding to the flash floods that began on 20 July and affected nine provinces across Afghanistan, with Nuristan the hardest-hit province, the International Organization for Migration (IOM) Spokesperson said: &#34;What...
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 23</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Afghanistan:</strong> 
+                        Heavy rainfall and flash floods have affected communities across several provinces in central, eastern and southeastern Afghanistan.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>Before dawn in the Helmand valley, a farmer's wife lights the tandoor and begins baking bread from the wheat her family grew last season on land irrigated by the Shamalan canal. The canal draws from the Helmand River, which draws from Hindu Kush snowmelt, which arrives later and ends sooner each year. Her husband is no longer in the poppy field — the Taliban's 2022 ban ended that. The Taliban collector still visits, now looking for alternative crops to tax. She knows what the poppy used to pay for. She also knows that without it, there was no flour for the tandoor in January, and the wheat alone does not cover the difference.
+In Faryab province, a woman sits cross-legged on a carpet loom, knotting wool that was sheared from a Kuchi herder's sheep last spring. The carpet will take four months to complete and sell for $200 to a trader in Mazar-i-Sharif who will export it for $2,000. She is one of thousands of women carpet-weavers whose work represents one of Afghanistan's few livelihoods not captured entirely by the armed group economy — though the trader's export license runs through Taliban customs. Her daughter, who is fifteen, sits beside her. The girl was in the sixth grade when the education ban came. She is learning the knots instead.
+In Kabul, a hawala broker receives a call from a cousin in Hamburg. The cousin sends €300 — enough for his mother's household to buy food and heating fuel for a month. The money moves through a trust network older than the banking system it replaced: no wire transfer, no SWIFT code, no account number. Since the fall of the Republic in 2021, formal banking channels have been severed by international sanctions, and the $3 billion a year in diaspora remittances that once sustained Afghan households now depends entirely on hawala brokers whose operations exist in a legal grey zone. The cousin in Hamburg works twelve-hour shifts in a warehouse. He has not seen his mother in five years.
+On the road between Jalalabad and Torkham, a truck carrying lapis lazuli from Badakhshan waits at the border crossing. The driver has paid three separate Taliban checkpoints to reach this point. Across the border, a Pakistani middleman in Peshawar will grade the stones and sell them to international buyers. The value of the cargo multiplies at each handover. The miners who cut the stone earn the least.</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Before dawn in the Helmand valley, a farmer&#39;s wife lights the tandoor and begins baking bread from the wheat her family grew last season on land irrigated by the Shamalan canal. The canal draws from the Helmand River, which draws from Hindu Kush snowmelt, which arrives later and ends sooner each year. Her husband is no longer in the poppy field — the Taliban&#39;s 2022 ban ended that. The Taliban collector still visits, now looking for alternative crops to tax. She knows what the poppy used to pay for. She also knows that without it, there was no flour for the tandoor in January, and the wheat alone does not cover the difference.
+In Faryab province, a woman sits cross-legged on a carpet loom, knotting wool that was sheared from a Kuchi herder&#39;s sheep last spring. The carpet will take four months to complete and sell for $200 to a trader in Mazar-i-Sharif who will export it for $2,000. She is one of thousands of women carpet-weavers whose work represents one of Afghanistan&#39;s few livelihoods not captured entirely by the armed group economy — though the trader&#39;s export license runs through Taliban customs. Her daughter, who is fifteen, sits beside her. The girl was in the sixth grade when the education ban came. She is learning the knots instead.
+In Kabul, a hawala broker receives a call from a cousin in Hamburg. The cousin sends €300 — enough for his mother&#39;s household to buy food and heating fuel for a month. The money moves through a trust network older than the banking system it replaced: no wire transfer, no SWIFT code, no account number. Since the fall of the Republic in 2021, formal banking channels have been severed by international sanctions, and the $3 billion a year in diaspora remittances that once sustained Afghan households now depends entirely on hawala brokers whose operations exist in a legal grey zone. The cousin in Hamburg works twelve-hour shifts in a warehouse. He has not seen his mother in five years.
+On the road between Jalalabad and Torkham, a truck carrying lapis lazuli from Badakhshan waits at the border crossing. The driver has paid three separate Taliban checkpoints to reach this point. Across the border, a Pakistani middleman in Peshawar will grade the stones and sell them to international buyers. The value of the cargo multiplies at each handover. The miners who cut the stone earn the least.</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+    <div class="bioregion-map-container">
+        <img src="../../../static/img/bioregions/hindu_kush.png" alt="Map of Hindu Kush" class="bioregion-map" loading="lazy">
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on Hindu Kush</p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p>Opium, lapis lazuli, lithium, rare earth elements leave the region — farming families locked into single cash crop, communities experiencing addiction and health collapse, women excluded from alternative livelihood pathways. 13.8 million cannot meet daily food needs. 3.2 million displaced from home.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">The opium economy was not a criminal sideshow — it was the economy. When farming families in Helmand planted poppy, they were making the only rational decision available: poppy yielded four times the revenue of wheat, tolerated drought better, and had a guaranteed buyer at the farm gate. The Taliban banned it in April 2022, enforced the ban with eradication teams, and collapsed cultivation 95% by 2023 (from 233,000 to 10,800 hectares, UNODC). Farmer income from opium fell by over $1 billion in 2023 alone. The Taliban collected an estimated $400–500M annually from opium before the ban (UNODC 2022); that revenue stream has also collapsed. No legal alternative provides comparable returns. The humanitarian consequences of eradication without alternatives — precisely what aid agencies warned would happen — are now arriving as deepened food insecurity in Helmand and Kandahar.</div>
+                
+                <div class="key-pattern">The qanat systems represent something no other infrastructure in Afghanistan does: technology that works without electricity, without fuel, without foreign parts, and without government. Built over three millennia by specialist engineers (muqannis) whose knowledge is transmitted within families, qanats tap mountain aquifers by gravity alone. Sixty percent are now non-functional — not because the technology failed, but because the communities that maintained them were displaced by conflict and drought. Each collapsed qanat is irreversible: the knowledge to rebuild it left with the muqanni who maintained it.</div>
+                
+                <div class="key-pattern">Afghanistan sits on an estimated $1–3 trillion in lithium, copper, and rare earth minerals — precisely the materials the global green transition requires for batteries and electronics. Chinese companies have begun preliminary agreements with the Taliban for extraction rights. No environmental impact framework exists. No labour protection exists. No community consultation mechanism exists. The communities most likely to be displaced by mining are pastoral Kuchi herders and highland farming villages — the same people already bearing the cost of glacial retreat. The green transition that promises to address the emissions causing that retreat may accelerate the displacement it produces.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">Glacial retreat → Snowmelt timing shift → Helmand canal shortfall → Poppy was the only cash crop viable under water stress → Taliban 2022 ban collapses opium cultivation 95% → Farming households lose cash income with no replacement → Deeper food insecurity → Abandoned qanats collapse permanently (AFG — 60% of qanat systems non-functional; 13.8M food insecure)</p>
+                
+                <p class="cascade-chain">Banking isolation → Remittance channels collapse → Hawala dependency → Households cannot access savings or credit → Taliban 2022 opium ban removes cash crop without providing alternative → Deepened food insecurity (AFG — $3B/year diaspora remittances now entirely through informal hawala; formal banking severed since 2021)</p>
+                
+                <p class="cascade-chain">Girls&#39; education ban → Female aid worker ban → Reduced humanitarian reach to women and children → Maternal and child health deterioration → Increased mortality in communities already food insecure (AFG — Taliban edicts exclude women from 80% of public life; agencies lose access to female beneficiaries)</p>
+                
+            </div>
+            
+
+            
+            
+            <div class="mcgowan-actors" style="margin-top: 12px;">
+                <h3>Who Sustains This</h3>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Taliban</strong> &middot; opium/heroin trade; mining revenue; taxation; seized state assets</p>
+                    <p class="actor-detail">Driven by: We must establish God&#39;s law and restore Afghan sovereignty</p>
+                    <p class="actor-detail">The trap: Seeking recognition while enforcing policies that ensure isolation. The Taliban desire international legitimacy and economic engagement, yet their exclusion of women from education and public life makes recognition impossible. The purity they insist upon produces the isolation they need to escape. Each ban deepens the contradiction.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>National Resistance Front</strong> &middot; Afghan diaspora; external donations</p>
+                    <p class="actor-detail">Driven by: We must continue the resistance that Massoud began</p>
+                    <p class="actor-detail">The trap: Resisting exclusion while representing only one ethnic-geographic base. The NRF claims to fight for an inclusive Afghanistan, but its base in Panjshir and predominantly Tajik composition mirror the very ethnic politics it opposes. A truly inclusive alternative cannot be built from a single valley.</p>
+                </div>
+                
+            </div>
+            
+
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Three resource streams flow out of the Hindu Kush — opium (now largely banned but partially rebounding in the northeast), lapis lazuli, and (soon) lithium. The opium ban removed the one income source farming families could rely on, without replacing it; the Taliban that enforces the ban still governs the girls out of school. The lapis lazuli is mined by children who will never attend one. The lithium is wanted by the same economies whose emissions are melting the glaciers that water the fields. Nothing that leaves comes back as education, as clean water, as a road to market for the saffron that could replace the poppy. 13.8M food insecure (current); 3.2M displaced (total); opium, lapis lazuli, lithium, rare earth elements leaving; precipitation 59% of normal.</p>
+        </blockquote>
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>The qanat does not know who dug it. It carries water because the slope is right and the tunnel is clear. Three thousand years of knowledge travel in that gradient — knowledge held not in books but in the hands of the muqanni who cleans the shaft each spring. When the muqanni is displaced, the water stops. No one plans this. No one reverses it. The tunnel fills with silence, and the village above it empties.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <p class="curated-note">Last updated on 2026-07-20.</p>
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the hungry...</div>
+                <p class="intercession-text">For the families of Afghanistan facing another winter of hunger as aid is cut and the economy stays broken — for the mother selling the last of the household, for the child sent out to work, for those who married a daughter away to feed the rest. That the world does not look away because the news has moved on.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the women and girls...</div>
+                <p class="intercession-text">For the women and girls shut out of school past childhood, barred from work and the public square, written out of the life of their own country. For their endurance, for the classes held in secret, and for the day this is undone.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the farmers of Helmand...</div>
+                <p class="intercession-text">For the farming families of the southern canal country, told to abandon the one crop that paid them with nothing to replace it, watching the water table fall as their wells chase it deeper into the ground.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the returned...</div>
+                <p class="intercession-text">For the millions pushed back across the borders from Pakistan and Iran into a country that cannot receive them, and for those shaken from their homes by earthquake after earthquake in the mountains. For shelter before the cold.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who stayed to serve...</div>
+                <p class="intercession-text">For the Afghan doctors and midwives and aid workers — many of them women, working under impossible restriction — who keep the clinics open. That they are allowed to work, and kept safe.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section psalm-section">
+        <div class="psalm-header">
+            <span class="psalm-number rubric">Psalm 107</span>
+            
+            <span class="psalm-title">Psalm 107 (Thanksgiving)</span>
+            
+        </div>
+        
+        <blockquote class="psalm-verses congregation">O give thanks to the Lord, for he is gracious,
+for his steadfast love endures for ever.
+Let the redeemed of the Lord say this,
+those he redeemed from the hand of the enemy,
+</blockquote>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section">
+        <div class="collect-block">
+            
+            <div class="collect-theme rubric">Collect: goodness</div>
+            
+            <p class="collect-text">Lord of all power and might, the author and giver of all good things: graft in our hearts the love of your name, increase in us true religion, nourish us with all goodness, and of your great mercy keep us in the same; through Jesus Christ your Son our Lord, who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p><p class="congregation" style="margin-top: 8px;">Amen.</p>
+        </div>
+    </section>
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>In Herat and Faryab, women carpet-weavers continue to produce and sell Afghan carpets — one of the few livelihoods that women can still practice under Taliban rule, generating household income through networks of female artisans that predate every government Afghanistan has had.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">When drought and flood arrive in the same year, what does that reveal about the systems we have built?</p>
+        
+        <p class="reflection-question">Whose hunger makes your abundance possible?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>The Afghanistan–Pakistan border conflict, which displaced 115,000 people in eastern provinces in the two weeks before this briefing, shows no sign of de-escalation.</li>
+                
+                <li>Spring snowmelt begins in March — the critical window when Helmand and Kabul River flows determine whether irrigation canals will fill or fall short.</li>
+                
+                <li>Early indicators suggest below-normal snowpack, which would compound the already-severe precipitation deficit (37% of normal).</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item">The qanat/kariz systems of Afghanistan are recognised by UNESCO as Intangible Cultural Heritage — three-thousand-year-old gravity-fed water tunnels maintained by specialist engineers (muqannis) whose knowledge is transmitted within families. Sixty percent are now non-functional due to displacement and conflict. The International Centre on Qanats and Historic Hydraulic Structures (ICQHS, icqhs.org) documents preservation efforts. Supporting qanat restoration means supporting the most sustainable, locally governed water infrastructure in Central Asia — technology that works without electricity, fuel, or foreign parts.</div>
+            
+            
+            
+            <div class="carry-this-item">Afghan women carpet-weavers in Faryab, Herat, and Balkh provinces produce one of the country's few export products not controlled by armed groups. Fair-trade Afghan carpet importers exist in the UK, EU, and US — buying directly from women's cooperatives rather than through Taliban-taxed export channels. Turquoise Mountain (turquoisemountain.org), founded in Kabul, trains Afghan artisans and connects them to international markets. When you buy an Afghan carpet, ask where it came from and who wove it.</div>
+            
+            
+            
+            <div class="carry-this-item">The lithium beneath Afghanistan's mountains is wanted for the batteries in electric vehicles, phones, and laptops. No extraction framework — environmental, labour, or community — currently exists. The EU's Critical Raw Materials Act and the US Inflation Reduction Act both create demand for these minerals. Ask your device manufacturer: do your supply chain commitments extend to jurisdictions where no rule of law protects the communities at the extraction site? The question is not hypothetical. The surveying has begun.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.globalwitness.org/en/campaigns/conflict-minerals/afghanistan/" target="_blank" rel="noopener" class="action-org-name">Global Witness — Afghanistan</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Investigated lapis lazuli mining in Badakhshan and documented how Taliban-controlled operations generate $20M+/year in military revenue while child miners work without safety equipment.</p>
+            
+            <p class="action-org-connection">Directly investigates the Badakhshan lapis lazuli mines the briefing identifies — where mineral wealth funds Taliban military operations while extraction costs fall on child miners and communities who see none of the revenue.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.icimod.org/" target="_blank" rel="noopener" class="action-org-name">ICIMOD (International Centre for Integrated Mountain Development)</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Intergovernmental research centre monitoring Hindu Kush Himalaya glaciers, snowpack, and water systems. Publishes authoritative assessments of glacier retreat, peak water projections, and downstream water security for 2 billion people.</p>
+            
+            <p class="action-org-connection">Produces the glacier and snowmelt data the briefing draws on — documenting the approach of peak water, when Hindu Kush rivers will run higher briefly as stored ice melts and then decline permanently, threatening the qanat systems that took three millennia to build.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.afghanwomensnetwork.af/" target="_blank" rel="noopener" class="action-org-name">Afghan Women&#39;s Network</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Coalition of Afghan women&#39;s organizations working on education, livelihoods, and rights under Taliban governance. Supports women carpet-weavers, saffron farmers, and community health workers in provinces where women&#39;s economic participation is severely restricted.</p>
+            
+            <p class="action-org-connection">Supports the women carpet-weavers the briefing identifies in Faryab and Herat — one of the few livelihoods not entirely captured by armed group economies — and the broader struggle of women&#39;s economic participation under a governance system that restricts their movement and education.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.turquoisemountain.org/" target="_blank" rel="noopener" class="action-org-name">Turquoise Mountain</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Supports traditional Afghan crafts including carpet weaving, ceramics, and calligraphy, providing market access and fair-trade partnerships for artisans in Kabul, Herat, and Bamyan. Preserves cultural heritage under threat from conflict and isolation.</p>
+            
+            <p class="action-org-connection">Provides the market access the briefing identifies as critical — connecting carpet-weavers and artisans to international buyers outside the opium economy, offering livelihood alternatives in a context where banking isolation has severed diaspora remittance lifelines.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.akdn.org/where-we-work/south-asia/afghanistan" target="_blank" rel="noopener" class="action-org-name">Aga Khan Development Network — Afghanistan</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Operates in Afghanistan&#39;s most remote provinces including Badakhshan and Bamyan, supporting community infrastructure, agricultural development, and qanat/kariz system rehabilitation. Maintains presence under Taliban governance.</p>
+            
+            <p class="action-org-connection">Works on the qanat/kariz water systems the briefing identifies as 3,000-year-old gravity-fed infrastructure collapsing from neglect and conflict — when communities are displaced, the muqannis specialists are lost and the tunnels collapse permanently, each representing centuries of accumulated knowledge.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(12 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="provenance-authorship">Narrative prose on this page was synthesized by an AI model (Claude) from the sources listed here on 2026-07-24. Metrics are computed directly from the data sources.</p>
+            
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>UNESCO, The Persian Qanat (Intangible Cultural Heritage), 2024. https://ich.unesco.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>UNODC, Afghanistan Opium Survey, 2023. https://www.unodc.org/unodc/en/crop-monitoring/index.html</li>
+                
+                <li>Global Witness, War in the Treasury of the People: Afghanistan, Lapis Lazuli, and the Battle for Mineral Wealth, 2016 <span class="tier-badge tier-2" title="Tier 2 source">T2</span></li>
+                
+                <li>World Bank, Migration and Remittances Data: Afghanistan, 2024. https://www.worldbank.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>IPC, Afghanistan Acute Food Insecurity Analysis, 2024. https://www.ipcinfo.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>IPCC AR6, High Mountain Asia Chapter, 2021</li>
+                
+                <li>ACLED, Afghanistan Conflict Data, 2024. https://acleddata.com <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>UNHCR, Afghanistan Situation Update, 2023. https://data.unhcr.org/en/situations/afghanistan <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>ICIMOD, Hindu Kush Himalaya Assessment: Water, Ice, and Climate, 2023. https://www.icimod.org</li>
+                
+                <li>ILO, Afghanistan Employment and Livelihoods Assessment, 2022. https://www.ilo.org</li>
+                
+                <li>FAO AQUASTAT, Afghanistan Water Resources Profile, 2024. https://www.fao.org/aquastat <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>USGS, Mineral Resources of Afghanistan, 2024. https://pubs.usgs.gov</li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated 2026-07-24 &middot; narrative prose AI-synthesized</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

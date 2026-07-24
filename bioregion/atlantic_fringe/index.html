@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../static/manifest.json">
+    <title>Atlantic Fringe &mdash; Prayer</title>
+    <link rel="stylesheet" href="../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../bioregion/atlantic_fringe/full/index.html" class="prayer-view-toggle"
+               data-view-toggle="full">
+                full briefing
+            </a>
+            
+            
+<span class="header-country">Atlantic Fringe</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing" data-layout="simple">
+
+    
+    <div class="briefing-header">
+        <h1>Atlantic Fringe<span class="bio-population">141M people</span></h1>
+        <div class="bio-countries-line">United Kingdom, Ireland, France</div>
+    </div>
+
+
+    
+
+    
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 2 months ago</span>
+        
+    </p>
+    
+
+    
+
+    
+    
+    <section class="prayer-section ecosystem-card">
+        <h2 class="section-h2">Ecosystem</h2>
+        
+        <p class="ecosystem-keyline">Gulf Stream — the ocean current that makes Western Europe habitable is weakening</p>
+        
+        
+        <div class="since-last-week">
+            
+            <span class="stress-tag stress-elevated">elevated</span>
+            
+            Precipitation 32% of normal; temperatures +20.9°C above baseline.
+        </div>
+        
+        
+        <div class="prayer-opening ecosystem-opening">
+            
+            
+            <p>The North Sea is grey this morning off Grimsby, as it was grey yesterday, as it will be grey tomorrow. The trawlers that made this town are mostly gone — the fleet that once landed 50,000 tonnes of cod a year has been reduced to a handful of inshore boats, and the processing plants have become call centres or nothing at all.</p>
+            
+            
+        </div>
+        
+    </section>
+    
+
+    
+    
+    <div class="bioregion-map-container">
+        <div class="map-frame">
+            <img src="../../static/img/bioregions/atlantic_fringe.png" alt="Map of Atlantic Fringe" class="bioregion-map" loading="lazy">
+            
+            
+            <svg class="map-overlay" viewBox="0 0 1900 2504"
+                 preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+                
+                
+                
+                <g class="cities-layer">
+                    
+                    <g class="map-city">
+                        <circle cx="1688.2" cy="1980.6" r="9" class="map-city-dot"/>
+                        <text x="1703.2" y="1989.6" class="map-city-label">Paris</text>
+                    </g>
+                    
+                    <g class="map-city">
+                        <circle cx="1399.9" cy="1514.2" r="9" class="map-city-dot"/>
+                        <text x="1414.9" y="1523.2" class="map-city-label">London</text>
+                    </g>
+                    
+                </g>
+                
+                
+            </svg>
+            <script type="application/json" class="map-georef">{"bbox": [-12.0, 4.0, 46.0, 60.0], "bioregion_id": "atlantic_fringe", "height": 2504, "lat_to_y": [-176.0, 10580.0], "lon_to_x": [116.25, 1415.0], "projection": "equirectangular", "width": 1900}</script>
+            <script>
+            /* Place a feature on .map-overlay by geography. Usage:
+               var xy = mapLonLatToXY(georef, lon, lat); el.setAttribute('cx', xy[0]); */
+            window.mapLonLatToXY = window.mapLonLatToXY || function (g, lon, lat) {
+                var b = g.bbox;
+                if (b && b[1] > 180 && lon < b[0]) lon += 360;   // antimeridian-unwrapped bbox
+                return [g.lon_to_x[0] * lon + g.lon_to_x[1], g.lat_to_y[0] * lat + g.lat_to_y[1]];
+            };
+            </script>
+            
+            
+        </div>
+        
+        
+        <div class="map-layer-toggles">
+            
+            
+            
+            <button type="button" class="map-layer-toggle" aria-pressed="false" aria-label="Toggle major cities"
+                    onclick="(function(b){var f=b.closest('.bioregion-map-container').querySelector('.map-frame');var on=f.classList.toggle('cities-on');b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on));})(this)">Cities</button>
+            
+        </div>
+        
+        
+        <button type="button"
+                class="map-topo-toggle"
+                aria-label="Show topographic profile"
+                aria-expanded="false"
+                aria-controls="topo-section"
+                onclick="(function(b){var t=document.getElementById('topo-section');var open=t.classList.toggle('collapsed')===false;b.classList.toggle('expanded',open);b.setAttribute('aria-expanded',String(open));b.setAttribute('aria-label',open?'Hide topographic profile':'Show topographic profile');})(this)">
+            <span class="map-topo-toggle-icon" aria-hidden="true"></span>
+        </button>
+        
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    <div id="topo-section" class="prayer-section section-collapsible collapsed topo-section-rollup">
+        <div class="section-body">
+            
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 800, "elevation_min": -200, "terrain": [[0.0, 90], [3.3, 0], [17.4, 0], [17.6, 28], [17.7, 0], [26.6, 0], [26.8, 19], [27.1, -1], [27.8, 48], [28.1, -3], [28.7, 152], [29.4, 0], [30.6, 67], [30.7, 0], [30.9, 54], [31.0, 0], [31.6, 48], [31.9, 0], [58.0, 0], [58.1, 61], [58.9, 0], [61.4, 161], [62.7, 13], [64.0, 216], [65.3, 6], [67.1, 515], [67.5, 9], [70.9, 411], [74.2, 0], [79.9, 0], [80.4, 84], [81.4, 0], [81.5, 109], [81.6, 0], [85.5, 0], [86.6, 85], [87.1, 0], [88.1, 132], [89.2, 45], [93.0, 191], [95.0, 38], [96.6, 204], [100.0, 84]], "countries": [[0, 58, "France"], [58, 80, "Ireland"], [80, 100, "United Kingdom"]], "water": [], "resources": [{"type": "agricultural_biome", "x_pct": 16, "elev": 0, "label": "Wine"}, {"type": "mineral", "x_pct": 20, "elev": 0, "label": "U"}, {"type": "agricultural_biome", "x_pct": 71, "elev": 0, "label": "Dairy"}, {"type": "energy", "x_pct": 90, "elev": 0, "label": "Oil"}], "biomes": [[0, 100, "Temperate Forest", "woodland", "T4.4"]], "labels": [{"x_pct": 0, "elev": 240, "text": "Aquitaine Basin 90m"}, {"x_pct": 19, "elev": 150, "text": "Brittany Coast 0m"}, {"x_pct": 33, "elev": 150, "text": "Atlantic Gulf Stream 0m"}, {"x_pct": 74, "elev": 150, "text": "Irish Midlands 0m"}, {"x_pct": 86, "elev": 169, "text": "Welsh Coast 19m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+        </div>
+    </div>
+    
+
+    
+    
+    <section class="prayer-section lives-section">
+        <h2 class="section-h2">Lives Lived Here</h2>
+        <blockquote class="extraction-coda">
+            
+            <p>Before dawn in County Cork, a dairy farmer walks to the parlour to begin the first milking. Her herd of 120 Friesians graze year-round on grass that grows because the Gulf Stream keeps this coast mild — the same latitude as Labrador, but green in January. The milk goes to the Glanbia tanker at the gate, then to the processing plant in Dungarvan, then as infant formula to China and as cheddar to the UK — a supply chain built on the assumption that Irish grass will always grow. The nitrogen she spreads to boost that grass runs into the Blackwater River, where salmon numbers have halved in twenty years. She knows this. The fertiliser bill and the fish kill are both real, and they come from the same field.</p>
+            
+        </blockquote>
+        
+        <p class="composite-note">A composite portrait drawn from humanitarian reporting — not a named individual.</p>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section what-presses-compact">
+        <h2 class="section-h2">What Presses</h2>
+        <p>illicit financial flows, oil and gas, dairy products leaving; precipitation 32% of normal.</p>
+    </section>
+    
+
+    
+    
+
+    
+    
+
+    
+    <section class="prayer-section prayer-spine">
+        <h2 class="section-h2">For Prayer</h2>
+
+        
+
+        
+        <p class="curated-note">Last updated on 2026-07-20.</p>
+        
+        
+        
+        <div class="intercession">
+            <div class="intercession-focus rubric">For the gifts of this place&hellip;</div>
+            <p class="intercession-text">For the gifts of these islands and this coast — for green fields and old harbours, for law and learning long in the making, for the grey sea&#39;s long bounty. That plenty may not become forgetfulness.</p>
+        </div>
+        
+        
+        
+        <div class="intercession">
+            <div class="intercession-focus rubric">For what our comfort costs elsewhere&hellip;</div>
+            <p class="intercession-text">For the wealth that moves through this place unseen — the money routed through our banks and our islands&#39; quiet arrangements, draining the treasuries of countries that can least afford the loss. Forgive the ease of not asking. Teach us to trace what we hold back to the people who bear its cost.</p>
+        </div>
+        
+        
+        
+        <div class="intercession">
+            <div class="intercession-focus rubric">For those who bear the cost here&hellip;</div>
+            <p class="intercession-text">For the emptied fishing towns like Grimsby, where the work went and the pride with it; and for the new poor of wealthy countries, queuing at food banks in the shadow of great fortunes. That prosperity remembers its own left behind.</p>
+        </div>
+        
+        
+        
+        <div class="intercession">
+            <div class="intercession-focus rubric">For quietness&hellip;</div>
+            <p class="intercession-text">This week, this place asks of us not alarm but attention. For the discipline to pray without inventing an emergency; for gratitude that does not curdle into complacency; and for love that looks outward from a safe place toward the places that are not safe.</p>
+        </div>
+        
+        
+    </section>
+    
+
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Psalm 117 (Hallel — Shortest Psalm)</h2>
+        </div>
+        <div class="section-body">
+            
+            <blockquote class="psalm-verses congregation">O praise the Lord, all you nations;
+praise him, all you peoples.
+For great is his steadfast love towards us,
+and the faithfulness of the Lord endures for ever. Alleluia.
+</blockquote>
+            
+        </div>
+    </div>
+    
+
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Collect &mdash; goodness</h2>
+        </div>
+        <div class="section-body">
+            <div class="collect-block">
+                <p class="collect-text">Lord of all power and might, the author and giver of all good things: graft in our hearts the love of your name, increase in us true religion, nourish us with all goodness, and of your great mercy keep us in the same; through Jesus Christ your Son our Lord, who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p>
+                <p class="congregation" style="margin-top: 8px;">Amen.</p>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed actions-registry">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Take Action</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+            
+            <div class="action-org">
+                <div class="action-org-header">
+                    <a href="https://platformlondon.org/" target="_blank" rel="noopener" class="action-org-name">Platform (UK)</a>
+                    <span class="action-type-tag action-type-investigation">investigation</span>
+                </div>
+                <p class="action-org-desc">Research and arts organization tracking North Sea oil and gas infrastructure, fossil fuel finance, and the political economy of the UK&#39;s energy transition. Documents the gap between net-zero commitments and ongoing licensing of new oil fields.</p>
+                
+                <p class="action-org-connection">Investigates the North Sea oil transition the briefing traces — where new field approvals (Rosebank, Cambo) contradict climate targets, while decommissioning costs and stranded asset risks are deferred onto public balance sheets and fishing communities lose access to grounds occupied by energy infrastructure.</p>
+                
+            </div>
+            
+            <div class="action-org">
+                <div class="action-org-header">
+                    <a href="https://www.clientearth.org/" target="_blank" rel="noopener" class="action-org-name">ClientEarth</a>
+                    <span class="action-type-tag action-type-advocacy">advocacy</span>
+                </div>
+                <p class="action-org-desc">Environmental law organization using litigation to enforce climate commitments and environmental regulations across Europe. Has brought cases against fossil fuel expansion, agricultural pollution, and fisheries mismanagement.</p>
+                
+                <p class="action-org-connection">Pursues legal accountability for the regulatory failures the briefing documents — challenging North Sea drilling permits, Common Fisheries Policy enforcement gaps, and agricultural runoff that creates dead zones in the North Sea and Baltic, connecting industrial policy to marine ecosystem collapse.</p>
+                
+            </div>
+            
+            <div class="action-org">
+                <div class="action-org-header">
+                    <a href="https://www.bloomassociation.org/en/" target="_blank" rel="noopener" class="action-org-name">BLOOM Association</a>
+                    <span class="action-type-tag action-type-advocacy">advocacy</span>
+                </div>
+                <p class="action-org-desc">French marine conservation organization campaigning against destructive fishing practices, particularly bottom trawling and electric pulse fishing in the North Sea and Northeast Atlantic. Produces economic analysis of small-scale vs. industrial fisheries.</p>
+                
+                <p class="action-org-connection">Directly addresses the fisheries crisis the briefing identifies — where industrial bottom trawling destroys North Sea and Atlantic seabeds while small-scale coastal fishing communities lose access and livelihoods, and EU subsidy structures reward the largest, most destructive fleets.</p>
+                
+            </div>
+            
+            <div class="action-org">
+                <div class="action-org-header">
+                    <a href="https://globalfishingwatch.org/" target="_blank" rel="noopener" class="action-org-name">Global Fishing Watch</a>
+                    <span class="action-type-tag action-type-investigation">investigation</span>
+                </div>
+                <p class="action-org-desc">Satellite-based monitoring platform tracking fishing vessel activity worldwide. Provides open data on fleet movements, transshipment at sea, and compliance with marine protected areas across the Northeast Atlantic.</p>
+                
+                <p class="action-org-connection">Makes visible the fishing pressure the briefing quantifies — tracking industrial trawler movements through North Sea spawning grounds, documenting dark fleet activity beyond national EEZ monitoring, and revealing the spatial overlap between wind farm exclusion zones and traditional fishing grounds.</p>
+                
+            </div>
+            
+            <div class="action-org">
+                <div class="action-org-header">
+                    <a href="https://our.fish/" target="_blank" rel="noopener" class="action-org-name">Our Fish</a>
+                    <span class="action-type-tag action-type-solidarity">solidarity</span>
+                </div>
+                <p class="action-org-desc">Campaign working to end overfishing in European waters by holding EU member states accountable to Common Fisheries Policy commitments. Amplifies the voices of small-scale fishers marginalized by industrial quota allocation.</p>
+                
+                <p class="action-org-connection">Supports the small-scale fishing communities the briefing identifies as cost-bearers of Atlantic fisheries mismanagement — where quota systems designed for industrial fleets exclude artisanal fishers from stocks they historically depended on, while offshore wind developments further reduce accessible fishing grounds.</p>
+                
+            </div>
+            
+            
+            
+            <div class="carry-this-section" style="margin-top: 20px;">
+                <h3>Carry This</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">What to bring with you from this briefing</p>
+                
+                
+                <div class="carry-this-item">Orano (formerly AREVA) has mined <strong>uranium</strong> in Arlit, Niger since the 1970s, supplying France's 56 nuclear reactors. The Arlit water table has dropped 75 metres. Tuareg communities report elevated cancer rates. Aghirin'man, a local civil society organisation, has documented these impacts for over a decade. Orano is listed on Euronext Paris. The French state holds a majority stake. This is a matter of public record and public accountability — and it is the direct cost of French energy independence.</div>
+                
+                
+                
+                <div class="carry-this-item">The Trident Trust Company, registered in the British Virgin Islands (a UK Crown Dependency), was identified in the Pandora Papers as managing shell companies used to move wealth from extractive economies into London property. The UK Economic Crime and Corporate Transparency Act 2023 began to address this, but enforcement remains years behind the legislation. Transparency International UK publishes an annual assessment of UK anti-money laundering enforcement that documents the gap between law and practice.</div>
+                
+                
+                
+                <div class="carry-this-item">Ireland's dairy herd has grown 40% since the abolition of EU milk quotas in 2015. Nitrogen runoff from that expansion is documented by the EPA in its annual Water Quality in Ireland report — the most recent showing continued decline in river quality, with agriculture as the primary pressure. The salmon in the Barrow, Suir, and Nore are the indicator species. When the salmon are gone, the river has been sacrificed for milk powder exports. The EPA reports are public. The connection between the milk in your supermarket and the fish kill in the Barrow is documented, available, and largely unread.</div>
+                
+                
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(14 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="provenance-authorship">Narrative prose on this page was synthesized by an AI model (Claude) from the sources listed here on 2026-07-24. Metrics are computed directly from the data sources.</p>
+            
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>ICES, Advice on Fishing Opportunities: Northeast Atlantic, 2024. https://www.ices.dk</li>
+                
+                <li>Global Wind Energy Council, Offshore Wind Report, 2024. https://gwec.net</li>
+                
+                <li>IPCC AR6, Sea Level Rise and Coastal Flooding Projections, 2021</li>
+                
+                <li>Eurostat, Atlantic Fringe Regional Statistics, 2024. https://ec.europa.eu/eurostat <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>FAO, Northeast Atlantic Fisheries Overview, 2024. https://www.fao.org/fishery <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>Met Éireann / Met Office, Atlantic Storm Track Analysis (Babet-Kathleen Cluster 2023-2024), 2024</li>
+                
+                <li>EEA, European Climate Risk Assessment — Western Europe Chapter, 2024. https://www.eea.europa.eu</li>
+                
+                <li>OSPAR Commission, Northeast Atlantic Environment Strategy, 2024. https://www.ospar.org</li>
+                
+                <li>INSEE, Agricultural Census: Brittany and Atlantic France, 2024. https://www.insee.fr</li>
+                
+                <li>IOM, Channel Crossings and Missing Migrants Project — 2024 Update, 2024. https://missingmigrants.iom.int</li>
+                
+                <li>Ditlevsen, P. and Ditlevsen, S., Warning of a forthcoming collapse of the Atlantic meridional overturning circulation, Nature Communications 14, 2023. https://doi.org/10.1038/s41467-023-39810-w</li>
+                
+                <li>UK North Sea Transition Authority, Rosebank Field Development Approval — Record of Decision, 2023. https://www.nstauthority.co.uk</li>
+                
+                <li>European Commission, Nitrates Directive Ireland Derogation Decision, 2024. https://environment.ec.europa.eu</li>
+                
+                <li>UK Supreme Court, R (AAA) v Secretary of State for the Home Department (Rwanda removal), [2023] UKSC 42, 2023</li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <div class="briefing-sources">
+        <p>Generated 2026-07-24 &middot; narrative prose AI-synthesized</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

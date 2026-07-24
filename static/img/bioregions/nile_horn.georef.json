@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "nile_horn",
+  "projection": "equirectangular",
+  "bbox": [
+    26.0,
+    52.0,
+    1.0,
+    32.0
+  ],
+  "width": 1900,
+  "height": 2338,
+  "lon_to_x": [
+    71.538462,
+    -1840.0
+  ],
+  "lat_to_y": [
+    -74.1296,
+    2392.1296
+  ]
+}

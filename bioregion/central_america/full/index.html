@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2C1744">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="../../../static/manifest.json">
+    <title>Central America — Prayer Briefing</title>
+    <link rel="stylesheet" href="../../../static/css/prayer.css">
+    
+</head>
+<body>
+    <div class="prayer-shell">
+        <header class="prayer-header">
+            <a href="../../../index.html" class="prayer-home">today we pray</a>
+            <a href="../../../directory/index.html" class="prayer-directory-link">all regions</a>
+            
+            <a href="../../../bioregion/central_america/index.html" class="prayer-view-toggle"
+               data-view-toggle="simple">
+                simple
+            </a>
+            
+            
+<span class="header-country">Central America</span>
+
+        </header>
+
+        <main class="prayer-main">
+            
+<article class="prayer-briefing">
+
+    <!-- Header -->
+    <div class="briefing-header">
+        <h1>Central America<span class="bio-population">70M people</span></h1>
+        <div class="bio-countries-line">Guatemala, Honduras, El Salvador, Nicaragua, Costa Rica, Panama, Mexico, Belize</div>
+        <div class="briefing-meta">
+        </div>
+    </div>
+
+    
+    
+    
+    
+
+    
+
+    
+    <p class="provenance-line">
+        
+        
+        <span class="provenance-chip provenance-aging">ecology last verified 4 months ago</span>
+        
+    </p>
+    
+
+    <!-- Flash Alert Banner — quiet notice when a country's thresholds have been crossed -->
+    
+
+    <!-- Prayer Opening — the first thing the reader encounters -->
+    
+
+    <!-- Topographic Profile -->
+    
+
+<section class="prayer-section">
+    <div id="topo-profile" class="topo-container"></div>
+</section>
+<script>
+(function() {
+    const profileData = {"elevation_max": 4500, "elevation_min": -100, "terrain": [[0.0, 4220], [7.1, 1431], [7.7, 1879], [9.3, 961], [9.7, 1742], [10.3, 975], [10.6, 1416], [12.2, 929], [12.6, 1352], [13.1, 371], [15.6, 1248], [16.9, 456], [18.9, 1039], [20.6, 72], [20.7, 122], [22.4, 10], [24.2, 55], [25.9, 6], [26.6, 493], [27.2, 0], [31.0, 0], [31.5, 293], [33.3, 13], [34.1, 392], [35.0, 21], [36.3, 935], [37.2, 139], [37.8, 552], [40.6, 44], [43.6, 41], [44.6, 160], [46.0, 31], [46.4, 55], [46.5, 31], [49.7, 31], [49.7, 38], [49.8, 31], [49.8, 53], [50.6, 31], [50.9, 152], [51.1, 31], [55.0, 31], [55.0, 39], [55.4, 33], [55.5, 53], [57.0, 36], [57.3, 64], [58.3, 42], [59.9, 163], [61.4, 60], [64.9, 2592], [66.2, 1812], [67.3, 2307], [69.7, 468], [71.5, 1933], [73.3, 858], [78.5, 3475], [85.7, 204], [87.7, 33], [91.6, 0], [94.3, 0], [94.6, 50], [94.7, 7], [95.2, 125], [95.5, 15], [95.6, 142], [97.7, 26], [98.7, 199], [100.0, 16]], "countries": [[0, 13, "Guatemala"], [13, 31, "El Salvador"], [31, 56, "Nicaragua"], [56, 94, "Costa Rica"], [94, 100, "Panama"]], "water": [], "resources": [{"type": "agricultural_biome", "x_pct": 20, "elev": 0, "label": "Coffee"}, {"type": "mineral", "x_pct": 97, "elev": 0, "label": "Cu"}, {"type": "agricultural_biome", "x_pct": 66, "elev": 0, "label": "Pineapple"}, {"type": "mineral", "x_pct": 44, "elev": 0, "label": "Au"}, {"type": "agricultural_biome", "x_pct": 72, "elev": 0, "label": "Bananas"}, {"type": "agricultural_biome", "x_pct": 34, "elev": 0, "label": "Oil"}, {"type": "agricultural_biome", "x_pct": 0, "elev": 0, "label": "Avocados"}, {"type": "agricultural_biome", "x_pct": 8, "elev": 0, "label": "Palm Oil"}], "biomes": [[0, 1, "P\u00e1ramo / Alpine", "paramo", "T6.5"], [1, 3, "Cloud Forest", "cloud_forest", "T1.3"], [3, 8, "Montane Forest", "montane_forest", "T1.3"], [8, 63, "Tropical Moist Forest", "tropical_forest", "T1.1"], [63, 68, "Montane Forest", "montane_forest", "T1.3"], [68, 75, "Tropical Moist Forest", "tropical_forest", "T1.1"], [75, 78, "Montane Forest", "montane_forest", "T1.3"], [78, 80, "Cloud Forest", "cloud_forest", "T1.3"], [80, 83, "Montane Forest", "montane_forest", "T1.3"], [83, 100, "Tropical Moist Forest", "tropical_forest", "T1.1"]], "labels": [{"x_pct": 0, "elev": 4420, "text": "Tajumulco 4,220m"}, {"x_pct": 19, "elev": 1118, "text": "Dry Corridor 968m"}, {"x_pct": 48, "elev": 181, "text": "Lake Nicaragua 31m"}, {"x_pct": 79, "elev": 3675, "text": "Chiriqu\u00ed 3,475m"}, {"x_pct": 100, "elev": 166, "text": "Panama Canal 16m"}]};
+    if (!profileData || !profileData.terrain || profileData.terrain.length < 2) return;
+
+    const container = document.getElementById('topo-profile');
+    if (!container) return;
+
+    // ---- Elevation range ----
+    const elevMax = profileData.elevation_max || 5000;
+    const elevMin = profileData.elevation_min || 0;
+    const elevRange = (elevMax - elevMin) || 1;
+
+    // ---- Event filtering & merging (same logic as the landscape version) ----
+    const eventsRaw = profileData.events || [];
+    let cleanEvents = eventsRaw.filter(function(evt) {
+        const lbl = evt.label || '';
+        if (/^STATISTICS|^MAP\s+\d|^\d{4}\s+\d|^Flash Update|^Situation Report|^•\s/i.test(lbl)) return false;
+        if (lbl.length < 3) return false;
+        return true;
+    });
+    const merged = [];
+    cleanEvents.forEach(function(evt) {
+        const last = merged.length > 0 ? merged[merged.length - 1] : null;
+        if (last && last.type === evt.type && (evt.x_pct_start || 0) <= ((last.x_pct_end || 100) + 5)) {
+            last.x_pct_end = Math.max(last.x_pct_end || 100, evt.x_pct_end || 100);
+            last.x_pct_start = Math.min(last.x_pct_start || 0, evt.x_pct_start || 0);
+        } else {
+            merged.push(Object.assign({}, evt));
+        }
+    });
+    cleanEvents = merged.slice(0, 5);
+    const eventCount = cleanEvents.length;
+
+    // ---- Layout (in CSS pixels — viewBox matches container width 1:1) ----
+    const W = container.clientWidth || 480;
+
+    const M_LEFT = 4;
+    const COUNTRY_W = Math.max(40, Math.min(56, W * 0.11));
+    const BIOME_W = 16;
+    const SILHOUETTE_W = Math.max(96, Math.min(160, W * 0.27));
+    const M_RIGHT = 4;
+    const EVENT_BAND_W = 22;
+    const EVENT_BAND_GAP = 3;
+    const EVENT_W = eventCount > 0 ? eventCount * (EVENT_BAND_W + EVENT_BAND_GAP) - EVENT_BAND_GAP : 0;
+    const LABEL_GAP = 6;
+
+    const countryX = M_LEFT;
+    const biomeX = countryX + COUNTRY_W;
+    const silhouetteX0 = biomeX + BIOME_W;            // baseline (low-elev edge)
+    const silhouetteX1 = silhouetteX0 + SILHOUETTE_W; // high-elev edge
+    const labelX = silhouetteX1 + LABEL_GAP;
+    const eventX0 = W - M_RIGHT - EVENT_W;
+    const labelW = Math.max(50, eventX0 - labelX - LABEL_GAP);
+
+    const M_TOP = 36;
+    const M_BOT = 28;
+    const TRANSECT_H = Math.max(420, Math.min(720, W * 1.15));
+    const totalH = M_TOP + TRANSECT_H + M_BOT;
+
+    function tPos(pct) { return M_TOP + (pct / 100) * TRANSECT_H; }
+    function ePos(elev) { return silhouetteX0 + ((elev - elevMin) / elevRange) * SILHOUETTE_W; }
+    function terrainAt(xPct) {
+        const pts = profileData.terrain;
+        for (let i = 1; i < pts.length; i++) {
+            if (pts[i][0] >= xPct) {
+                const t = (xPct - pts[i-1][0]) / ((pts[i][0] - pts[i-1][0]) || 1);
+                return pts[i-1][1] + t * (pts[i][1] - pts[i-1][1]);
+            }
+        }
+        return pts[pts.length - 1][1];
+    }
+
+    // ---- Colors (Common Worship palette) ----
+    const waterColor = '#1565C0';
+    const mineralColor = '#C65100';
+    const agriColor = '#2E7D32';
+    const energyColor = '#5D4037';
+    const terrainStroke = '#8B7B68';
+    const terrainFill = 'rgba(139, 123, 104, 0.1)';
+    const biomeColors = {
+        savanna: '#8B7355', grassland: '#6B7B3A', scrub: '#9B8B6B',
+        desert: '#C4A882', forest: '#3A5B3A', tundra: '#7B8B8B',
+        wetland: '#4A7B6B', steppe: '#8B8B5B', chaparral: '#9B7B4B',
+        boreal: '#4B6B4B', alpine: '#8B9BA0', mangrove: '#3B6B5B',
+        paramo: '#7B8B5B', puna: '#8B8570', tropical_forest: '#2A5B2A',
+        woodland: '#5B7B4B', montane_forest: '#3A5B4B',
+    };
+    const eventColors = {
+        fire: { fill: 'rgba(230, 81, 0, 0.15)', stroke: '#E65100', text: '#C65100' },
+        conflict: { fill: 'rgba(176, 48, 32, 0.15)', stroke: '#B03020', text: '#B03020' },
+        flood: { fill: 'rgba(21, 101, 192, 0.15)', stroke: '#1565C0', text: '#1565C0' },
+        drought: { fill: 'rgba(139, 105, 20, 0.15)', stroke: '#8B6914', text: '#8B6914' },
+        ipc: { fill: 'rgba(176, 48, 32, 0.12)', stroke: '#B03020', text: '#B03020' },
+        water_stress: { fill: 'rgba(21, 101, 192, 0.12)', stroke: '#1565C0', text: '#1565C0' },
+    };
+
+    // ---- SVG root ----
+    const SVG_NS = 'http://www.w3.org/2000/svg';
+    const XLINK_NS = 'http://www.w3.org/1999/xlink';
+    function el(tag, attrs) {
+        const e = document.createElementNS(SVG_NS, tag);
+        if (attrs) for (const k in attrs) e.setAttribute(k, attrs[k]);
+        return e;
+    }
+    const svg = el('svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${totalH}`);
+    svg.setAttribute('width', '100%');
+    svg.style.display = 'block';
+
+    // ---- Country labels (far-left vertical strip, rotated text) ----
+    const countries = profileData.countries || [];
+    countries.forEach(function(c, i) {
+        const y0 = tPos(c[0]);
+        const y1 = tPos(c[1]);
+        if (i > 0) {
+            svg.appendChild(el('line', {
+                x1: countryX + 2, y1: y0,
+                x2: countryX + COUNTRY_W - 2, y2: y0,
+                stroke: '#D4CBBA', 'stroke-width': '0.5',
+            }));
+        }
+        if (y1 - y0 < 24) return;  // span too short for a label
+        const cy = (y0 + y1) / 2;
+        const cx = countryX + COUNTRY_W / 2;
+        const lab = el('text', {
+            x: cx, y: cy,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '11px',
+            'font-family': 'Georgia, serif',
+            transform: `rotate(-90, ${cx}, ${cy})`,
+        });
+        lab.textContent = c[2];
+        svg.appendChild(lab);
+    });
+
+    // ---- Biome strip (vertical column, rotated GET codes) ----
+    const biomes = profileData.biomes || [];
+    const biomeTooltips = [];
+    biomes.forEach(function(b) {
+        const y0 = tPos(b[0]);
+        const y1 = tPos(b[1]);
+        const color = biomeColors[b[3]] || '#6B6B5B';
+        const getCode = b[4] || b[2];
+        const biomeName = b[2];
+        const getUrl = 'https://global-ecosystems.org/explore/groups/' + getCode;
+
+        const g = el('a');
+        g.setAttributeNS(XLINK_NS, 'href', getUrl);
+        g.setAttribute('target', '_blank');
+        g.style.cursor = 'pointer';
+
+        g.appendChild(el('rect', {
+            x: biomeX, y: y0,
+            width: BIOME_W, height: y1 - y0,
+            fill: color, opacity: '0.5',
+        }));
+        if (y1 - y0 > 32) {
+            const cx = biomeX + BIOME_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: '#F5F0E8',
+                'font-size': '9px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = getCode;
+            g.appendChild(lab);
+        }
+        svg.appendChild(g);
+        biomeTooltips.push({ y0: y0, y1: y1, getCode: getCode, biomeName: biomeName, g: g });
+    });
+
+    // ---- Sea-level line (vertical, dashed) ----
+    if (elevMin < 0) {
+        const seaX = ePos(0);
+        svg.appendChild(el('line', {
+            x1: seaX, y1: M_TOP,
+            x2: seaX, y2: M_TOP + TRANSECT_H,
+            stroke: waterColor, 'stroke-width': '0.5',
+            'stroke-dasharray': '4,3', opacity: '0.5',
+        }));
+    }
+
+    // ---- Water features (under terrain) ----
+    const waters = profileData.water || [];
+    waters.forEach(function(w) {
+        if (w.type === 'lake') {
+            const y0 = tPos(w.x_pct[0]);
+            const y1 = tPos(w.x_pct[1]);
+            const surfElev = w.elev[0];
+            const depth = w.depth || 60;
+            const xSurf = ePos(surfElev);
+            const xBot = ePos(surfElev - depth);
+            svg.appendChild(el('rect', {
+                x: Math.min(xSurf, xBot), y: y0,
+                width: Math.abs(xSurf - xBot), height: y1 - y0,
+                fill: waterColor, opacity: '0.35', rx: '2',
+            }));
+        } else if (w.type === 'river') {
+            const p0 = w.x_pct[0], p1 = w.x_pct[1];
+            const pts = [];
+            const steps = 8;
+            for (let s = 0; s <= steps; s++) {
+                const p = p0 + (p1 - p0) * (s / steps);
+                pts.push(`${ePos(terrainAt(p))},${tPos(p)}`);
+            }
+            svg.appendChild(el('polyline', {
+                points: pts.join(' '),
+                fill: 'none',
+                stroke: waterColor,
+                'stroke-width': '2',
+                opacity: '0.7',
+            }));
+        }
+    });
+
+    // ---- Terrain silhouette (closed back to baseline on left) ----
+    const terrain = profileData.terrain;
+    const isPeak = new Array(terrain.length).fill(false);
+    const isValley = new Array(terrain.length).fill(false);
+    for (let i = 1; i < terrain.length - 1; i++) {
+        if (terrain[i][1] > terrain[i-1][1] && terrain[i][1] > terrain[i+1][1]) isPeak[i] = true;
+        if (terrain[i][1] < terrain[i-1][1] && terrain[i][1] < terrain[i+1][1]) isValley[i] = true;
+    }
+    let pathD = `M ${ePos(terrain[0][1])},${tPos(terrain[0][0])}`;
+    for (let i = 1; i < terrain.length; i++) {
+        const x = ePos(terrain[i][1]);
+        const y = tPos(terrain[i][0]);
+        const xPrev = ePos(terrain[i-1][1]);
+        const yPrev = tPos(terrain[i-1][0]);
+        const dy = y - yPrev;
+        const tPrev = (isPeak[i-1] || isValley[i-1]) ? 0.2 : 0.5;
+        const tCurr = (isPeak[i] || isValley[i]) ? 0.2 : 0.5;
+        const cy1 = yPrev + dy * tPrev;
+        const cy2 = y - dy * tCurr;
+        pathD += ` C ${xPrev},${cy1} ${x},${cy2} ${x},${y}`;
+    }
+    pathD += ` L ${silhouetteX0},${tPos(terrain[terrain.length-1][0])}`;
+    pathD += ` L ${silhouetteX0},${tPos(terrain[0][0])} Z`;
+    svg.appendChild(el('path', {
+        d: pathD,
+        fill: terrainFill,
+        stroke: terrainStroke,
+        'stroke-width': '1.5',
+    }));
+
+    // ---- Resource markers (circles at actual position) ----
+    const resources = profileData.resources || [];
+    resources.forEach(function(r) {
+        const x = ePos(r.elev);
+        const y = tPos(r.x_pct);
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        svg.appendChild(el('circle', {
+            cx: x, cy: y, r: '3.5',
+            fill: color, opacity: '0.9',
+        }));
+    });
+
+    // ---- Collect labels (resources + water + named features) and de-collide ----
+    // Each label has a target y (its true transect position) and gets pushed
+    // downward greedily so consecutive labels never overlap.
+    const allLabels = [];
+    resources.forEach(function(r) {
+        if (!r.label) return;
+        const color = r.type === 'mineral' ? mineralColor :
+                      r.type === 'agricultural' ? agriColor : energyColor;
+        allLabels.push({
+            anchorX: ePos(r.elev),
+            anchorY: tPos(r.x_pct),
+            text: r.label,
+            color: color,
+            font: '-apple-system, system-ui, sans-serif',
+            weight: 'bold',
+        });
+    });
+    waters.forEach(function(w) {
+        if (!w.label) return;
+        let ax, ay;
+        if (w.type === 'lake') {
+            ay = tPos((w.x_pct[0] + w.x_pct[1]) / 2);
+            ax = ePos(w.elev[0]);
+        } else if (w.type === 'river') {
+            const mid = (w.x_pct[0] + w.x_pct[1]) / 2;
+            ay = tPos(mid);
+            ax = ePos(terrainAt(mid));
+        } else {
+            return;
+        }
+        allLabels.push({
+            anchorX: ax,
+            anchorY: ay,
+            text: w.label,
+            color: waterColor,
+            font: 'Georgia, serif',
+            italic: true,
+        });
+    });
+    (profileData.labels || []).forEach(function(lbl) {
+        allLabels.push({
+            anchorX: ePos(lbl.elev),
+            anchorY: tPos(lbl.x_pct),
+            text: lbl.text,
+            color: '#4A3D30',
+            font: 'Georgia, serif',
+        });
+    });
+
+    allLabels.sort(function(a, b) { return a.anchorY - b.anchorY; });
+    const minSpacing = 13;
+    let cursorY = M_TOP - minSpacing;
+    allLabels.forEach(function(l) {
+        l.placedY = Math.max(l.anchorY, cursorY + minSpacing);
+        // Don't overflow past the transect bottom
+        l.placedY = Math.min(l.placedY, M_TOP + TRANSECT_H - 4);
+        cursorY = l.placedY;
+    });
+
+    allLabels.forEach(function(l) {
+        // Leader line: from anchor on silhouette to label start.
+        // Goes anchor → (labelX-2 at label y) for clear association.
+        svg.appendChild(el('line', {
+            x1: l.anchorX, y1: l.anchorY,
+            x2: labelX - 3, y2: l.placedY,
+            stroke: l.color, 'stroke-width': '0.5',
+            opacity: Math.abs(l.placedY - l.anchorY) > 1.5 ? '0.45' : '0.25',
+        }));
+        const text = el('text', {
+            x: labelX, y: l.placedY + 3,
+            'text-anchor': 'start',
+            fill: l.color,
+            'font-size': '10px',
+            'font-family': l.font,
+        });
+        if (l.italic) text.setAttribute('font-style', 'italic');
+        if (l.weight) text.setAttribute('font-weight', l.weight);
+        text.textContent = l.text;
+        svg.appendChild(text);
+    });
+
+    // ---- Elevation axis (top) ----
+    const allTicks = [0, 500, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000].filter(function(e) {
+        return e >= elevMin && e <= elevMax;
+    });
+    // Thin to ≤5 ticks so labels don't collide horizontally
+    let ticks = allTicks;
+    if (allTicks.length > 5) {
+        const step = Math.ceil(allTicks.length / 5);
+        ticks = allTicks.filter(function(_, i) { return i % step === 0; });
+        const lastVal = allTicks[allTicks.length - 1];
+        if (ticks[ticks.length - 1] !== lastVal) ticks.push(lastVal);
+    }
+    ticks.forEach(function(elev) {
+        const x = ePos(elev);
+        svg.appendChild(el('line', {
+            x1: x, y1: M_TOP - 4,
+            x2: x, y2: M_TOP,
+            stroke: '#D4CBBA', 'stroke-width': '0.5',
+        }));
+        const lab = el('text', {
+            x: x, y: M_TOP - 8,
+            'text-anchor': 'middle',
+            fill: '#6B5D4F',
+            'font-size': '9px',
+            'font-family': '-apple-system, system-ui, sans-serif',
+        });
+        lab.textContent = elev >= 1000 ? (elev / 1000) + 'km' : elev + 'm';
+        svg.appendChild(lab);
+    });
+    // Axis title
+    const axisTitle = el('text', {
+        x: silhouetteX0 + SILHOUETTE_W / 2, y: 14,
+        'text-anchor': 'middle',
+        fill: '#6B5D4F',
+        'font-size': '9px',
+        'font-style': 'italic',
+        'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+        opacity: '0.6',
+    });
+    axisTitle.textContent = 'elevation →';
+    svg.appendChild(axisTitle);
+
+    // ---- Event bands (right side, vertical columns) ----
+    cleanEvents.forEach(function(evt, i) {
+        const y0 = tPos(evt.x_pct_start || 0);
+        const y1 = tPos(evt.x_pct_end || 100);
+        const evtType = evt.type || 'conflict';
+        const colors = eventColors[evtType] || eventColors.conflict;
+        const colX = eventX0 + i * (EVENT_BAND_W + EVENT_BAND_GAP);
+
+        svg.appendChild(el('rect', {
+            x: colX, y: y0,
+            width: EVENT_BAND_W, height: y1 - y0,
+            fill: colors.fill, rx: '2',
+        }));
+        svg.appendChild(el('line', {
+            x1: colX, y1: y0,
+            x2: colX, y2: y1,
+            stroke: colors.stroke, 'stroke-width': '1', opacity: '0.6',
+        }));
+        if (evt.label) {
+            let text = evt.label;
+            if (text.length > 40) text = text.substring(0, 38) + '…';
+            const cx = colX + EVENT_BAND_W / 2;
+            const cy = (y0 + y1) / 2;
+            const lab = el('text', {
+                x: cx, y: cy,
+                'text-anchor': 'middle',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '10px',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${cx}, ${cy})`,
+            });
+            lab.textContent = text;
+            svg.appendChild(lab);
+        }
+        if (evt.provisional) {
+            const px = colX + EVENT_BAND_W / 2;
+            const py = y1 - 6;
+            const prov = el('text', {
+                x: px, y: py,
+                'text-anchor': 'end',
+                'dominant-baseline': 'central',
+                fill: colors.text,
+                'font-size': '8px',
+                'font-style': 'italic',
+                opacity: '0.6',
+                'font-family': "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+                transform: `rotate(-90, ${px}, ${py})`,
+            });
+            prov.textContent = '(provisional)';
+            svg.appendChild(prov);
+        }
+    });
+
+    // ---- Biome tooltips (rendered last so they sit on top) ----
+    biomeTooltips.forEach(function(bt) {
+        const tooltipW = Math.min(190, labelW + SILHOUETTE_W - 20);
+        const tooltipH = 46;
+        const midY = (bt.y0 + bt.y1) / 2;
+        let ty = Math.max(M_TOP, Math.min(midY - tooltipH / 2, M_TOP + TRANSECT_H - tooltipH));
+        // Place tooltip to the right of the silhouette, above the label column
+        let tx = silhouetteX0 + 4;
+        if (tx + tooltipW > eventX0 - 4) tx = Math.max(M_LEFT, eventX0 - tooltipW - 4);
+
+        const fo = el('foreignObject', {
+            x: tx, y: ty,
+            width: tooltipW, height: tooltipH,
+        });
+        fo.style.opacity = '0';
+        fo.style.pointerEvents = 'none';
+        fo.style.transition = 'opacity 0.15s';
+        fo.style.zIndex = '100';
+        const tip = document.createElement('div');
+        tip.style.cssText = 'background: #2C1744; color: #F5F0E8; font-size: 10px; padding: 6px 9px; border-radius: 2px; font-family: Gill Sans, Calibri, sans-serif; line-height: 1.4; box-shadow: 0 2px 6px rgba(0,0,0,0.2);';
+        tip.innerHTML = '<strong>' + bt.biomeName + '</strong><br><span style="opacity:0.7">IUCN GET ' + bt.getCode + ' — click to explore</span>';
+        fo.appendChild(tip);
+        svg.appendChild(fo);
+
+        bt.g.addEventListener('mouseenter', function() { fo.style.opacity = '1'; });
+        bt.g.addEventListener('mouseleave', function() { fo.style.opacity = '0'; });
+    });
+
+    container.appendChild(svg);
+})();
+</script>
+
+
+    <!-- Ecosystem Stress + Network Dashboard (compact, below the opening) -->
+    
+    <div class="prayer-section metrics-context">
+        
+        <div class="since-last-week">
+            <span class="slw-label">Ecosystem:</span>
+            
+            <span class="stress-tag stress-moderate">moderate</span>
+            
+            Precipitation 117% of normal; temperatures +4.6°C above baseline.
+        </div>
+        
+        
+        <div class="metrics-strip">
+            
+            <div class="metric-pill network-water">
+                <span class="metric-pill-value">18.4</span>
+                <span class="metric-pill-label">Water Stress (%)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-soil">
+                <span class="metric-pill-value">5.7M</span>
+                <span class="metric-pill-label">Food Insecure (IPC 3+) (persons)</span>
+                
+                <span class="metric-pill-change" style="color: var(--prayer-accent);">elevated</span>
+                
+            </div>
+            
+            <div class="metric-pill network-mineral">
+                <span class="metric-pill-value">0</span>
+                <span class="metric-pill-label">Conflict Fatalities (3mo) (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-people">
+                <span class="metric-pill-value">1.3M</span>
+                <span class="metric-pill-label">Displaced Persons (persons)</span>
+                
+            </div>
+            
+            <div class="metric-pill network-atmospheric">
+                <span class="metric-pill-value">30.6</span>
+                <span class="metric-pill-label">Max Temperature (°C)</span>
+                
+                <span class="metric-pill-change" style="color: var(--prayer-accent);">elevated</span>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+
+    
+    
+    
+
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>This Week</h2>
+        </div>
+        <div class="section-body">
+            
+            <div class="event-item">
+                <div class="event-date">Jul 24</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Honduras:</strong> 
+                        What is the situation of internally displaced women in Honduras?
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 18</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Guatemala:</strong> 
+                        Situation Overview Between epidemiological week (EW) 1 and EW 27 of 2026(ending on 11 July 2026), the Region of the Americas reported 43,559 confirmed measles cases from 17 countries and territories, representing a 3.8 fold increase compared to the...
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 22</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Panama:</strong> 
+                        The core areas of focus include mixed migration within South America, movements from this part of the region towards North America, and mixed migration in Mexico, Central America, and the Caribbean.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 21</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Costa Rica:</strong> 
+                        Description of the Event Date of event 30-10-2025 What happened, where and when? On 19 October 2025, the National Meteorological Institute (IMN) reported that Tropical Wave No.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="event-item">
+                <div class="event-date">Jul 23</div>
+                <div class="event-body">
+                    <p class="event-narrative">
+                        <strong>Honduras:</strong> 
+                        Widespread violence in Honduras continues to force people to flee to safeguard their lives and well-being.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- LIVES LIVED HERE                                                  -->
+    <!-- Weaves internal metabolism and extraction through inhabited lives. -->
+    <!-- ================================================================= -->
+
+    
+    
+    
+
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Lives Lived Here</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            <div class="situation-text lives-narrative">
+                
+                
+                <p>Before dawn in the Huehuetenango highlands, a Maya farmer picks coffee cherries by hand into a basket strapped across her forehead. She is paid by weight — a good day is $4 — and the cherries travel from her hands to the wet mill in the valley, to the dry mill near the coast, to a container at Puerto Quetzal, to a roaster in Portland who sells the beans as "single-origin Huehuetenango" for $22 a bag. She has never tasted what they make from it. Her daughter, who finished secondary school, works at a call centre in Guatemala City. Her son left for Arizona two years ago. He sends $200 a month through Western Union. The transfer costs $12. The $200 is more than she earns in a month from coffee.</p>
+                
+                
+                
+                <p>In San Pedro Sula, a woman packs shirts at a maquiladora — an export-processing factory in the free trade zone where Honduran labour law bends to foreign investment terms. She earns the minimum wage, which does not cover rent and food for her three children. The shirts will carry labels from brands sold in malls she will never enter. Her husband was a campesino in Colón before Dinant Corporation cleared their communal plot for oil palm. He drives a taxi now. On the radio, another environmental defender has been killed — the fourth this year — and no one has been arrested.</p>
+                
+                
+                
+                <p>In Tapachula, on Mexico's southern border, a Honduran family waits. They left San Pedro Sula after the second extortion demand — pay the tax or lose the house. The journey through Guatemala took eight days. Now they wait for a transit permit that may take months. The shelter is full. The children attend a makeshift school run by a Catholic sister who speaks enough Garífuna to teach them. The father picks fruit on a nearby farm for cash. The mother calls her sister in Houston every Sunday evening to say they are fine. They are not fine. But they are together, and the road still goes north.</p>
+                
+                
+                
+                <p>In Limón Province, a Nicaraguan migrant on a banana plantation slices bunches from the stem with a machete, his arms stained blue from the fungicide Chiquita requires on every hand of fruit. He crossed the border six months ago because there was no work at home that paid enough to eat. His remittances keep his mother and two sisters fed in Matagalpa. The bananas reach Miami in eleven days. The money reaches Matagalpa in three minutes.</p>
+                
+                
+            </div>
+            
+            
+        </div>
+        
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>In Tapachula, on Mexico&#39;s southern border, a Honduran family waits. They left San Pedro Sula after the second extortion demand — pay the tax or lose the house. The journey through Guatemala took eight days. Now they wait for a transit permit that may take months. The shelter is full. The children attend a makeshift school run by a Catholic sister who speaks enough Garífuna to teach them. The father picks fruit on a nearby farm for cash. The mother calls her sister in Houston every Sunday evening to say they are fine. They are not fine. But they are together, and the road still goes north.</p>
+        </blockquote>
+        
+    </div>
+
+    
+    
+    <div class="bioregion-map-container">
+        <img src="../../../static/img/bioregions/central_america.png" alt="Map of Central America" class="bioregion-map" loading="lazy">
+        <p class="map-disclaimer">Reference map. Country boundaries and features are approximate.</p>
+    </div>
+    
+
+    
+    
+    
+
+    
+    
+    <div class="prayer-section section-collapsible collapsed">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>What Presses</h2>
+        </div>
+        <div class="section-body">
+            <p class="section-subtitle">The weight on Central America</p>
+
+            
+            
+            <div class="situation-text what-presses-narrative">
+                
+                
+                <p>Diaspora remittances, coffee beans, gold, bananas leave the region — migrant workers (wage suppression, discrimination, occupational hazards), families dependent on single remittance earner, households in rural areas without banking access. 5.7 million cannot meet daily food needs. 1.3 million displaced from home.</p>
+                
+                
+            </div>
+            
+
+            
+            
+            <div class="key-patterns">
+                
+                <div class="key-pattern">Coffee is Central America&#39;s signature crop and its signature injustice. Seventy percent of farms are under five hectares. A picker earns $3 to $5 a day. A bag of single-origin Huehuetenango beans retails for $22 in the US. The commodity price is set on the New York ICE exchange by traders who have never seen a coffee cherry. When the price drops below production cost — as it does in bad years — the farmer cannot switch crops because the trees take four years to mature. She can only wait, or leave. The coffee in your cup this morning may be from the same hillside her son left behind when he walked to Arizona.</div>
+                
+                <div class="key-pattern">Honduras is the most dangerous country on earth for environmental defenders. Garífuna communities along the Caribbean coast in Colón and Atlántida have fought palm oil expansion by Dinant Corporation for over a decade. Dinant received International Finance Corporation (World Bank Group) investment. The IFC&#39;s own compliance advisor found that the investment failed to meet environmental and social standards. Defenders continue to be killed. Courts continue to fail to convict. The plantations continue to expand.</div>
+                
+                <div class="key-pattern">The Panama Canal — which handles 5% of global maritime trade and generated $5.7 billion in total revenues in FY2025 (recovering from drought) — depends on Gatun Lake, which depends on rainfall in the canal watershed, which is shrinking. In 2023, drought forced the Canal Authority to restrict daily transits from 36 to a minimum of 18 per day, backing up global shipping. The same year, mass protests by Ngäbe-Buglé indigenous communities and Panamanian citizens shut down the Cobre Panamá copper mine, whose tailings threatened Gatun Lake&#39;s watershed. Water for global shipping and water for indigenous communities are the same water — and there is not enough of both.</div>
+                
+            </div>
+            
+
+            
+            
+            <div class="cascade-chains" style="margin-top: 12px;">
+                <h3>Cascade Chains</h3>
+                
+                <p class="cascade-chain">Dry Corridor drought → Primera harvest failure → Food insecurity by August → Migration northward (GTM/HND/SLV — 3.4M food insecure in Guatemala alone; Dry Corridor communities with no irrigation fallback; milpa planting dependent on May rains that arrived late or as destructive floods in recent years)</p>
+                
+                <p class="cascade-chain">Hurricane landfall → Hillside soil loss → Coffee farm destruction → Smallholder debt and displacement → Migration (HND/GTM — Eta and Iota 2020 affected 4M people; 70% of coffee farms under 5 hectares with no insurance; recovery from one storm incomplete before the next arrives)</p>
+                
+                <p class="cascade-chain">Palm oil expansion → Q&#39;eqchi&#39; and Garífuna land seizure → Loss of subsistence farming → Forced wage labour or migration (GTM/HND — Dinant Corporation and REPSA operating on formerly communal land; Honduras world&#39;s most dangerous country for environmental defenders)</p>
+                
+                <p class="cascade-chain">Cartel territorial control → Extortion of growers and transit communities → Forced displacement → Migration corridor overload → Tapachula bottleneck (MEX — Sinaloa and CJNG contesting routes; avocado sector under cartel taxation in Michoacán; migrants kidnapped, extorted, killed on transit routes)</p>
+                
+            </div>
+            
+
+            
+            
+            <div class="mcgowan-actors" style="margin-top: 12px;">
+                <h3>Who Sustains This</h3>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Sinaloa Cartel</strong> &middot; Fentanyl precursor trade (China-sourced); methamphetamine; cocaine transit; avocado extortion</p>
+                    <p class="actor-detail">Driven by: We must control the plaza — whoever controls the route controls everything</p>
+                    <p class="actor-detail">The trap: Building alternative order through destruction of social order. Cartels position themselves as providers of employment and infrastructure where the state has failed, but their violence and corruption destroy the civic fabric that would make genuine development possible. The patron who feeds the community is also the one who makes it ungovernable.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Jalisco New Generation Cartel</strong> &middot; Methamphetamine production; fentanyl; extortion; illegal mining</p>
+                    <p class="actor-detail">Driven by: We must expand or be consumed — there is no standing still</p>
+                    <p class="actor-detail">The trap: Achieving stability through constant expansion and violence that ensures instability. CJNG&#39;s model requires perpetual territorial conquest to maintain internal cohesion, but each new front creates new enemies and new fragmentation, making the consolidation of power permanently impossible.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Guatemalan Military and Security Forces</strong> &middot; State budget; private security contracts; institutional landholdings</p>
+                    <p class="actor-detail">Driven by: We must defend the nation from communism/narcos/disorder</p>
+                    <p class="actor-detail">The trap: Protecting democracy by preventing democratic change. The Guatemalan military&#39;s institutional identity was forged in Cold War counterinsurgency and genocide. Post-peace institutions (CICIG) that threatened impunity networks were expelled, demonstrating that the &#39;democratic&#39; state can only tolerate democracy that doesn&#39;t challenge oligarchic power structures.</p>
+                </div>
+                
+                <div class="mcgowan-actor">
+                    <p><strong>Honduran Military and National Police</strong> &middot; State budget; private security industry; institutional enterprises</p>
+                    <p class="actor-detail">Driven by: We must maintain order against gangs and instability</p>
+                    <p class="actor-detail">The trap: Fighting organized crime while being penetrated by it. The Honduran security forces receive anti-narcotics aid while elements maintain documented links to trafficking networks. The war on drugs provides both the threat and the revenue stream simultaneously.</p>
+                </div>
+                
+            </div>
+            
+
+            
+            
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        
+        
+        <blockquote class="extraction-coda section-summary">
+            <p>Nine flows leave Central America — coffee, bananas, palm oil, pineapples, avocados, gold, migrant labour, remittances, and the canal tolls that every container ship pays to cross from the Atlantic to the Pacific. What does not come back is the topsoil, stripped by monoculture and flooding; the groundwater, drained by avocado orchards and pineapple plantations; the mangroves, cleared for shrimp ponds and export crops; and the people, 1.2 million displaced and uncounted more walking north. Panama&#39;s Supreme Court shut down the Cobre Panamá mine in 2023 after mass protests by Ngäbe-Buglé communities and urban Panamanians — a rare instance where extraction was stopped before the damage was done. The copper is still in the ground. The question is whether it stays there. 5.7M food insecure (current); 1.3M displaced (total); diaspora remittances, coffee beans, coffee beans leaving.</p>
+        </blockquote>
+        
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- TRANSITION TO PRAYER                                              -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <blockquote class="voice-quote contemplative-bridge">
+            <p>The milpa does not know it is ancient. It only knows the rain came or did not come. The woman planting it does not think of herself as the keeper of a four-thousand-year tradition. She thinks about whether the beans will be enough to last until December.</p>
+        </blockquote>
+    </section>
+    
+
+    
+    
+
+    
+    <div class="prayer-silence" aria-hidden="true">
+        <svg viewBox="0 0 200 24" xmlns="http://www.w3.org/2000/svg" class="silence-mark">
+            <line x1="60" y1="12" x2="90" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+            <circle cx="100" cy="12" r="1.5" fill="currentColor" opacity="0.25"/>
+            <line x1="110" y1="12" x2="140" y2="12" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FOR PRAYER                                                        -->
+    <!-- ================================================================= -->
+
+    
+    
+    <div class="prayer-section section-collapsible">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>For Prayer</h2>
+        </div>
+        <div class="section-body">
+            
+            
+            
+            <p class="curated-note">Last updated on 2026-07-20.</p>
+            
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the Dry Corridor&#39;s hungry...</div>
+                <p class="intercession-text">For the farming families of the Dry Corridor, from Guatemala through Honduras, where the rains fail year on year and the maize fails with them — for those who eat less so their children may eat, and who face the choice between hunger and the road north.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who take the road...</div>
+                <p class="intercession-text">For the many who leave — walking north through Mexico, or through the mud of the Darién Gap — fleeing gangs and drought and dead-end poverty. For safety on a road that preys on them, and for the families living on remittances that come at such a cost.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those under the gang&#39;s rule...</div>
+                <p class="intercession-text">For the neighbourhoods governed by fear across the region — the young pressed to join or die, the shopkeepers paying the rent of extortion, the mothers of the disappeared. For the courage of those who stay and refuse.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who grow and gather...</div>
+                <p class="intercession-text">For the seasonal workers of the coffee slopes and the banana and pineapple plantations, paid by the piece for work that breaks the body; and for the Miskitu, Rama, and Garífuna of the Caribbean coast whose land is taken for gold and cattle.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For the silenced...</div>
+                <p class="intercession-text">For the peoples living under governments that have closed the churches, jailed the priests, and exiled the critics. That truth still finds a way to be spoken.</p>
+            </div>
+            
+            <div class="intercession">
+                <div class="intercession-focus rubric">For those who accompany...</div>
+                <p class="intercession-text">For the shelter-keepers along the migrant road, the catechists and Sisters who feed and bury and record, the human-rights defenders so often killed for it. That they are protected, and their work remembered.</p>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- ================================================================= -->
+    <!-- PSALM & COLLECT                                                   -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section psalm-section">
+        <div class="psalm-header">
+            <span class="psalm-number rubric">Psalm 107</span>
+            
+            <span class="psalm-title">Psalm 107 (Thanksgiving)</span>
+            
+        </div>
+        
+        <blockquote class="psalm-verses congregation">O give thanks to the Lord, for he is gracious,
+for his steadfast love endures for ever.
+Let the redeemed of the Lord say this,
+those he redeemed from the hand of the enemy,
+</blockquote>
+        
+    </section>
+    
+
+    
+    
+    <section class="prayer-section">
+        <div class="collect-block">
+            
+            <div class="collect-theme rubric">Collect: goodness</div>
+            
+            <p class="collect-text">Lord of all power and might, the author and giver of all good things: graft in our hearts the love of your name, increase in us true religion, nourish us with all goodness, and of your great mercy keep us in the same; through Jesus Christ your Son our Lord, who is alive and reigns with you, in the unity of the Holy Spirit, one God, now and for ever.</p><p class="congregation" style="margin-top: 8px;">Amen.</p>
+        </div>
+    </section>
+    
+
+    <!-- ================================================================= -->
+    <!-- SENDING — what you take with you                                  -->
+    <!-- ================================================================= -->
+
+    
+    
+    <section class="prayer-section">
+        <div class="seeds-of-hope">
+            <h3>Seeds of Hope</h3>
+            <p>In Panama in 2023, something happened that almost never happens: the people won. Ngäbe-Buglé indigenous communities and urban Panamanians marched together — tens of thousands blocking roads across the country — until the Supreme Court declared First Quantum Minerals&#39; Cobre Panamá mining contract unconstitutional. The copper stayed in the ground. The mine closed. It remains closed.</p>
+        </div>
+    </section>
+    
+
+    
+    
+    <section class="prayer-section reflection-section">
+        <h2>For Reflection</h2>
+        
+        <p class="reflection-question">What does it mean to pray &#39;give us this day our daily bread&#39; alongside those who lack it?</p>
+        
+        <p class="reflection-question">What food in your pantry comes from the same global markets?</p>
+        
+    </section>
+    
+
+    
+    
+    
+    <section class="prayer-section">
+        <h3>Looking Ahead</h3>
+        <div class="outlook-combined">
+            <ul class="outlook-list">
+                
+                <li>The data suggests: With 5.7 million food insecure, the lean season will deepen need.</li>
+                
+                <li>Displacement continues with no political settlement in view.</li>
+                
+                <li>These are indicators, not predictions.</li>
+                
+            </ul>
+        </div>
+    </section>
+    
+
+    
+    
+    <div class="prayer-section section-collapsible carry-this-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Carry This</h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="section-subtitle">What to bring with you from this briefing</p>
+            
+            
+            <div class="carry-this-item">The coffee in your cup may come from Huehuetenango, Guatemala, where 90% of producers are smallholders — most of them Maya — earning $3 to $5 a day during harvest. The New York ICE exchange sets the price. Specialty roasters add value. The farmer absorbs the volatility. If your coffee is labelled "single-origin" or "direct trade," ask the roaster: what price did the farmer receive per pound? Fair trade certification (Fairtrade International) guarantees a floor price, but the floor is low. Cooperative-direct models (like those organised through Fedecocagua) capture more, but they are fragile. Your question — asked at the counter, in an email to the brand — is a form of pressure that costs nothing but attention.</div>
+            
+            
+            
+            <div class="carry-this-item">In 2023, Panamanians shut down the largest copper mine in Central America. Ngäbe-Buglé indigenous communities and urban protesters blocked roads across the country until the Supreme Court ruled First Quantum Minerals' contract unconstitutional. The mine closed. The copper — worth billions — stayed in the ground. First Quantum filed a $20 billion ICSID arbitration claim but suspended it in March 2025 to open re-negotiations with Panama (63% of Panamanians oppose reopening). Whether a country can say no to extraction and survive the legal consequences remains unresolved — but the suspension itself is a signal that pure legal force has limits.</div>
+            
+            
+            
+            <div class="carry-this-item">Honduras has the highest per-capita rate of environmental defender killings in the world. Garífuna communities in Colón and Atlántida, organised through OFRANEH (ofraneh.org), have won Inter-American Court rulings on ancestral land rights that the state has been slow to enforce. Dinant Corporation — which received International Finance Corporation (World Bank Group) investment — operates palm oil plantations on contested land. The IFC's Compliance Advisor Ombudsman found the investment failed to meet standards. The Accountability Counsel (accountabilitycounsel.org) tracks these cases. Your pension fund may hold World Bank bonds.</div>
+            
+            
+            
+
+            
+            
+            <div class="actions-registry" style="margin-top: 20px;">
+                <h3>Take Action</h3>
+                <p class="section-subtitle" style="text-align: left; margin-top: 0;">Organizations working at the nodes this briefing traces</p>
+        
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.crisisgroup.org/latin-america-caribbean" target="_blank" rel="noopener" class="action-org-name">International Crisis Group — Central America</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">Produces field-based analysis of organized crime, migration drivers, and political instability across Guatemala, Honduras, and El Salvador. Documents the intersection of gang violence, state corruption, and climate-driven displacement.</p>
+            
+            <p class="action-org-connection">Analyzes the migration drivers the briefing traces — where coffee price volatility, hurricane destruction of milpa agriculture, extortion by armed groups, and drought in the Dry Corridor converge to force communities into northward migration, with remittances then becoming the economic lifeline for those who remain.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.dplf.org/en" target="_blank" rel="noopener" class="action-org-name">Fundación para el Debido Proceso (DPLF — Due Process of Law Foundation)</a>
+                <span class="action-type-tag action-type-advocacy">advocacy</span>
+            </div>
+            <p class="action-org-desc">Promotes rule of law and human rights in Latin America through legal analysis, judicial reform advocacy, and documentation of attacks on Indigenous and environmental defenders in Central America.</p>
+            
+            <p class="action-org-connection">Defends the environmental and Indigenous activists the briefing identifies as cost-bearers — land defenders in Honduras (the deadliest country for environmentalists), community leaders opposing hydroelectric and palm oil projects on Indigenous territory, and journalists documenting extractive industry corruption.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://grain.org/" target="_blank" rel="noopener" class="action-org-name">Alianza de Bioversidad, TIC, y GRAIN</a>
+                <span class="action-type-tag action-type-investigation">investigation</span>
+            </div>
+            <p class="action-org-desc">GRAIN works with small farmers to document corporate capture of agricultural systems, seed patenting, and land grabbing. Tracks African palm expansion in Guatemala and Honduras that displaces milpa agriculture and Indigenous communities.</p>
+            
+            <p class="action-org-connection">Documents the agricultural transformation the briefing traces — where African palm monoculture displaces the milpa polyculture system (maize, beans, squash) that sustained rural Central American communities, concentrating land ownership while pushing smallholders into migration or wage labor on the same plantations.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.crs.org/our-work-overseas/where-we-work/central-america" target="_blank" rel="noopener" class="action-org-name">Catholic Relief Services — Central America</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Operates food security, agricultural resilience, and migration support programs across the Dry Corridor of Guatemala, Honduras, and El Salvador. Works with farming communities adapting to drought and hurricane cycles.</p>
+            
+            <p class="action-org-connection">Works directly with the Dry Corridor communities the briefing identifies — smallholder farmers whose maize harvests fail in consecutive drought years, families rebuilding after Hurricanes Eta and Julia, and households negotiating the decision between migration north and remaining on stressed land.</p>
+            
+            </div>
+            
+        <div class="action-org">
+            <div class="action-org-header">
+                <a href="https://www.culturalsurvival.org/" target="_blank" rel="noopener" class="action-org-name">Cultural Survival</a>
+                <span class="action-type-tag action-type-solidarity">solidarity</span>
+            </div>
+            <p class="action-org-desc">Supports Indigenous communities across Central America in defending land rights, cultural heritage, and self-determination. Amplifies Indigenous media, supports community radio, and documents violations of free prior and informed consent.</p>
+            
+            <p class="action-org-connection">Amplifies the Indigenous voices the briefing centers — Maya communities in Guatemala&#39;s highlands resisting mining and hydroelectric projects, Lenca communities in Honduras defending rivers against dams, and Garifuna communities on the Caribbean coast fighting tourism development and land dispossession.</p>
+            
+            </div>
+            
+            </div>
+            
+        </div>
+    </div>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    <div class="prayer-section section-collapsible collapsed provenance-section">
+        <div class="section-toggle" onclick="this.parentElement.classList.toggle('collapsed')">
+            <span class="section-toggle-icon"></span>
+            <h2>Where this comes from <span class="provenance-count">(12 sources)</span></h2>
+        </div>
+        <div class="section-body">
+            
+            <p class="provenance-authorship">Narrative prose on this page was synthesized by an AI model (Claude) from the sources listed here on 2026-07-24. Metrics are computed directly from the data sources.</p>
+            
+            <p class="provenance-tier-key">
+                Tier 1 = UN agencies &amp; peer-reviewed &middot;
+                Tier 2 = community voice &amp; justice orgs &middot;
+                Tier 3 = corporate / unverified (require 2+ independent sources)
+            </p>
+            <ul class="provenance-sources">
+                
+                <li>WFP, Central America Dry Corridor: Food Security Update, 2024. https://www.wfp.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>IOM, Darién Gap Migration Monitoring, 2024. https://dtm.iom.int</li>
+                
+                <li>World Bank, Migration and Remittances Data: Central America and Mexico, 2024. https://www.worldbank.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>ACLED, Central America Conflict Data, 2024. https://acleddata.com <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>FAO, Central America Food and Agriculture Overview, 2024. https://www.fao.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>UNHCR, Northern Central America Displacement Situation, 2024. https://data.unhcr.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>FAO, Globally Important Agricultural Heritage Systems: Milpa Agriculture, 2018. https://www.fao.org/giahs <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+                <li>International Coffee Organization (ICO), Coffee Development Report, 2024. https://www.ico.org</li>
+                
+                <li>NOAA National Hurricane Center, Tropical Cyclone Annual Summary, 2024. https://www.nhc.noaa.gov</li>
+                
+                <li>ECLAC, Effects and Impacts of Tropical Storm Eta and Hurricane Iota in Central America, 2021</li>
+                
+                <li>IPCC AR6 WGII, Chapter 12 Central and South America, 2022. https://doi.org/10.1017/9781009325844.013</li>
+                
+                <li>IPC, Guatemala and Honduras Acute Food Insecurity Analysis, 2024. https://www.ipcinfo.org <span class="tier-badge tier-1" title="Tier 1 source">T1</span></li>
+                
+            </ul>
+        </div>
+    </div>
+    
+
+    <!-- Footer meta -->
+    <div class="briefing-sources">
+        <p>Generated 2026-07-24 &middot; narrative prose AI-synthesized</p>
+    </div>
+
+</article>
+
+        </main>
+
+        <footer class="prayer-footer">
+            <p>Sources: ACLED, IPC, UNHCR, WFP, ReliefWeb, GDELT, NASA, and others</p>
+        </footer>
+    </div>
+
+    <script>
+    // Per-host layout preference. Stored as "simple" or "full"; if set,
+    // briefing pages auto-redirect to the matching sibling URL so the
+    // reader's chosen layout follows them across pages. Simple is the
+    // default (root path); the analytical layout lives at /full/. The
+    // toggle link in the header writes the preference when clicked.
+    (function() {
+        try {
+            var KEY = 'prayer.view';
+            var path = window.location.pathname;
+            var isBriefing = /^\/(bioregion\/[^/]+|[A-Z]{3})(\/|\/(full|simple)\/)?$/i.test(path);
+            if (!isBriefing) return;
+            var current = path.match(/\/full\/?$/) ? 'full' : 'simple';
+            var saved = localStorage.getItem(KEY);
+            if (saved && saved !== current) {
+                var target;
+                if (saved === 'full') {
+                    // Move to the /full/ sibling.
+                    target = path.replace(/\/(simple|full)\/?$/, '/').replace(/\/?$/, '/') + 'full/';
+                } else {
+                    // Move back to the simple default (strip /full/ or /simple/).
+                    target = path.replace(/\/(simple|full)\/?$/, '/');
+                }
+                if (target !== path) window.location.replace(target);
+            }
+            var btn = document.querySelector('.prayer-view-toggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var next = btn.getAttribute('data-view-toggle');
+                    if (next === 'full' || next === 'simple') {
+                        localStorage.setItem(KEY, next);
+                    }
+                });
+            }
+        } catch (e) { /* localStorage unavailable — graceful no-op */ }
+    })();
+    </script>
+
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('../../../static/sw.js')
+            .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "arabian_peninsula",
+  "projection": "equirectangular",
+  "bbox": [
+    36.0,
+    58.0,
+    12.0,
+    32.0
+  ],
+  "width": 1900,
+  "height": 1851,
+  "lon_to_x": [
+    84.545455,
+    -3023.636364
+  ],
+  "lat_to_y": [
+    -90.596918,
+    2918.163021
+  ]
+}
