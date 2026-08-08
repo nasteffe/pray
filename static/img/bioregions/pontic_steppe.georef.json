@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "pontic_steppe",
+  "projection": "equirectangular",
+  "bbox": [
+    13.0,
+    45.0,
+    40.0,
+    55.0
+  ],
+  "width": 1900,
+  "height": 1322,
+  "lon_to_x": [
+    58.125,
+    -735.625
+  ],
+  "lat_to_y": [
+    -85.480813,
+    4721.232508
+  ]
+}

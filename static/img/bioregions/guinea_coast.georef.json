@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "guinea_coast",
+  "projection": "equirectangular",
+  "bbox": [
+    -18.0,
+    4.0,
+    4.0,
+    14.0
+  ],
+  "width": 1900,
+  "height": 890,
+  "lon_to_x": [
+    84.545455,
+    1541.818182
+  ],
+  "lat_to_y": [
+    -85.047071,
+    1210.188282
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "cascadia",
+  "projection": "equirectangular",
+  "bbox": [
+    -130.0,
+    -116.0,
+    42.0,
+    55.0
+  ],
+  "width": 1900,
+  "height": 2504,
+  "lon_to_x": [
+    132.857143,
+    17291.428571
+  ],
+  "lat_to_y": [
+    -189.538462,
+    10444.615385
+  ]
+}
