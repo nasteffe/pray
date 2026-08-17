@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "niger_basin_coast",
+  "projection": "equirectangular",
+  "bbox": [
+    2.0,
+    16.0,
+    3.0,
+    14.0
+  ],
+  "width": 1900,
+  "height": 1508,
+  "lon_to_x": [
+    132.857143,
+    -245.714286
+  ],
+  "lat_to_y": [
+    -133.466009,
+    1888.398027
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "zagros_persian_plateau",
+  "projection": "equirectangular",
+  "bbox": [
+    44.0,
+    56.0,
+    25.0,
+    42.0
+  ],
+  "width": 1900,
+  "height": 2504,
+  "lon_to_x": [
+    155.0,
+    -6800.0
+  ],
+  "lat_to_y": [
+    -144.941176,
+    6107.529412
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "antarctica",
+  "projection": "equirectangular",
+  "bbox": [
+    -180.0,
+    180.0,
+    -85.0,
+    -60.0
+  ],
+  "width": 1900,
+  "height": 466,
+  "lon_to_x": [
+    5.166667,
+    950.0
+  ],
+  "lat_to_y": [
+    -17.070949,
+    -1005.030655
+  ]
+}

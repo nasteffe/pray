@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "rhine_danube_karst",
+  "projection": "equirectangular",
+  "bbox": [
+    3.0,
+    21.0,
+    44.0,
+    53.0
+  ],
+  "width": 1900,
+  "height": 1434,
+  "lon_to_x": [
+    103.333333,
+    -290.0
+  ],
+  "lat_to_y": [
+    -154.940477,
+    8231.38101
+  ]
+}
