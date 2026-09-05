@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "arctic_boreal",
+  "projection": "equirectangular",
+  "bbox": [
+    -170.0,
+    -55.0,
+    50.0,
+    80.0
+  ],
+  "width": 1900,
+  "height": 1190,
+  "lon_to_x": [
+    16.173913,
+    2769.565217
+  ],
+  "lat_to_y": [
+    -38.023831,
+    3062.383316
+  ]
+}
