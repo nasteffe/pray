@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "melanesia",
+  "projection": "equirectangular",
+  "bbox": [
+    140.0,
+    182.0,
+    -22.0,
+    0.0
+  ],
+  "width": 1900,
+  "height": 1026,
+  "lon_to_x": [
+    44.285714,
+    -6180.0
+  ],
+  "lat_to_y": [
+    -44.823535,
+    19.882239
+  ]
+}

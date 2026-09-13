@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "east_african_rift",
+  "projection": "equirectangular",
+  "bbox": [
+    28.0,
+    42.0,
+    -12.0,
+    6.0
+  ],
+  "width": 1900,
+  "height": 2419,
+  "lon_to_x": [
+    132.857143,
+    -3700.0
+  ],
+  "lat_to_y": [
+    -132.18115,
+    812.826204
+  ]
+}

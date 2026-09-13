@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "congo_basin",
+  "projection": "equirectangular",
+  "bbox": [
+    8.0,
+    32.0,
+    -8.0,
+    8.0
+  ],
+  "width": 2043,
+  "height": 1272,
+  "lon_to_x": [
+    77.5,
+    -457.847284
+  ],
+  "lat_to_y": [
+    -77.0,
+    636.0
+  ]
+}
