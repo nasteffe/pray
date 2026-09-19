@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "atlantic_fringe",
+  "projection": "equirectangular",
+  "bbox": [
+    -12.0,
+    4.0,
+    46.0,
+    60.0
+  ],
+  "width": 1900,
+  "height": 2504,
+  "lon_to_x": [
+    116.25,
+    1415.0
+  ],
+  "lat_to_y": [
+    -176.0,
+    10580.0
+  ]
+}
