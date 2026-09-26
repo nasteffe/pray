@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "central_america",
+  "projection": "equirectangular",
+  "bbox": [
+    -94.0,
+    -76.0,
+    6.0,
+    20.0
+  ],
+  "width": 1900,
+  "height": 1515,
+  "lon_to_x": [
+    103.333333,
+    9733.333333
+  ],
+  "lat_to_y": [
+    -105.367222,
+    2127.20333
+  ]
+}
