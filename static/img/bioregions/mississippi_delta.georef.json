@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "mississippi_delta",
+  "projection": "equirectangular",
+  "bbox": [
+    -100.0,
+    -80.0,
+    22.0,
+    32.0
+  ],
+  "width": 1900,
+  "height": 1077,
+  "lon_to_x": [
+    93.0,
+    9320.0
+  ],
+  "lat_to_y": [
+    -103.702944,
+    3338.464776
+  ]
+}
