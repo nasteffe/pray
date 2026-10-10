@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "micronesia_polynesia",
+  "projection": "equirectangular",
+  "bbox": [
+    160.0,
+    210.0,
+    -22.0,
+    14.0
+  ],
+  "width": 1900,
+  "height": 1373,
+  "lon_to_x": [
+    37.2,
+    -5932.0
+  ],
+  "lat_to_y": [
+    -37.050253,
+    537.894444
+  ]
+}

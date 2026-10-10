@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "nordic_baltic",
+  "projection": "equirectangular",
+  "bbox": [
+    -25.0,
+    32.0,
+    54.0,
+    72.0
+  ],
+  "width": 1900,
+  "height": 1325,
+  "lon_to_x": [
+    32.631579,
+    835.789474
+  ],
+  "lat_to_y": [
+    -71.413505,
+    5161.329247
+  ]
+}
