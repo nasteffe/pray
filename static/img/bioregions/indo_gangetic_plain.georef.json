@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "indo_gangetic_plain",
+  "projection": "equirectangular",
+  "bbox": [
+    66.0,
+    94.0,
+    5.0,
+    36.0
+  ],
+  "width": 1917,
+  "height": 2224,
+  "lon_to_x": [
+    66.428571,
+    -4364.285714
+  ],
+  "lat_to_y": [
+    -70.462218,
+    2556.31109
+  ]
+}

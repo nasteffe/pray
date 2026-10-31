@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "australia",
+  "projection": "equirectangular",
+  "bbox": [
+    112.0,
+    156.0,
+    -44.0,
+    -10.0
+  ],
+  "width": 1900,
+  "height": 1642,
+  "lon_to_x": [
+    42.272727,
+    -4714.545455
+  ],
+  "lat_to_y": [
+    -47.137702,
+    -452.058887
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "aotearoa",
+  "projection": "equirectangular",
+  "bbox": [
+    165.0,
+    180.0,
+    -48.0,
+    -34.0
+  ],
+  "width": 1900,
+  "height": 2325,
+  "lon_to_x": [
+    124.0,
+    -20440.0
+  ],
+  "lat_to_y": [
+    -163.241601,
+    -5530.596837
+  ]
+}
