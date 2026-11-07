@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "hindu_kush",
+  "projection": "equirectangular",
+  "bbox": [
+    60.0,
+    74.0,
+    28.0,
+    40.0
+  ],
+  "width": 1900,
+  "height": 1950,
+  "lon_to_x": [
+    132.857143,
+    -7951.428571
+  ],
+  "lat_to_y": [
+    -159.220769,
+    6388.181538
+  ]
+}

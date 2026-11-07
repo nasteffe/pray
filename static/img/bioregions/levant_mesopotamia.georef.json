@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "levant_mesopotamia",
+  "projection": "equirectangular",
+  "bbox": [
+    32.0,
+    50.0,
+    28.0,
+    40.0
+  ],
+  "width": 1900,
+  "height": 1526,
+  "lon_to_x": [
+    103.333333,
+    -3286.666667
+  ],
+  "lat_to_y": [
+    -123.838376,
+    4973.474529
+  ]
+}

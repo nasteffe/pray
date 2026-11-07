@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "zambezi_plateau",
+  "projection": "equirectangular",
+  "bbox": [
+    25.0,
+    52.0,
+    -28.0,
+    -8.0
+  ],
+  "width": 1900,
+  "height": 1479,
+  "lon_to_x": [
+    68.888889,
+    -1702.222222
+  ],
+  "lat_to_y": [
+    -71.966748,
+    -556.068938
+  ]
+}
