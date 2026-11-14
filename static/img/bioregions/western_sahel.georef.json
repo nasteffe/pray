@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "western_sahel",
+  "projection": "equirectangular",
+  "bbox": [
+    -18.0,
+    22.0,
+    6.0,
+    24.0
+  ],
+  "width": 1900,
+  "height": 900,
+  "lon_to_x": [
+    46.5,
+    857.0
+  ],
+  "lat_to_y": [
+    -47.82976,
+    1166.978557
+  ]
+}

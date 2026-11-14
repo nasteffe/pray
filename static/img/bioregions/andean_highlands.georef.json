@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "andean_highlands",
+  "projection": "equirectangular",
+  "bbox": [
+    -82.0,
+    -64.0,
+    -24.0,
+    6.0
+  ],
+  "width": 1900,
+  "height": 2504,
+  "lon_to_x": [
+    103.333333,
+    8493.333333
+  ],
+  "lat_to_y": [
+    -82.133333,
+    512.8
+  ]
+}

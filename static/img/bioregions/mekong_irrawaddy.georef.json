@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "mekong_irrawaddy",
+  "projection": "equirectangular",
+  "bbox": [
+    92.0,
+    112.0,
+    6.0,
+    24.0
+  ],
+  "width": 1900,
+  "height": 1761,
+  "lon_to_x": [
+    93.0,
+    -8536.0
+  ],
+  "lat_to_y": [
+    -95.659519,
+    2314.957114
+  ]
+}

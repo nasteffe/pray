@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "colorado_plateau",
+  "projection": "equirectangular",
+  "bbox": [
+    -118.0,
+    -100.0,
+    25.0,
+    42.0
+  ],
+  "width": 1900,
+  "height": 2133,
+  "lon_to_x": [
+    103.333333,
+    12213.333333
+  ],
+  "lat_to_y": [
+    -123.118374,
+    5190.959355
+  ]
+}
