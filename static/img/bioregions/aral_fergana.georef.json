@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "aral_fergana",
+  "projection": "equirectangular",
+  "bbox": [
+    52.0,
+    76.0,
+    35.0,
+    48.0
+  ],
+  "width": 1900,
+  "height": 1376,
+  "lon_to_x": [
+    77.5,
+    -4010.0
+  ],
+  "lat_to_y": [
+    -102.809816,
+    4954.343567
+  ]
+}

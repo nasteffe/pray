@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "great_lakes_boreal",
+  "projection": "equirectangular",
+  "bbox": [
+    -95.0,
+    -72.0,
+    40.0,
+    54.0
+  ],
+  "width": 1900,
+  "height": 1689,
+  "lon_to_x": [
+    80.869565,
+    7702.608696
+  ],
+  "lat_to_y": [
+    -117.812345,
+    6381.4938
+  ]
+}

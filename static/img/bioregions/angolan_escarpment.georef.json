@@ -1,0 +1,20 @@
+{
+  "bioregion_id": "angolan_escarpment",
+  "projection": "equirectangular",
+  "bbox": [
+    8.0,
+    26.0,
+    -18.0,
+    0.0
+  ],
+  "width": 1900,
+  "height": 1911,
+  "lon_to_x": [
+    103.333333,
+    -806.666667
+  ],
+  "lat_to_y": [
+    -103.94642,
+    19.964448
+  ]
+}
